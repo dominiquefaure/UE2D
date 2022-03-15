@@ -143,15 +143,15 @@ void FUE2DSpriteAtlasRenderSceneProxy::SetDynamicData_RenderThread( const FUE2DS
 	uint32 verticeCount	=	4;
 	{
 		auto& VertexBuffer = VertexBuffers.PositionVertexBuffer;
-		void* VertexBufferData = RHILockVertexBuffer(VertexBuffer.VertexBufferRHI, 0, verticeCount * VertexBuffer.GetStride(), RLM_WriteOnly);
+		void* VertexBufferData = RHILockBuffer(VertexBuffer.VertexBufferRHI, 0, verticeCount * VertexBuffer.GetStride(), RLM_WriteOnly);
 		FMemory::Memcpy(VertexBufferData, VertexBuffer.GetVertexData(), verticeCount * VertexBuffer.GetStride());
-		RHIUnlockVertexBuffer(VertexBuffer.VertexBufferRHI);
+		RHIUnlockBuffer(VertexBuffer.VertexBufferRHI);
 	}
 	{
 		auto& VertexBuffer = VertexBuffers.StaticMeshVertexBuffer;
-		void* VertexBufferData = RHILockVertexBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI, 0, VertexBuffer.GetTexCoordSize(), RLM_WriteOnly);
+		void* VertexBufferData = RHILockBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI, 0, VertexBuffer.GetTexCoordSize(), RLM_WriteOnly);
 		FMemory::Memcpy(VertexBufferData, VertexBuffer.GetTexCoordData(), VertexBuffer.GetTexCoordSize());
-		RHIUnlockVertexBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI);
+		RHIUnlockBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI);
 	}
 
 
