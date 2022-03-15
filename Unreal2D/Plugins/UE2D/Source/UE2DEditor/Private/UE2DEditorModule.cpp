@@ -7,7 +7,7 @@
 #include "UE2DSpriteAtlasTypeActions.h"
 
 
-#define LOCTEXT_NAMESPACE "FAdvancedSpriteSystemEditorModule"
+#define LOCTEXT_NAMESPACE "FUE2DEditorModule"
 
 void FUE2DEditorModule::StartupModule()
 {
