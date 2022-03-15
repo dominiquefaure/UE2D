@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+*/.vs/
+*/Binaries
+*/Intermediate
+*/Saved
+*/PlugIns/*/Binaries
+*/PlugIns/*/Intermediate
