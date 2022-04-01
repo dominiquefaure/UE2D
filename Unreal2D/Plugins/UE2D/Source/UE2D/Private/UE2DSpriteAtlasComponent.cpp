@@ -117,6 +117,11 @@ void UUE2DSpriteAtlasComponent::SendRenderDynamicData_Concurrent()
 		return;
 	}
 
+	if(! MaterialInstance->IsValidLowLevelFast() )
+	{
+		return;
+	}
+
 	FUE2DSpriteDrawRecord Record;
 	Record.Set( Atlas, FrameIndex, MaterialInstance );
 

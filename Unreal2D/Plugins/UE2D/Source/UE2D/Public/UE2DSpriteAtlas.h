@@ -59,5 +59,5 @@ public:
 	// Get teh Frame at the given index ( null if invalid index )
 	FUE2DSpriteAtlasFrame* GetFrameAt( int32 Index );
 
-
+	void AddFrame( FString Name , int SrcX , int SrcY , int Width , int Height );
 };

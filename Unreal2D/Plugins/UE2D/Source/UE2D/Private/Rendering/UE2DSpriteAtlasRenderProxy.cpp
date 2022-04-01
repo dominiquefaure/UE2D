@@ -81,6 +81,10 @@ void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<cons
 	{
 		return;
 	}
+	if( !RenderBatch.Material->IsValidLowLevelFast() )
+	{
+		return;
+	}
 
 	const bool bWireframe = AllowDebugViewmodes() && ViewFamily.EngineShowFlags.Wireframe;
 	FMaterialRenderProxy* MaterialProxy						=	NULL;

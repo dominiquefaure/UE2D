@@ -6,6 +6,7 @@
 #include "UE2DSpriteAtlasEditorCommands.h"
 #include "DesktopPlatformModule.h"
 #include "EditorDirectories.h"
+#include <importers/SpineImporters/SpineAtlas.h>
 
 
 #define LOCTEXT_NAMESPACE "SpriteAtlasEditor"
@@ -160,29 +161,6 @@ void FUE2DSpriteAtlasAssetEditor::BindCommands()
 //-------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------
-void FUE2DSpriteAtlasAssetEditor::ImportAtlas()
-{
-	IDesktopPlatform* DesktopPlatform = FDesktopPlatformModule::Get();
-	const void* ParentWindowWindowHandle = FSlateApplication::Get().FindBestParentWindowHandleForDialogs(nullptr);
-	const FText Title = LOCTEXT("Import Atlas" , "Import an atlas of sprite");
-	const FString FileTypes = TEXT("Spine Atlas file|*.atlas");
-
-	TArray<FString> OpenFilenames;
-	DesktopPlatform->OpenFileDialog(
-		ParentWindowWindowHandle,
-		Title.ToString(),
-		FEditorDirectories::Get().GetLastDirectory(ELastDirectory::GENERIC_IMPORT), // Default path.
-		TEXT("DevelopmentAssetRegistry.bin"),
-		FileTypes,
-		EFileDialogFlags::None,
-		OpenFilenames
-	);
-
-}
-//-------------------------------------------------------------------------------------------
-
-
-//-------------------------------------------------------------------------------------------
 void FUE2DSpriteAtlasAssetEditor::CreateWidgets()
 {
 	FDetailsViewArgs Args;
@@ -260,5 +238,43 @@ TSharedRef<SDockTab> FUE2DSpriteAtlasAssetEditor::SpawnTab_Details( const FSpawn
 
 }
 //-------------------------------------------------------------------------------------------
+
+
+
+/////////////////
+// Commands execution
+////////////////
+
+
+//-------------------------------------------------------------------------------------------
+void FUE2DSpriteAtlasAssetEditor::ImportAtlas()
+{
+	IDesktopPlatform* DesktopPlatform = FDesktopPlatformModule::Get();
+	const void* ParentWindowWindowHandle = FSlateApplication::Get().FindBestParentWindowHandleForDialogs(nullptr);
+	const FText Title = LOCTEXT("Import Atlas", "Import an atlas of sprite");
+	const FString FileTypes = TEXT("Spine Atlas file|*.atlas");
+
+	TArray<FString> OpenFilenames;
+	if( DesktopPlatform->OpenFileDialog(
+		ParentWindowWindowHandle ,
+		Title.ToString() ,
+		FEditorDirectories::Get().GetLastDirectory( ELastDirectory::GENERIC_IMPORT ) , // Default path.
+		TEXT( "DevelopmentAssetRegistry.bin" ) ,
+		FileTypes ,
+		EFileDialogFlags::None ,
+		OpenFilenames ) )
+	{
+		// Load the Atlas content
+		FSpineAtlas Atlas;
+		Atlas.Load( OpenFilenames[ 0 ] );
+
+		Atlas.Apply( SpriteAtlas);
+
+
+	}
+
+}
+//-------------------------------------------------------------------------------------------
+
 
 #undef LOCTEXT_NAMESPACE
