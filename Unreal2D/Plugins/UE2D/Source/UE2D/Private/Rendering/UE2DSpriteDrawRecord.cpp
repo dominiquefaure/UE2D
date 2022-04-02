@@ -44,6 +44,7 @@ void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlas* Atlas, FUE2DSprit
 	float t_y			=	InFrame->Y;
 	float t_width		=	InFrame->Width;
 	float t_height		=	InFrame->Height;
+	bool Rotated		=	InFrame->Rotated;
 
 	float t_halfWidth	=	t_width /2;
 	float t_halfHeight	=	t_height/2;
@@ -69,22 +70,44 @@ void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlas* Atlas, FUE2DSprit
 		v2													=	(float)(t_y + t_height ) / TextureHeight;
 	}
 
+
+
 	FUE2DSpriteVertex Vertex1;
 	FUE2DSpriteVertex Vertex2;
 	FUE2DSpriteVertex Vertex3;
 	FUE2DSpriteVertex Vertex4;
 
-	Vertex1.Position										=	FVector( -t_halfWidth , 0 ,  t_halfHeight );
-	Vertex1.TexCoord										=	FVector2f( u1, v1 );
 
-	Vertex2.Position										=	FVector( t_halfWidth , 0 ,  t_halfHeight );
-	Vertex2.TexCoord										=	FVector2f( u2, v1 );
+	if(! InFrame->Rotated )
+	{
+		// Standard values
+		Vertex1.Position										=	FVector( -t_halfWidth , 0 , t_halfHeight );
+		Vertex2.Position										=	FVector( t_halfWidth , 0 , t_halfHeight );
+		Vertex3.Position										=	FVector( -t_halfWidth , 0 , -t_halfHeight );
+		Vertex4.Position										=	FVector( t_halfWidth , 0 , -t_halfHeight );
 
-	Vertex3.Position										=	FVector( -t_halfWidth , 0 ,  -t_halfHeight );
-	Vertex3.TexCoord										=	FVector2f( u1, v2 );
+		Vertex1.TexCoord										=	FVector2f( u1 , v1 );
+		Vertex2.TexCoord										=	FVector2f( u2 , v1 );
+		Vertex3.TexCoord										=	FVector2f( u1 , v2 );
+		Vertex4.TexCoord										=	FVector2f( u2 , v2 );
 
-	Vertex4.Position										=	FVector( t_halfWidth , 0 ,  -t_halfHeight );
-	Vertex4.TexCoord										=	FVector2f( u2, v2 );
+
+
+	}
+	else
+	{
+		// rotated values
+		Vertex1.Position										=	FVector( -t_halfHeight , 0 , t_halfWidth );
+		Vertex2.Position										=	FVector( t_halfHeight , 0 , t_halfWidth );
+		Vertex3.Position										=	FVector( -t_halfHeight , 0 , -t_halfWidth );
+		Vertex4.Position										=	FVector( t_halfHeight , 0 , -t_halfWidth );
+
+		Vertex1.TexCoord										=	FVector2f( u1 , v2 );
+		Vertex2.TexCoord										=	FVector2f( u1 , v1 );
+		Vertex3.TexCoord										=	FVector2f( u2 , v2 );
+		Vertex4.TexCoord										=	FVector2f( u2 , v1 );
+
+	}
 
 	Vertices.Add( Vertex1 );
 	Vertices.Add( Vertex2 );

@@ -31,6 +31,9 @@ struct FUE2DSpriteAtlasFrame
 	UPROPERTY( EditAnywhere)
 	int32 Height;
 
+	UPROPERTY( EditAnywhere )
+	bool Rotated;
+
 	// Position of the Pivot Point within the region
 	FVector2D PivotPoint;
 
@@ -59,5 +62,5 @@ public:
 	// Get teh Frame at the given index ( null if invalid index )
 	FUE2DSpriteAtlasFrame* GetFrameAt( int32 Index );
 
-	void AddFrame( FString Name , int SrcX , int SrcY , int Width , int Height );
+	void AddFrame( FString Name , int SrcX , int SrcY , int Width , int Height , bool InRotated );
 };

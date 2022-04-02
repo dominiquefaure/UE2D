@@ -9,16 +9,21 @@ class FSpineAtlasRegion
 {
 public:
 
-
+	FSpineAtlasRegion();
 
 	void Parse(FSpineAtlasReader& Reader );
 	void Apply( UUE2DSpriteAtlas* DestAtlas );
 
 private:
 	FString Name;
-	int X , Y , Width , Height; // Bounds
+	
+	// Full frame bounds
+	int BoundX , BoundY , BoundWidth , BoundHeight;
+
 	float offsetX , offsetY;
 	int originalWidth , originalHeight;
 	int degrees;
+
+	bool rotated;
 
 };

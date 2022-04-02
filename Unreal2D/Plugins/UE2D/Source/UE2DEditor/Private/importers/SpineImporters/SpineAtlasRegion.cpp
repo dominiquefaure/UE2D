@@ -3,6 +3,20 @@
 
 
 //-------------------------------------------------------------------------------------------
+FSpineAtlasRegion::FSpineAtlasRegion()
+{
+	BoundX			=	0;
+	BoundY			=	0;
+	BoundWidth		=	0;
+	BoundHeight		=	0;
+	offsetX			=	0;
+	offsetY			=	0;
+
+	rotated		=	false;
+}
+//-------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------
 void FSpineAtlasRegion::Parse( FSpineAtlasReader& Reader )
 {
 	Name	=	Reader.GetString( true );
@@ -17,12 +31,23 @@ void FSpineAtlasRegion::Parse( FSpineAtlasReader& Reader )
 
 		if( EntryString == "bounds" )
 		{
-			X			=	EntryValues[ 0 ];
-			Y			=	EntryValues[ 1 ];
-			Width		=	EntryValues[ 2 ];
-			Height		=	EntryValues[ 3 ];
+			BoundX			=	EntryValues[ 0 ];
+			BoundY			=	EntryValues[ 1 ];
+			BoundWidth		=	EntryValues[ 2 ];
+			BoundHeight		=	EntryValues[ 3 ];
 		}
-
+		if( EntryString == "offsets" )
+		{
+			offsetX			=	EntryValues[ 0 ];
+			offsetY			=	EntryValues[ 1 ];
+			originalWidth	=	EntryValues[ 2 ];
+			originalHeight	=	EntryValues[ 3 ];
+		}
+		if( EntryString == "rotate" )
+		{
+			rotated		=	true;
+		}
+		EntryValues.Empty();
 	}
 
 }
@@ -33,7 +58,13 @@ void FSpineAtlasRegion::Parse( FSpineAtlasReader& Reader )
 void FSpineAtlasRegion::Apply( UUE2DSpriteAtlas* DestAtlas )
 {
 
-
-	DestAtlas->AddFrame( Name , X , Y , Width , Height );
+	if( rotated )
+	{
+		DestAtlas->AddFrame( Name , BoundX , BoundY , BoundHeight , BoundWidth , true );
+	}
+	else
+	{
+		DestAtlas->AddFrame( Name , BoundX , BoundY , BoundWidth , BoundHeight , false );
+	}
 }
 //-------------------------------------------------------------------------------------------

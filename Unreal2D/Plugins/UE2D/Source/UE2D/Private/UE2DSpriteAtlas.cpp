@@ -17,7 +17,7 @@ FUE2DSpriteAtlasFrame* UUE2DSpriteAtlas::GetFrameAt( int32 Index )
 //---------------------------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------------------------
-void UUE2DSpriteAtlas::AddFrame( FString Name , int SrcX , int SrcY , int Width , int Height )
+void UUE2DSpriteAtlas::AddFrame( FString Name , int SrcX , int SrcY , int Width , int Height , bool InRotate )
 {
 	FUE2DSpriteAtlasFrame Frame;
 
@@ -26,6 +26,7 @@ void UUE2DSpriteAtlas::AddFrame( FString Name , int SrcX , int SrcY , int Width 
 	Frame.Y			=	SrcY;
 	Frame.Width		=	Width;
 	Frame.Height	=	Height;
+	Frame.Rotated	=	InRotate;
 
 	Frames.Add( Frame );
 }
