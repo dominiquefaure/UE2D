@@ -81,10 +81,10 @@ void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlas* Atlas, FUE2DSprit
 	if(! InFrame->Rotated )
 	{
 		// Standard values
-		Vertex1.Position										=	FVector( -t_halfWidth , 0 , t_halfHeight );
-		Vertex2.Position										=	FVector( t_halfWidth , 0 , t_halfHeight );
-		Vertex3.Position										=	FVector( -t_halfWidth , 0 , -t_halfHeight );
-		Vertex4.Position										=	FVector( t_halfWidth , 0 , -t_halfHeight );
+		Vertex1.Position										=	FVector3f( -t_halfWidth , 0 , t_halfHeight );
+		Vertex2.Position										=	FVector3f( t_halfWidth , 0 , t_halfHeight );
+		Vertex3.Position										=	FVector3f( -t_halfWidth , 0 , -t_halfHeight );
+		Vertex4.Position										=	FVector3f( t_halfWidth , 0 , -t_halfHeight );
 
 		Vertex1.TexCoord										=	FVector2f( u1 , v1 );
 		Vertex2.TexCoord										=	FVector2f( u2 , v1 );
@@ -97,10 +97,10 @@ void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlas* Atlas, FUE2DSprit
 	else
 	{
 		// rotated values
-		Vertex1.Position										=	FVector( -t_halfHeight , 0 , t_halfWidth );
-		Vertex2.Position										=	FVector( t_halfHeight , 0 , t_halfWidth );
-		Vertex3.Position										=	FVector( -t_halfHeight , 0 , -t_halfWidth );
-		Vertex4.Position										=	FVector( t_halfHeight , 0 , -t_halfWidth );
+		Vertex1.Position										=	FVector3f( -t_halfHeight , 0 , t_halfWidth );
+		Vertex2.Position										=	FVector3f( t_halfHeight , 0 , t_halfWidth );
+		Vertex3.Position										=	FVector3f( -t_halfHeight , 0 , -t_halfWidth );
+		Vertex4.Position										=	FVector3f( t_halfHeight , 0 , -t_halfWidth );
 
 		Vertex1.TexCoord										=	FVector2f( u1 , v2 );
 		Vertex2.TexCoord										=	FVector2f( u1 , v1 );

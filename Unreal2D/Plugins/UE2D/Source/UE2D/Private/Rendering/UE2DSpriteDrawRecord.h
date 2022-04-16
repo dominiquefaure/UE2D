@@ -11,7 +11,7 @@
 */
 struct FUE2DSpriteVertex
 {
-	FVector Position;
+	FVector3f Position;
 	FVector2f TexCoord;
 };
 
