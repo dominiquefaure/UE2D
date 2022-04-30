@@ -11,6 +11,8 @@
 #include "UE2DSpriteAtlas.h"
 #include "Toolkits/AssetEditorToolkit.h"
 
+class SUE2DSpriteAtlasEditorViewport;
+
 
 /**
  * 
@@ -81,6 +83,8 @@ private:
 	/** Property View */
 	TSharedPtr<class IDetailsView> DetailsView;
 
+	/** Viewport */
+	TSharedPtr<SUE2DSpriteAtlasEditorViewport> AtlasViewport;
 
 
 };

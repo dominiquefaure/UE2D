@@ -4,6 +4,7 @@
 #include "UE2DSpriteAtlasAssetEditor.h"
 
 #include "UE2DSpriteAtlasEditorCommands.h"
+#include "UE2DSpriteAtlasEditorViewport.h"
 #include "DesktopPlatformModule.h"
 #include "EditorDirectories.h"
 #include <importers/SpineImporters/SpineAtlas.h>
@@ -171,6 +172,8 @@ void FUE2DSpriteAtlasAssetEditor::CreateWidgets()
 
 	DetailsView->SetObject(SpriteAtlas);
 
+
+	AtlasViewport	= SNew( SUE2DSpriteAtlasEditorViewport , SharedThis( this ) );
 }
 //-------------------------------------------------------------------------------------------
 
@@ -211,18 +214,16 @@ void FUE2DSpriteAtlasAssetEditor::UnregisterTabSpawners( const TSharedRef<FTabMa
 //-------------------------------------------------------------------------------------------
 TSharedRef<SDockTab> FUE2DSpriteAtlasAssetEditor::SpawnTab_Viewport( const FSpawnTabArgs& Args )
 {
-	TSharedPtr<SDockTab> DetailsTab = SNew(SDockTab)
-		.Icon(FEditorStyle::GetBrush("LevelEditor.Tabs.Viewports"))
-		.Label(LOCTEXT("ViewportTitle", "Viewport"))
-		[
-			DetailsView.ToSharedRef()
-		];
+//	check( Args.GetTabId() == ViewportTabId );
 
-	return DetailsTab.ToSharedRef();
+	return SNew( SDockTab )
+		.Label( LOCTEXT( "ViewportTitle" , "Viewport" ) )
+		[
+			AtlasViewport.ToSharedRef()
+		];
 
 }
 //-------------------------------------------------------------------------------------------
-
 
 //-------------------------------------------------------------------------------------------
 TSharedRef<SDockTab> FUE2DSpriteAtlasAssetEditor::SpawnTab_Details( const FSpawnTabArgs& Args )
