@@ -77,18 +77,11 @@ void FUE2DSpriteAtlasAssetEditor::Initialize( UUE2DSpriteAtlas* Atlas, const ETo
 	BindCommands();
 	CreateWidgets();
 
-	const TSharedRef<FTabManager::FLayout> DefaultLayout = FTabManager::NewLayout("Standalone_SpriteAtlasEditor_Layout_v1")
+	const TSharedRef<FTabManager::FLayout> DefaultLayout = FTabManager::NewLayout("Standalone_SpriteAtlasEditor_Layout_v2")
 		->AddArea
 		(
 			FTabManager::NewPrimaryArea()
 			->SetOrientation(Orient_Vertical)
-			->Split
-			(
-				FTabManager::NewStack()
-				->SetSizeCoefficient(0.1f)
-				->SetHideTabWell(true)
-				->AddTab(GetToolbarTabId(), ETabState::OpenedTab)
-			)
 			->Split
 			(
 				FTabManager::NewSplitter()
@@ -107,9 +100,7 @@ void FUE2DSpriteAtlasAssetEditor::Initialize( UUE2DSpriteAtlas* Atlas, const ETo
 					->SetSizeCoefficient(0.2f)
 					->AddTab(UE2DSpriteAtlasEditorToolkitTabs::DetailsID, ETabState::OpenedTab)
 				)
-
 			)
-
 		);
 
 	// Initialize the asset editor and spawn nothing (dummy layout)

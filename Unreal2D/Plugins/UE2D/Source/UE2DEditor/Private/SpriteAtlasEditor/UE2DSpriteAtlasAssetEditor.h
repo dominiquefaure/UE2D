@@ -36,6 +36,9 @@ public:
 
 
 
+
+
+
 // Interfaces Overrides
 public:
 	// IToolkit interface
@@ -54,6 +57,10 @@ public:
 
 
 
+public:
+
+	// The Atlas edited, needed by Viewport
+	UUE2DSpriteAtlas* GetAtlasCurrentlyEdited() const { return SpriteAtlas; }
 
 
 

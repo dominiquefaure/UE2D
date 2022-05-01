@@ -22,10 +22,22 @@ public:
 	virtual void DrawCanvas( FViewport& InViewport , FSceneView& View , FCanvas& Canvas ) override;
 
 
+
+private:
+	UUE2DSpriteAtlas* GetAtlasCurrentlyEdited() const
+	{
+		return SpriteAtlasEditorPtr.Pin()->GetAtlasCurrentlyEdited();
+	}
+
 private:
 	
+	// Sprite editor that owns this viewport
+	TWeakPtr<FUE2DSpriteAtlasAssetEditor> SpriteAtlasEditorPtr;
+
+
 	// The preview scene
 	FPreviewScene OwnedPreviewScene;
+
 
 
 };
