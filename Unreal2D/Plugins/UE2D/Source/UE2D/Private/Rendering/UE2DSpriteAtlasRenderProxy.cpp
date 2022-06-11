@@ -81,6 +81,11 @@ void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<cons
 	{
 		return;
 	}
+	// to fix crash when the Material is destroyed
+	if( RenderBatch.Material->GetFName() == TEXT("None") )
+	{
+		return;
+	}
 	if( !RenderBatch.Material->IsValidLowLevelFast() )
 	{
 		return;

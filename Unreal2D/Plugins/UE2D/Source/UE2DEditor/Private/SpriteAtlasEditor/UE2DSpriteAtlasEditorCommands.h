@@ -16,6 +16,7 @@ public:
 
 	// The Different Commands
 	TSharedPtr<FUICommandInfo> ImportAtlas;
+	TSharedPtr<FUICommandInfo> AddFrame;
 	TSharedPtr<FUICommandInfo> GenerateFrames;
 
 

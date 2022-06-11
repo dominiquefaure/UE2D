@@ -24,7 +24,7 @@ void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlas* Atlas, uint32 FrameIndex, UMa
 		return;
 	}
 
-	FUE2DSpriteAtlasFrame* Frame							=	Atlas->GetFrameAt( FrameIndex );
+	UUE2DSpriteAtlasFrame* Frame							=	Atlas->GetFrameAt( FrameIndex );
 
 	if( Frame == nullptr )
 	{
@@ -38,7 +38,7 @@ void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlas* Atlas, uint32 FrameIndex, UMa
 //--------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------
-void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlas* Atlas, FUE2DSpriteAtlasFrame* InFrame )
+void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlas* Atlas, UUE2DSpriteAtlasFrame* InFrame )
 {
 	float t_x			=	InFrame->X;
 	float t_y			=	InFrame->Y;

@@ -12,7 +12,7 @@
 #include "Toolkits/AssetEditorToolkit.h"
 
 class SUE2DSpriteAtlasEditorViewport;
-
+class SUE2DSpriteAtlasFrameListWidget;
 
 /**
  * 
@@ -75,11 +75,16 @@ protected:
 	// Bind the Different Commands that will be handle by this class
 	void BindCommands();
 
+	void BuildLayout( const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost );
+
+
 	TSharedRef<SDockTab> SpawnTab_Viewport(const FSpawnTabArgs& Args);
 	TSharedRef<SDockTab> SpawnTab_Details(const FSpawnTabArgs& Args);
+	TSharedRef<SDockTab> SpawnTab_FrameList(const FSpawnTabArgs& Args);
 
 
 	void ImportAtlas();
+	void AddFrame();
 	void GenerateFrames();
 // properties
 private:
@@ -93,5 +98,7 @@ private:
 	/** Viewport */
 	TSharedPtr<SUE2DSpriteAtlasEditorViewport> AtlasViewport;
 
+	/** Widget that display the List of Frames created for the Atlas currently Edited */
+	TSharedPtr<SUE2DSpriteAtlasFrameListWidget> FrameListWidget;
 
 };
