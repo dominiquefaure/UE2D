@@ -7,6 +7,7 @@
 #include "UE2DSpriteAtlas.h"
 #include "UE2DSpriteAtlasComponent.generated.h"
 
+
 /**
  * 
  */
@@ -22,11 +23,15 @@ public:
 	UPROPERTY(Category = Material, EditAnywhere, BlueprintReadWrite)
 	UMaterialInterface* NormalBlendMaterial;
 
-	UPROPERTY(Category = SpriteAtlas, EditAnywhere, BlueprintReadWrite)
-	UUE2DSpriteAtlas* Atlas;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite , Category = SpriteAtlas )
+	TObjectPtr<class UUE2DSpriteAtlas> Atlas;
 
-	UPROPERTY(Category = SpriteAtlas, EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Category = SpriteAtlas, EditAnywhere, BlueprintReadWrite, Interp)
 	int32 FrameIndex;
+
+	UPROPERTY(EditAnywhere, Category=SpriteAtlas)
+	TObjectPtr<class UUE2DSpriteAtlasFrame> CurrFrame;
+
 
 protected:
 

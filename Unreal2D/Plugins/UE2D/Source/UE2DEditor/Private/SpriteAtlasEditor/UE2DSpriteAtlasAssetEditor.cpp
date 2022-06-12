@@ -8,7 +8,7 @@
 
 #include "UE2DSpriteAtlasEditorCommands.h"
 #include "UE2DSpriteAtlasEditorViewport.h"
-#include "UE2DSpriteAtlasFrameListWidget.h"
+#include "UE2DSpriteAtlasEditorFrameList.h"
 #include <importers/SpineImporters/SpineAtlas.h>
 
 
@@ -160,7 +160,7 @@ void FUE2DSpriteAtlasAssetEditor::CreateWidgets()
 
 	TSharedPtr<FUE2DSpriteAtlasAssetEditor> SpriteAtlasEditorPtr = SharedThis(this);
 	AtlasViewport	= SNew( SUE2DSpriteAtlasEditorViewport , SharedThis(this) );
-	FrameListWidget = SNew( SUE2DSpriteAtlasFrameListWidget, SpriteAtlasEditorPtr);
+	FrameListWidget = SNew( SUE2DSpriteAtlasEditorFrameList, SpriteAtlasEditorPtr);
 
 }
 //-------------------------------------------------------------------------------------------

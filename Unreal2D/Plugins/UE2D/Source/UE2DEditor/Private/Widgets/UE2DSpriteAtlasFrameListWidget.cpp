@@ -1,15 +1,13 @@
 
 #include "UE2DSpriteAtlasFrameListWidget.h"
 #include "UE2DSpriteAtlas.h"
-#include "UE2DSpriteAtlasAssetEditor.h"
 
 #include "IContentBrowserSingleton.h"
 #include "ContentBrowserModule.h"
 
-void SUE2DSpriteAtlasFrameListWidget::Construct(const FArguments& InArgs, TSharedPtr<FUE2DSpriteAtlasAssetEditor> InSpriteEditor)
+//-------------------------------------------------------------------------------------------
+void SUE2DSpriteAtlasFrameListWidget::Construct(const FArguments& InArgs)
 {
-
-	SpriteAtlasEditorPtr	=	InSpriteEditor;
 
 	FContentBrowserModule& ContentBrowserModule = FModuleManager::Get().LoadModuleChecked<FContentBrowserModule>(TEXT("ContentBrowser"));
 
@@ -27,18 +25,32 @@ void SUE2DSpriteAtlasFrameListWidget::Construct(const FArguments& InArgs, TShare
 		];
 
 }
+//-------------------------------------------------------------------------------------------
 
+//-------------------------------------------------------------------------------------------
+void SUE2DSpriteAtlasFrameListWidget::SetAtlas( UUE2DSpriteAtlas* InAtlas )
+{
+	SpriteAtlas	=	InAtlas;
+}
+//-------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------
 void SUE2DSpriteAtlasFrameListWidget::OnGetCustomSourceAssets( const FARFilter& Filter, TArray<FAssetData>& OutAssets ) const
 {
-	UUE2DSpriteAtlas* Atlas	=	SpriteAtlasEditorPtr.Pin()->GetAtlasCurrentlyEdited();
+	UUE2DSpriteAtlas* Atlas	=	static_cast<UUE2DSpriteAtlas*>( SpriteAtlas.Get() );
 
-	for( int i = 0 ; i <  Atlas->Frames.Num() ; i ++ )
+	if( Atlas != nullptr )
 	{
-		OutAssets.Add( Atlas->Frames[ i ] );
+		for( int i = 0 ; i <  Atlas->Frames.Num() ; i ++ )
+		{
+			OutAssets.Add( Atlas->Frames[ i ] );
+		}
 	}
-
+	
 }
+//-------------------------------------------------------------------------------------------
 
+//-------------------------------------------------------------------------------------------
 void SUE2DSpriteAtlasFrameListWidget::OnFrameSelected( const FAssetData& AssetData )
 {
 	UObject* Asset = nullptr;
@@ -54,3 +66,4 @@ void SUE2DSpriteAtlasFrameListWidget::OnFrameSelected( const FAssetData& AssetDa
 		UE_LOG(LogTemp, Warning, TEXT("selected frame name = %s") , *(Frame->Name) );
 	}
 }
+//-------------------------------------------------------------------------------------------

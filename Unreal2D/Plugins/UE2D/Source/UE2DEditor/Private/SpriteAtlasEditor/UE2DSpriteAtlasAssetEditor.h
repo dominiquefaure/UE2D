@@ -12,7 +12,7 @@
 #include "Toolkits/AssetEditorToolkit.h"
 
 class SUE2DSpriteAtlasEditorViewport;
-class SUE2DSpriteAtlasFrameListWidget;
+class SUE2DSpriteAtlasEditorFrameList;
 
 /**
  * 
@@ -99,6 +99,6 @@ private:
 	TSharedPtr<SUE2DSpriteAtlasEditorViewport> AtlasViewport;
 
 	/** Widget that display the List of Frames created for the Atlas currently Edited */
-	TSharedPtr<SUE2DSpriteAtlasFrameListWidget> FrameListWidget;
+	TSharedPtr<SUE2DSpriteAtlasEditorFrameList> FrameListWidget;
 
 };
