@@ -100,7 +100,10 @@ void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<cons
 	}
 	else
 	{
-		MaterialProxy	=	RenderBatch.Material->GetRenderProxy();
+	//	if( RenderBatch.Material->GetName() != TEXT( "None" ) )
+		{
+			MaterialProxy	=	RenderBatch.Material->GetRenderProxy();
+		}
 	}
 
 	for( int32 ViewIndex = 0; ViewIndex < Views.Num(); ViewIndex++ )
@@ -147,10 +150,26 @@ void FUE2DSpriteAtlasRenderSceneProxy::SetDynamicData_RenderThread( const FUE2DS
 	uint32 verticeCount	=	4;
 	{
 		auto& VertexBuffer = VertexBuffers.PositionVertexBuffer;
-		void* VertexBufferData = RHILockBuffer(VertexBuffer.VertexBufferRHI, 0, verticeCount * VertexBuffer.GetStride(), RLM_WriteOnly);
-		FMemory::Memcpy(VertexBufferData, VertexBuffer.GetVertexData(), verticeCount * VertexBuffer.GetStride());
-		RHIUnlockBuffer(VertexBuffer.VertexBufferRHI);
+		void* VertexBufferData = RHILockBuffer( VertexBuffer.VertexBufferRHI , 0 , verticeCount * VertexBuffer.GetStride() , RLM_WriteOnly );
+		FMemory::Memcpy( VertexBufferData , VertexBuffer.GetVertexData() , verticeCount * VertexBuffer.GetStride() );
+		RHIUnlockBuffer( VertexBuffer.VertexBufferRHI );
 	}
+
+
+	{
+		auto& VertexBuffer = VertexBuffers.ColorVertexBuffer;
+		void* VertexBufferData = RHILockBuffer( VertexBuffer.VertexBufferRHI , 0 , VertexBuffer.GetNumVertices() * VertexBuffer.GetStride() , RLM_WriteOnly );
+		FMemory::Memcpy( VertexBufferData , VertexBuffer.GetVertexData() , VertexBuffer.GetNumVertices() * VertexBuffer.GetStride() );
+		RHIUnlockBuffer( VertexBuffer.VertexBufferRHI );
+	}
+
+/*	{
+		auto& ColorBuffer = VertexBuffers.ColorVertexBuffer;
+		void* VertexBufferData = RHILockBuffer( ColorBuffer.VertexBufferRHI, 0, verticeCount * ColorBuffer.GetStride(), RLM_WriteOnly);
+		FMemory::Memcpy(VertexBufferData, ColorBuffer.GetVertexData(), verticeCount * ColorBuffer.GetStride());
+		RHIUnlockBuffer( ColorBuffer.VertexBufferRHI);
+	}
+*/
 	{
 		auto& VertexBuffer = VertexBuffers.StaticMeshVertexBuffer;
 		void* VertexBufferData = RHILockBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI, 0, VertexBuffer.GetTexCoordSize(), RLM_WriteOnly);

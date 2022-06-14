@@ -7,7 +7,8 @@
 
 //------------------------------------------------------------------------------------------
 // Sets default values for this component's properties
-UUE2DSpriteAtlasComponent::UUE2DSpriteAtlasComponent()
+UUE2DSpriteAtlasComponent::UUE2DSpriteAtlasComponent( const FObjectInitializer& ObjectInitializer )
+	: Super( ObjectInitializer )
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -15,6 +16,7 @@ UUE2DSpriteAtlasComponent::UUE2DSpriteAtlasComponent()
 
 	// ...
 	//	bTickInEditor = true;
+	SetGenerateOverlapEvents( false );
 
 	bWantsInitializeComponent = true;
 	bTickInEditor = true;
@@ -59,7 +61,16 @@ void UUE2DSpriteAtlasComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 }
 //------------------------------------------------------------------------------------------
 
-
+//------------------------------------------------------------------------------------------
+void UUE2DSpriteAtlasComponent::SetFrame( int32 InFrameIndex )
+{
+	if( InFrameIndex != FrameIndex )
+	{
+		FrameIndex											=	InFrameIndex;
+		MarkRenderDynamicDataDirty();
+	}
+}
+//------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------
 void UUE2DSpriteAtlasComponent::UpdateMesh()
@@ -123,7 +134,7 @@ void UUE2DSpriteAtlasComponent::SendRenderDynamicData_Concurrent()
 	}
 
 	FUE2DSpriteDrawRecord Record;
-	Record.Set( Atlas, FrameIndex, MaterialInstance );
+	Record.Set( Atlas, FrameIndex, Color , MaterialInstance );
 
 
 	// Cast the Proxy

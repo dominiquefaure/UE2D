@@ -10,10 +10,10 @@
 /**
  * 
  */
-UCLASS( ClassGroup=(UE2D), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(UE2D), editinlinenew , meta=(BlueprintSpawnableComponent) )
 class UE2D_API UUE2DSpriteAtlasComponent : public UMeshComponent
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 	
 public:	
 	// Sets default values for this component's properties
@@ -22,11 +22,24 @@ public:
 	UPROPERTY(Category = Material, EditAnywhere, BlueprintReadWrite)
 	UMaterialInterface* NormalBlendMaterial;
 
-	UPROPERTY(Category = SpriteAtlas, EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite , Category = SpriteAtlas )
 	UUE2DSpriteAtlas* Atlas;
 
-	UPROPERTY(Category = SpriteAtlas, EditAnywhere, BlueprintReadWrite)
+	UPROPERTY( EditAnywhere, BlueprintReadWrite , BlueprintSetter= GetFrame ,BlueprintSetter = SetFrame , Category = SpriteAtlas )
 	int32 FrameIndex;
+
+	UFUNCTION( BlueprintCallable , BlueprintGetter )
+	int32 GetFrame()
+	{
+		return FrameIndex;
+	}
+
+	UFUNCTION( BlueprintCallable , BlueprintSetter )
+	void SetFrame( int32 InFrameIndex );
+
+
+	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
+	FColor Color;
 
 protected:
 

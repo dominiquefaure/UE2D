@@ -17,7 +17,7 @@ FUE2DSpriteDrawRecord::~FUE2DSpriteDrawRecord( )
 //--------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------
-void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlas* Atlas, uint32 FrameIndex, UMaterialInterface* InMaterial )
+void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlas* Atlas, uint32 FrameIndex, FColor InColor , UMaterialInterface* InMaterial )
 {
 	if( Atlas == nullptr )
 	{
@@ -34,12 +34,15 @@ void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlas* Atlas, uint32 FrameIndex, UMa
 	ComputeVertices( Atlas , Frame );
 
 	Material												=	InMaterial;
+	Color													=	InColor;
+
 }
 //--------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------
 void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlas* Atlas, FUE2DSpriteAtlasFrame* InFrame )
 {
+
 	float t_x			=	InFrame->X;
 	float t_y			=	InFrame->Y;
 	float t_width		=	InFrame->Width;
@@ -127,7 +130,7 @@ void FUE2DSpriteDrawRecord::Apply( FStaticMeshVertexBuffers& InVertexBuffers )co
 		//		VertexBuffers.StaticMeshVertexBuffer.SetVertexTangents(ItVert.GetIndex(), FVector::ForwardVector, TangentY, FVector::UpVector);
 		InVertexBuffers.StaticMeshVertexBuffer.SetVertexUV(VertexIndex, 0, ItVert->TexCoord);
 		//		VertexBuffers.StaticMeshVertexBuffer.SetVertexUV(ItVert.GetIndex(), 1, ItVert->ColorBlend);
-		//		VertexBuffers.ColorVertexBuffer.VertexColor(ItVert.GetIndex()) = ItVert->Color;
+		InVertexBuffers.ColorVertexBuffer.VertexColor( VertexIndex ) = Color;
 
 		VertexIndex ++;
 	}
