@@ -35,7 +35,7 @@ public:
 
 private:
 
-	void ComputeVertices( UUE2DSpriteAtlas* Atlas, FUE2DSpriteAtlasFrame* InFrame );
+	void ComputeVertices( UUE2DSpriteAtlas* Atlas, UUE2DSpriteAtlasFrame* InFrame );
 
 public:
 

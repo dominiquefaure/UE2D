@@ -6,6 +6,9 @@
 #include "AssetToolsModule.h"
 #include "UE2DSpriteAtlasTypeActions.h"
 
+#include "UE2DSpriteAtlasComponent.h"
+#include "ComponentCustomization/SpriteAtlasComponentDetailsCustomization.h"
+
 
 #define LOCTEXT_NAMESPACE "FUE2DEditorModule"
 
@@ -21,12 +24,38 @@ void FUE2DEditorModule::StartupModule()
 
 	AssetTools.RegisterAssetTypeActions(actionType.ToSharedRef());
 
+	FCoreDelegates::OnPostEngineInit.AddRaw(this, &FUE2DEditorModule::OnPostEngineInit);
+
+
+
 }
 
 void FUE2DEditorModule::ShutdownModule()
 {
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
+
+
+	if (FModuleManager::Get().IsModuleLoaded("PropertyEditor"))
+	{
+		// unregister properties when the module is shutdown
+		FPropertyEditorModule& PropertyModule = FModuleManager::GetModuleChecked<FPropertyEditorModule>("PropertyEditor");
+		
+		PropertyModule.UnregisterCustomClassLayout("UUE2DSpriteAtlasComponent");
+
+		PropertyModule.NotifyCustomizationModuleChanged();
+	}
+
+}
+
+
+void FUE2DEditorModule::OnPostEngineInit()
+{
+	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
+	PropertyModule.RegisterCustomClassLayout(UUE2DSpriteAtlasComponent::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FSpriteAtlasComponentDetailsCustomization::MakeInstance));
+
+
+	PropertyModule.NotifyCustomizationModuleChanged();
 }
 
 #undef LOCTEXT_NAMESPACE

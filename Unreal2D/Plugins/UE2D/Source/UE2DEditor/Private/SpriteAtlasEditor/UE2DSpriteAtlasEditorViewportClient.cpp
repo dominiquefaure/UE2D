@@ -2,7 +2,7 @@
 
 #include "UE2DSpriteAtlas.h"
 #include "Components/BillboardComponent.h"
-
+#include "UE2DSpriteAtlasAssetEditor.h"
 
 //-------------------------------------------------------------------------------------------
 FUE2DSpriteAtlasEditorViewportClient::FUE2DSpriteAtlasEditorViewportClient( TWeakPtr<FUE2DSpriteAtlasAssetEditor> InSpriteAtlasEditor , TWeakPtr<class SEditorViewport> InSpriteAtlasEditorViewportPtr )
@@ -11,7 +11,7 @@ SpriteAtlasEditorPtr( InSpriteAtlasEditor )
 {
 	SetViewportType( LVT_OrthoXY );
 
-	// use our own empty preview scene insteqd of defqult one thqt preview the world
+	// use our own empty preview scene instead of default one that preview the world
 	PreviewScene	=	&OwnedPreviewScene;
 
 	
@@ -28,6 +28,13 @@ SpriteAtlasEditorPtr( InSpriteAtlasEditor )
 		
 		PreviewScene->AddComponent( Billboard , FTransform::Identity );
 	}
+}
+//-------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------
+UUE2DSpriteAtlas* FUE2DSpriteAtlasEditorViewportClient::GetAtlasCurrentlyEdited() const
+{
+	return SpriteAtlasEditorPtr.Pin()->GetAtlasCurrentlyEdited();
 }
 //-------------------------------------------------------------------------------------------
 

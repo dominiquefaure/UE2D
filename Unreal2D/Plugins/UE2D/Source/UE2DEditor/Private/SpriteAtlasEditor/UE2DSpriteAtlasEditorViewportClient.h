@@ -8,7 +8,7 @@
 
 class SUE2DSpriteAtlasEditorViewport;
 class FUE2DSpriteAtlasAssetEditor;
-
+class UUE2DSpriteAtlas;
 
 class FUE2DSpriteAtlasEditorViewportClient : public FEditorViewportClient // , public FGCObject
 {
@@ -24,10 +24,7 @@ public:
 
 
 private:
-	UUE2DSpriteAtlas* GetAtlasCurrentlyEdited() const
-	{
-		return SpriteAtlasEditorPtr.Pin()->GetAtlasCurrentlyEdited();
-	}
+	UUE2DSpriteAtlas* GetAtlasCurrentlyEdited() const;
 
 private:
 	
