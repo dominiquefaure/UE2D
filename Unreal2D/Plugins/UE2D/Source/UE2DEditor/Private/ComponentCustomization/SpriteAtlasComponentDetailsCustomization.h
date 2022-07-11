@@ -6,6 +6,9 @@
 #include "IDetailCustomization.h"
 #include "Widgets/UE2DSpriteAtlasFrameListWidget.h"
 
+#include "UE2DSpriteAtlasComponent.h"
+
+
 
 class IDetailLayoutBuilder;
 
@@ -22,9 +25,21 @@ public:
 	virtual void CustomizeDetails(IDetailLayoutBuilder& DetailLayout) override;
 	// End of IDetailCustomization interface
 
+
+protected:
+
+	void OnAtlasChanged();
+
+	void OnFrameChanged( UUE2DSpriteAtlasFrame* NewFrame );
+
 private:
+
+	TWeakObjectPtr<UUE2DSpriteAtlasComponent> CustomizedComponent;
 
 	TSharedPtr<SUE2DSpriteAtlasFrameListWidget> FrameListWidgetPtr;
 
+	TSharedPtr<IPropertyHandle> CurrAtlasProperty;
+	TSharedPtr<IPropertyHandle> CurrFrameIndexProperty;
+	TSharedPtr<IPropertyHandle> CurrFrameProperty;
 
 };

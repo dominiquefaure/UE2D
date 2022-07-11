@@ -1,5 +1,6 @@
 #include "UE2DSpriteDrawRecord.h"
 
+#include "UE2DSpriteAtlasFrame.h"
 
 //--------------------------------------------------------------------------------------
 FUE2DSpriteDrawRecord::FUE2DSpriteDrawRecord()
@@ -31,7 +32,7 @@ void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlas* Atlas, uint32 FrameIndex, FCo
 		return;
 	}
 
-	ComputeVertices( Atlas , Frame );
+	ComputeVertices( Frame );
 
 	Material												=	InMaterial;
 	Color													=	InColor;
@@ -40,7 +41,17 @@ void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlas* Atlas, uint32 FrameIndex, FCo
 //--------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------
-void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlas* Atlas, UUE2DSpriteAtlasFrame* InFrame )
+void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlasFrame* Frame , FColor InColor , UMaterialInterface* InMaterial )
+{
+	ComputeVertices( Frame );
+	Material												=	InMaterial;
+	Color													=	InColor;
+}
+//--------------------------------------------------------------------------------------
+
+
+//--------------------------------------------------------------------------------------
+void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlasFrame* InFrame )
 {
 
 	float t_x			=	InFrame->X;
@@ -53,8 +64,8 @@ void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlas* Atlas, UUE2DSprit
 	float t_halfHeight	=	t_height/2;
 
 
-	float TextureWidth	=	Atlas->Texture->GetSurfaceWidth();
-	float TextureHeight	=	Atlas->Texture->GetSurfaceHeight();
+	float TextureWidth	=	InFrame->Texture->GetSurfaceWidth();
+	float TextureHeight	=	InFrame->Texture->GetSurfaceHeight();
 
 	float u1												=	0.0f;
 	float v1												=	0.0f;

@@ -67,7 +67,7 @@ void UUE2DSpriteAtlasComponent::SetFrame( int32 InFrameIndex )
 	if( InFrameIndex != FrameIndex )
 	{
 		FrameIndex											=	InFrameIndex;
-		MarkRenderDynamicDataDirty();
+	//	MarkRenderDynamicDataDirty();
 	}
 }
 //------------------------------------------------------------------------------------------
@@ -82,10 +82,10 @@ void UUE2DSpriteAtlasComponent::UpdateMesh()
 		MarkRenderDynamicDataDirty();
 	}
 
-	if( ( Atlas != nullptr ) && ( Atlas->Texture != nullptr ) )
+	if( ( Atlas != nullptr ) && ( Atlas->IsValid()) && ( MaterialInstance == nullptr) )
 	{
 		UMaterialInstanceDynamic* DynamicInstance			=	UMaterialInstanceDynamic::Create( NormalBlendMaterial, GetTransientPackage());
-		DynamicInstance->SetTextureParameterValue(FName(TEXT("SpriteTexture")), Atlas->Texture );
+		DynamicInstance->SetTextureParameterValue(FName(TEXT("SpriteTexture")), Atlas->Textures[0]);
 		MaterialInstance									=	DynamicInstance;
 	}
 
@@ -134,7 +134,8 @@ void UUE2DSpriteAtlasComponent::SendRenderDynamicData_Concurrent()
 	}
 
 	FUE2DSpriteDrawRecord Record;
-	Record.Set( Atlas, FrameIndex, Color , MaterialInstance );
+
+	Record.Set( Atlas , FrameIndex , Color , MaterialInstance );
 
 
 	// Cast the Proxy

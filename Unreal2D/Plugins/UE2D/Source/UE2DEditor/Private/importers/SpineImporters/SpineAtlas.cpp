@@ -34,6 +34,7 @@ void FSpineAtlas::Load( const FString& InFilepath )
 void FSpineAtlas::Apply( UUE2DSpriteAtlas* DestAtlas )
 {
 	// Clear the array
+	//DestAtlas->Textures.Empty();
 	DestAtlas->Frames.Empty();
 
 	for( int i = 0; i < Pages.Num() ; i ++ )

@@ -12,7 +12,7 @@ public:
 	FSpineAtlasRegion();
 
 	void Parse(FSpineAtlasReader& Reader );
-	void Apply( UUE2DSpriteAtlas* DestAtlas );
+	void Apply( UUE2DSpriteAtlas* DestAtlas , int TextureIndex );
 
 private:
 	FString Name;

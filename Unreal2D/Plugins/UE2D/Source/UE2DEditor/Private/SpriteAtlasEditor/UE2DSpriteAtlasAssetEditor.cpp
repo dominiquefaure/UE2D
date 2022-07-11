@@ -335,7 +335,7 @@ void FUE2DSpriteAtlasAssetEditor::ImportAtlas()
 //-------------------------------------------------------------------------------------------
 void FUE2DSpriteAtlasAssetEditor::AddFrame()
 {
-	SpriteAtlas->AddFrame( TEXT( "New Frame" ), 0, 0, 10, 10, false );
+	SpriteAtlas->AddFrame( TEXT( "New Frame" ), 0 , 0, 0, 10, 10, false );
 }
 //-------------------------------------------------------------------------------------------
 

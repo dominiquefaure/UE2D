@@ -29,13 +29,14 @@ public:
 	~FUE2DSpriteDrawRecord();
 
 	void Set( UUE2DSpriteAtlas* Atlas, uint32 FrameIndex , FColor InColor , UMaterialInterface* InMaterial );
+	void Set( UUE2DSpriteAtlasFrame* Frame , FColor InColor , UMaterialInterface* InMaterial );
 
 
 	void Apply( FStaticMeshVertexBuffers& InVertexBuffers )const;
 
 private:
 
-	void ComputeVertices( UUE2DSpriteAtlas* Atlas, UUE2DSpriteAtlasFrame* InFrame );
+	void ComputeVertices( UUE2DSpriteAtlasFrame* InFrame );
 
 public:
 

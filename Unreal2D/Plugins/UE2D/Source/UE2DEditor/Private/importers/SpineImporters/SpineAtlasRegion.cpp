@@ -55,16 +55,16 @@ void FSpineAtlasRegion::Parse( FSpineAtlasReader& Reader )
 
 
 //-------------------------------------------------------------------------------------------
-void FSpineAtlasRegion::Apply( UUE2DSpriteAtlas* DestAtlas )
+void FSpineAtlasRegion::Apply( UUE2DSpriteAtlas* DestAtlas , int TextureIndex )
 {
 
 	if( rotated )
 	{
-		DestAtlas->AddFrame( Name , BoundX , BoundY , BoundHeight , BoundWidth , true );
+		DestAtlas->AddFrame( Name , TextureIndex , BoundX , BoundY , BoundHeight , BoundWidth , true );
 	}
 	else
 	{
-		DestAtlas->AddFrame( Name , BoundX , BoundY , BoundWidth , BoundHeight , false );
+		DestAtlas->AddFrame( Name , TextureIndex , BoundX , BoundY , BoundWidth , BoundHeight , false );
 	}
 }
 //-------------------------------------------------------------------------------------------

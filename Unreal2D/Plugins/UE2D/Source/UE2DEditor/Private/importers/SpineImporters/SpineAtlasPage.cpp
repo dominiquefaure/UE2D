@@ -32,9 +32,12 @@ void FSpineAtlasPage::Parse( FSpineAtlasReader& Reader )
 //-------------------------------------------------------------------------------------------
 void FSpineAtlasPage::Apply( UUE2DSpriteAtlas* DestAtlas )
 {
+
+	int TextureIndex	=	0;
+
 	for( int i = 0; i < Regions.Num(); i++ )
 	{
-		Regions[ i ].Apply( DestAtlas );
+		Regions[ i ].Apply( DestAtlas , TextureIndex );
 	}
 }
 //-------------------------------------------------------------------------------------------

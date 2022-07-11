@@ -1,6 +1,7 @@
 
 #include "UE2DSpriteAtlasFrameListWidget.h"
 #include "UE2DSpriteAtlas.h"
+#include "UE2DSpriteAtlasFrame.h"
 
 #include "IContentBrowserSingleton.h"
 #include "ContentBrowserModule.h"
@@ -8,6 +9,7 @@
 //-------------------------------------------------------------------------------------------
 void SUE2DSpriteAtlasFrameListWidget::Construct(const FArguments& InArgs)
 {
+	OnSelectedFrameChangedDelegate	=	InArgs._OnSelectedFrameChanged;
 
 	FContentBrowserModule& ContentBrowserModule = FModuleManager::Get().LoadModuleChecked<FContentBrowserModule>(TEXT("ContentBrowser"));
 
@@ -17,12 +19,20 @@ void SUE2DSpriteAtlasFrameListWidget::Construct(const FArguments& InArgs)
 	Config.InitialAssetViewType		=	EAssetViewType::Tile;
 	Config.OnGetCustomSourceAssets	=	FOnGetCustomSourceAssets::CreateSP(this, &SUE2DSpriteAtlasFrameListWidget::OnGetCustomSourceAssets);
 	Config.OnAssetSelected			=	FOnAssetSelected::CreateSP( this , &SUE2DSpriteAtlasFrameListWidget::OnFrameSelected );
-
+	Config.RefreshAssetViewDelegates.Add( &RefreshFrameListDelegate );
 
 	this->ChildSlot
 		[
-			ContentBrowserModule.Get().CreateAssetPicker(Config)
+			ContentBrowserModule.Get().CreateAssetPicker( Config )
 		];
+
+}
+//-------------------------------------------------------------------------------------------
+
+
+//-------------------------------------------------------------------------------------------
+void SUE2DSpriteAtlasFrameListWidget::SetOnSelectedFrameChanged( const FSimpleDelegate& InSelectedFrameChanged )
+{
 
 }
 //-------------------------------------------------------------------------------------------
@@ -31,6 +41,8 @@ void SUE2DSpriteAtlasFrameListWidget::Construct(const FArguments& InArgs)
 void SUE2DSpriteAtlasFrameListWidget::SetAtlas( UUE2DSpriteAtlas* InAtlas )
 {
 	SpriteAtlas	=	InAtlas;
+
+	RefreshFrameListDelegate.ExecuteIfBound( true );
 }
 //-------------------------------------------------------------------------------------------
 
@@ -64,6 +76,8 @@ void SUE2DSpriteAtlasFrameListWidget::OnFrameSelected( const FAssetData& AssetDa
 	if( Frame != nullptr )
 	{
 		UE_LOG(LogTemp, Warning, TEXT("selected frame name = %s") , *(Frame->Name) );
+
+		OnSelectedFrameChangedDelegate.ExecuteIfBound( Frame );
 	}
 }
 //-------------------------------------------------------------------------------------------

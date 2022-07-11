@@ -26,7 +26,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite , Category = SpriteAtlas )
 	TObjectPtr<class UUE2DSpriteAtlas> Atlas;
 
-	UPROPERTY( EditAnywhere, BlueprintReadWrite , BlueprintSetter= GetFrame ,BlueprintSetter = SetFrame , Category = SpriteAtlas )
+	UPROPERTY( EditAnywhere , BlueprintReadWrite , BlueprintSetter= GetFrame , BlueprintSetter = SetFrame , Category = SpriteAtlas )
 	int32 FrameIndex;
 
 	UPROPERTY(EditAnywhere, Category=SpriteAtlas)
@@ -43,8 +43,9 @@ public:
 		return FrameIndex;
 	}
 
-	UFUNCTION( BlueprintCallable , BlueprintSetter )
-		void SetFrame( int32 InFrameIndex );
+	UFUNCTION( BlueprintCallable  )
+	void SetFrame( int32 InFrameIndex );
+
 
 
 protected:

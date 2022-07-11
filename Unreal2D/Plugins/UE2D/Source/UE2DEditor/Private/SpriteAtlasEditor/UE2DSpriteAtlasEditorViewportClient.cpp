@@ -24,7 +24,10 @@ SpriteAtlasEditorPtr( InSpriteAtlasEditor )
 	{
 		UBillboardComponent* Billboard	=	NewObject<UBillboardComponent>( );
 
-		Billboard->SetSprite( (UTexture2D*)Atlas->Texture );
+		if( Atlas->Textures.Num() > 0 )
+		{
+			Billboard->SetSprite( (UTexture2D*)Atlas->Textures[ 0 ] );
+		}
 		
 		PreviewScene->AddComponent( Billboard , FTransform::Identity );
 	}
