@@ -7,7 +7,8 @@
 #include "UE2DSpriteAtlasTypeActions.h"
 
 #include "UE2DSpriteAtlasComponent.h"
-#include "ComponentCustomization/SpriteAtlasComponentDetailsCustomization.h"
+#include "Customization/SpriteAtlasComponentDetailsCustomization.h"
+#include "Customization/UE2DSpriteAtlasFrameThumbnailRenderer.h"
 
 
 #define LOCTEXT_NAMESPACE "FUE2DEditorModule"
@@ -56,6 +57,12 @@ void FUE2DEditorModule::OnPostEngineInit()
 
 
 	PropertyModule.NotifyCustomizationModuleChanged();
+
+
+	// Register the thumbnail renderers
+	UThumbnailManager::Get().RegisterCustomRenderer( UUE2DSpriteAtlasFrame::StaticClass() , UUE2DSpriteAtlasFrameThumbnailRenderer::StaticClass() );
+
+
 }
 
 #undef LOCTEXT_NAMESPACE

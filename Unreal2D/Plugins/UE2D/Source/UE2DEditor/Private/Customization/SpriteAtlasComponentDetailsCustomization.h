@@ -30,7 +30,7 @@ protected:
 
 	void OnAtlasChanged();
 
-	void OnFrameChanged( UUE2DSpriteAtlasFrame* NewFrame );
+	void OnFrameChanged( int32 NewFrame );
 
 private:
 
@@ -40,6 +40,5 @@ private:
 
 	TSharedPtr<IPropertyHandle> CurrAtlasProperty;
 	TSharedPtr<IPropertyHandle> CurrFrameIndexProperty;
-	TSharedPtr<IPropertyHandle> CurrFrameProperty;
 
 };

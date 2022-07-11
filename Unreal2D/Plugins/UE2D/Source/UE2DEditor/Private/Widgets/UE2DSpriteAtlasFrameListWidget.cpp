@@ -17,13 +17,24 @@ void SUE2DSpriteAtlasFrameListWidget::Construct(const FArguments& InArgs)
 	FAssetPickerConfig Config;
 	Config.Filter.ClassNames.Add(UUE2DSpriteAtlasFrame::StaticClass()->GetFName());
 	Config.InitialAssetViewType		=	EAssetViewType::Tile;
+	Config.ThumbnailScale			=	0.1;
+	Config.bFocusSearchBoxWhenOpened = false;
+
 	Config.OnGetCustomSourceAssets	=	FOnGetCustomSourceAssets::CreateSP(this, &SUE2DSpriteAtlasFrameListWidget::OnGetCustomSourceAssets);
 	Config.OnAssetSelected			=	FOnAssetSelected::CreateSP( this , &SUE2DSpriteAtlasFrameListWidget::OnFrameSelected );
 	Config.RefreshAssetViewDelegates.Add( &RefreshFrameListDelegate );
 
+	Config.bShowBottomToolbar		=	false;
+
+//	TSharedPtr<SAssetPicker> AssetPicker;
+	TSharedPtr<SWidget> AssetPicker;
+
+	AssetPicker = ContentBrowserModule.Get().CreateAssetPicker( Config );
+
 	this->ChildSlot
 		[
-			ContentBrowserModule.Get().CreateAssetPicker( Config )
+			AssetPicker.ToSharedRef()
+			
 		];
 
 }
@@ -77,7 +88,11 @@ void SUE2DSpriteAtlasFrameListWidget::OnFrameSelected( const FAssetData& AssetDa
 	{
 		UE_LOG(LogTemp, Warning, TEXT("selected frame name = %s") , *(Frame->Name) );
 
-		OnSelectedFrameChangedDelegate.ExecuteIfBound( Frame );
+
+		UUE2DSpriteAtlas* Atlas	=	static_cast<UUE2DSpriteAtlas*>( SpriteAtlas.Get() );
+
+		SelectedFrameIndex	=	Atlas->GetFrameIndex( Frame );
+		OnSelectedFrameChangedDelegate.ExecuteIfBound( SelectedFrameIndex.Get() );
 	}
 }
 //-------------------------------------------------------------------------------------------

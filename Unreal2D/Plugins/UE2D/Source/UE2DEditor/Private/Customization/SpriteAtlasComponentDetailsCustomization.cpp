@@ -46,21 +46,32 @@ void FSpriteAtlasComponentDetailsCustomization::CustomizeDetails(IDetailLayoutBu
 	// Get Handle to the different properties needed for customization
 	CurrAtlasProperty						=	DetailBuilder.GetProperty( GET_MEMBER_NAME_CHECKED( UUE2DSpriteAtlasComponent , Atlas ) );
 	CurrFrameIndexProperty					=	DetailBuilder.GetProperty( GET_MEMBER_NAME_CHECKED( UUE2DSpriteAtlasComponent , FrameIndex ) );
-	CurrFrameProperty						=	DetailBuilder.GetProperty(GET_MEMBER_NAME_CHECKED(UUE2DSpriteAtlasComponent, CurrFrame));
-
+	
 	// remove default appearance and add our custom one
-	DetailBuilder.HideProperty( CurrFrameProperty );
-	SpriteCategory.AddCustomRow( CurrFrameProperty->GetPropertyDisplayName())
-		.NameContent()
-		[
-			CurrFrameProperty->CreatePropertyNameWidget()
-		]
+	DetailBuilder.HideProperty( CurrFrameIndexProperty );
+	SpriteCategory.AddCustomRow( CurrFrameIndexProperty->GetPropertyDisplayName())
+	.NameContent()
+	[
+		CurrFrameIndexProperty->CreatePropertyNameWidget()
+	]
 	.ValueContent()
-		.MaxDesiredWidth(TOptional<float>())
+	.VAlign( VAlign_Center )
+	.MinDesiredWidth( 250.f )
+	.MaxDesiredWidth( TOptional<float>() )
+	[
+		SNew(SVerticalBox)
+		+ SVerticalBox::Slot()
+		.MaxHeight( 300.0f )
 		[
-			SAssignNew( FrameListWidgetPtr , SUE2DSpriteAtlasFrameListWidget )
-			.OnSelectedFrameChanged( this , &FSpriteAtlasComponentDetailsCustomization::OnFrameChanged )
-		];
+			SNew( SBox )
+			.WidthOverride( 400.f )
+			.HeightOverride( 500.f )
+			[
+				SAssignNew( FrameListWidgetPtr , SUE2DSpriteAtlasFrameListWidget )
+				.OnSelectedFrameChanged( this , &FSpriteAtlasComponentDetailsCustomization::OnFrameChanged )
+			]
+		]
+	];
 
 
 
@@ -82,14 +93,9 @@ void FSpriteAtlasComponentDetailsCustomization::OnAtlasChanged()
 //------------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------------
-void FSpriteAtlasComponentDetailsCustomization::OnFrameChanged( UUE2DSpriteAtlasFrame* NewFrame)
+void FSpriteAtlasComponentDetailsCustomization::OnFrameChanged( int32 NewFrame )
 {
-//	CustomizedComponent.Get()->SetFrame( NewFrame );
-
-	UObject* PropertyValue = nullptr;
-	CurrAtlasProperty->GetValue( PropertyValue );
-	UUE2DSpriteAtlas* Atlas	=	Cast<UUE2DSpriteAtlas>( PropertyValue );
-	CurrFrameIndexProperty->SetValue( Atlas->GetFrameIndex( NewFrame) );
+	CurrFrameIndexProperty->SetValue( NewFrame );
 }
 //------------------------------------------------------------------------------------------------------
 

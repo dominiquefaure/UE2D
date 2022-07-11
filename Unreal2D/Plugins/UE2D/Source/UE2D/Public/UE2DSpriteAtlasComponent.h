@@ -29,13 +29,8 @@ public:
 	UPROPERTY( EditAnywhere , BlueprintReadWrite , BlueprintSetter= GetFrame , BlueprintSetter = SetFrame , Category = SpriteAtlas )
 	int32 FrameIndex;
 
-	UPROPERTY(EditAnywhere, Category=SpriteAtlas)
-	TObjectPtr<class UUE2DSpriteAtlasFrame> CurrFrame;
-
-
 	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
 	FColor Color;
-
 
 	UFUNCTION( BlueprintCallable , BlueprintGetter )
 		int32 GetFrame()
