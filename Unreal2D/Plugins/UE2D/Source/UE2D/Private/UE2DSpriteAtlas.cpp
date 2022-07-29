@@ -32,12 +32,27 @@ int32 UUE2DSpriteAtlas::GetFrameIndex( UUE2DSpriteAtlasFrame* InFrame )
 }
 //---------------------------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------------------------
+void UUE2DSpriteAtlas::AddFrame( UTexture2D* InTexture , FString Name , int SrcX , int SrcY , int Width , int Height , bool InRotated )
+{
+	int Index	=	-1;
+
+	if( !Textures.Contains( InTexture ) )
+	{
+		Textures.Add( InTexture );
+	}
+	Textures.Find( InTexture , Index );
+//	Index	=	Textures.IndexOf( InTexture );
+
+	AddFrame( Name , Index , SrcX , SrcY , Width , Height , InRotated );
+}
+//---------------------------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------------------------
 void UUE2DSpriteAtlas::AddFrame( FString Name , int TextureIndex , int SrcX , int SrcY , int Width , int Height , bool InRotate )
 {
 	// Add the Frame
-	UUE2DSpriteAtlasFrame* Frame	=	NewObject<UUE2DSpriteAtlasFrame>( this );
+	UUE2DSpriteAtlasFrame* Frame	=	NewObject<UUE2DSpriteAtlasFrame>( this ,FName(Name) );
 
 	Frame->Name		=	Name;
 	Frame->Texture	=	Textures[ TextureIndex ];

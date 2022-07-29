@@ -38,5 +38,6 @@ public:
 	int32 GetFrameIndex( UUE2DSpriteAtlasFrame* InFrame );
 
 
+	void AddFrame( UTexture2D* InTexture , FString Name , int SrcX , int SrcY , int Width , int Height , bool InRotated );
 	void AddFrame( FString Name , int TextureIndex , int SrcX , int SrcY , int Width , int Height , bool InRotated );
 };
