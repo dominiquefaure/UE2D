@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "UE2DStructs.h"
+
+
 #include "UE2DSpriteAtlasFrame.generated.h"
 
 class UUE2DSpriteAtlas;
@@ -42,6 +45,19 @@ public:
 
 	UPROPERTY( EditAnywhere )
 	bool Rotated;
+
+
+	void GetVertices( TArray<FUE2DSpriteVertex>& OutVertices );
+	const TArray<FUE2DSpriteVertex>&  GetVertices( );
+
+private:
+
+	// compute the vertices representing this Frame
+	void ComputeVertices();
+
+
+	// pre-computed vertices
+	TArray< FUE2DSpriteVertex> Vertices;
 
 };
 

@@ -51,82 +51,37 @@ void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlasFrame* Frame , FColor InColor ,
 
 
 //--------------------------------------------------------------------------------------
+void FUE2DSpriteDrawRecord::Set( UUE2DSpriteAtlasFrame* Frame , FColor InColor , FTransform InTransform , UMaterialInterface* InMaterial )
+{
+	ComputeVertices( Frame , InTransform );
+
+	Material												=	InMaterial;
+	Color													=	InColor;
+}
+//--------------------------------------------------------------------------------------
+
+
+
+//--------------------------------------------------------------------------------------
 void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlasFrame* InFrame )
 {
+	InFrame->GetVertices( Vertices );
+}
+//--------------------------------------------------------------------------------------
 
-	float t_x			=	InFrame->X;
-	float t_y			=	InFrame->Y;
-	float t_width		=	InFrame->Width;
-	float t_height		=	InFrame->Height;
-	bool Rotated		=	InFrame->Rotated;
+//--------------------------------------------------------------------------------------
+void FUE2DSpriteDrawRecord::ComputeVertices( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform )
+{
+	const TArray< FUE2DSpriteVertex>& TempVertex = InFrame->GetVertices( );
 
-	float t_halfWidth	=	t_width /2;
-	float t_halfHeight	=	t_height/2;
-
-
-	float TextureWidth	=	InFrame->Texture->GetSurfaceWidth();
-	float TextureHeight	=	InFrame->Texture->GetSurfaceHeight();
-
-	float u1												=	0.0f;
-	float v1												=	0.0f;
-	float u2												=	0.0f;
-	float v2												=	0.0f;
-
-	if( TextureWidth > 0 )
+	FVector3d Temp;
+	for( FUE2DSpriteVertex Vertex : TempVertex )
 	{
-		u1													=	(float)t_x / TextureWidth;
-		u2													=	(float)(t_x + t_width ) / TextureWidth;
+		Temp	=	InTransform.TransformVector( (FVector3d)Vertex.Position );
+		Vertex.Position = (FVector3f)Temp;
+
+		Vertices.Add( Vertex );
 	}
-
-	if( TextureHeight > 0 )
-	{
-		v1													=	(float)t_y / TextureHeight;
-		v2													=	(float)(t_y + t_height ) / TextureHeight;
-	}
-
-
-
-	FUE2DSpriteVertex Vertex1;
-	FUE2DSpriteVertex Vertex2;
-	FUE2DSpriteVertex Vertex3;
-	FUE2DSpriteVertex Vertex4;
-
-
-	if(! InFrame->Rotated )
-	{
-		// Standard values
-		Vertex1.Position										=	FVector3f( -t_halfWidth , 0 , t_halfHeight );
-		Vertex2.Position										=	FVector3f( t_halfWidth , 0 , t_halfHeight );
-		Vertex3.Position										=	FVector3f( -t_halfWidth , 0 , -t_halfHeight );
-		Vertex4.Position										=	FVector3f( t_halfWidth , 0 , -t_halfHeight );
-
-		Vertex1.TexCoord										=	FVector2f( u1 , v1 );
-		Vertex2.TexCoord										=	FVector2f( u2 , v1 );
-		Vertex3.TexCoord										=	FVector2f( u1 , v2 );
-		Vertex4.TexCoord										=	FVector2f( u2 , v2 );
-
-
-
-	}
-	else
-	{
-		// rotated values
-		Vertex1.Position										=	FVector3f( -t_halfHeight , 0 , t_halfWidth );
-		Vertex2.Position										=	FVector3f( t_halfHeight , 0 , t_halfWidth );
-		Vertex3.Position										=	FVector3f( -t_halfHeight , 0 , -t_halfWidth );
-		Vertex4.Position										=	FVector3f( t_halfHeight , 0 , -t_halfWidth );
-
-		Vertex1.TexCoord										=	FVector2f( u1 , v2 );
-		Vertex2.TexCoord										=	FVector2f( u1 , v1 );
-		Vertex3.TexCoord										=	FVector2f( u2 , v2 );
-		Vertex4.TexCoord										=	FVector2f( u2 , v1 );
-
-	}
-
-	Vertices.Add( Vertex1 );
-	Vertices.Add( Vertex2 );
-	Vertices.Add( Vertex3 );
-	Vertices.Add( Vertex4 );
 }
 //--------------------------------------------------------------------------------------
 
@@ -148,3 +103,6 @@ void FUE2DSpriteDrawRecord::Apply( FStaticMeshVertexBuffers& InVertexBuffers )co
 
 }
 //--------------------------------------------------------------------------------------
+
+
+

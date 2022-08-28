@@ -5,17 +5,11 @@
 #include "CoreMinimal.h"
 #include "RHIDefinitions.h"
 #include "UE2DSpriteAtlas.h"
+#include "UE2DStructs.h"
+
 
 struct FColor;
 
-/*
-* Definition of a Vertex for an AsSprite
-*/
-struct FUE2DSpriteVertex
-{
-	FVector3f Position;
-	FVector2f TexCoord;
-};
 
 
 /**
@@ -31,12 +25,14 @@ public:
 	void Set( UUE2DSpriteAtlas* Atlas, uint32 FrameIndex , FColor InColor , UMaterialInterface* InMaterial );
 	void Set( UUE2DSpriteAtlasFrame* Frame , FColor InColor , UMaterialInterface* InMaterial );
 
+	void Set( UUE2DSpriteAtlasFrame* Frame , FColor InColor , FTransform InTransform, UMaterialInterface* InMaterial );
 
 	void Apply( FStaticMeshVertexBuffers& InVertexBuffers )const;
 
 private:
 
 	void ComputeVertices( UUE2DSpriteAtlasFrame* InFrame );
+	void ComputeVertices( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform );
 
 public:
 
