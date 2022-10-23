@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/MeshComponent.h"
 #include "UE2DSpriteAtlas.h"
+#include "Rendering/UE2DSpriteRenderCommandBuilder.h"
 #include "UE2DSpriteAtlasComponent.generated.h"
 
 
@@ -41,7 +42,8 @@ public:
 	UFUNCTION( BlueprintCallable  )
 	void SetFrame( int32 InFrameIndex );
 
-
+	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
+	FTransform SecondFrameTransform;
 
 protected:
 
@@ -72,5 +74,7 @@ private:
 
 	// Instance of the Material to avoid create it every tick in the record
 	UMaterialInterface* MaterialInstance;
+
+//	FUE2DSpriteRenderCommandBuilder	CommandBuilder;
 
 };

@@ -52,11 +52,19 @@ void UUE2DSpriteAtlasFrame::ComputeVertices()
 		u1													=	(float)t_x / TextureWidth;
 		u2													=	(float)( t_x + t_width ) / TextureWidth;
 	}
+	else
+	{
+		return;
+	}
 
 	if( TextureHeight > 0 )
 	{
 		v1													=	(float)t_y / TextureHeight;
 		v2													=	(float)( t_y + t_height ) / TextureHeight;
+	}
+	else
+	{
+		return;
 	}
 
 

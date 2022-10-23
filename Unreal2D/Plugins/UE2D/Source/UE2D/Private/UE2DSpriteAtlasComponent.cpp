@@ -3,7 +3,6 @@
 
 #include "UE2DSpriteAtlasComponent.h"
 #include "Rendering/UE2DSpriteAtlasRenderProxy.h"
-#include "Rendering/UE2DSpriteDrawRecord.h"
 
 //------------------------------------------------------------------------------------------
 // Sets default values for this component's properties
@@ -87,6 +86,8 @@ void UUE2DSpriteAtlasComponent::UpdateMesh()
 		UMaterialInstanceDynamic* DynamicInstance			=	UMaterialInstanceDynamic::Create( NormalBlendMaterial, GetTransientPackage());
 		DynamicInstance->SetTextureParameterValue(FName(TEXT("SpriteTexture")), Atlas->Textures[0]);
 		MaterialInstance									=	DynamicInstance;
+
+		SetMaterial( 0 , DynamicInstance  );
 	}
 
 }
@@ -133,19 +134,29 @@ void UUE2DSpriteAtlasComponent::SendRenderDynamicData_Concurrent()
 		return;
 	}
 
-	FUE2DSpriteDrawRecord Record;
 
-	Record.Set( Atlas , FrameIndex , Color , MaterialInstance );
+	FUE2DSpriteRenderCommandBuilder CommandBuilder;
+	FTransform Transform;
+	UUE2DSpriteAtlasFrame* Frame							=	Atlas->GetFrameAt( FrameIndex );
+	UUE2DSpriteAtlasFrame* Frame2							=	Atlas->GetFrameAt( 0 );
 
+	CommandBuilder.Begin();
+	CommandBuilder.AddSprite( Frame , Color , Transform );
+
+	Transform.SetTranslation( FVector(80.0f , 0.0f , 100.0f ) );
+
+	CommandBuilder.AddSprite( Frame2 , Color , SecondFrameTransform );
+
+	CommandBuilder.Finish();
 
 	// Cast the Proxy
 	FUE2DSpriteAtlasRenderSceneProxy* t_proxy = (FUE2DSpriteAtlasRenderSceneProxy*)SceneProxy;
 
-	ENQUEUE_RENDER_COMMAND(FAsSpriteAtlasRenderSceneProxy_SendDynamicDatas)(
-		[t_proxy, Record ](FRHICommandListImmediate& RHICmdList)
+	ENQUEUE_RENDER_COMMAND( FAsSpriteAtlasRenderSceneProxy_SendDynamicDatas )(
+		[t_proxy , CommandBuilder ]( FRHICommandListImmediate& RHICmdList )
 		{
-			t_proxy->SetDynamicData_RenderThread(Record);
-		});
+			t_proxy->SetDynamicData_RenderThread( CommandBuilder );
+		} );
 
 }
 //------------------------------------------------------------------------------------------

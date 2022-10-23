@@ -1,12 +1,13 @@
 #include "UE2DSpriteAtlasRenderProxy.h"
-#include "UE2DSpriteDrawRecord.h"
 
 
 //------------------------------------------------------------------------------------------------
 FUE2DSpriteAtlasRenderSceneProxy::FUE2DSpriteAtlasRenderSceneProxy( const UUE2DSpriteAtlasComponent* InComponent , uint32 InMaxSpriteNum ):
 FPrimitiveSceneProxy(InComponent),
+OwnerComponent( InComponent ),
 MaxSpriteNum( InMaxSpriteNum ),
-VertexFactory(GetScene().GetFeatureLevel(), "FASSpriteAtlasRenderSceneProxy")
+VertexFactory(GetScene().GetFeatureLevel(), "FASSpriteAtlasRenderSceneProxy"),
+Renderer( GetScene().GetFeatureLevel() )
 {
 	// FPrimitiveSceneProxy
 	bWillEverBeLit											=	false;
@@ -28,7 +29,6 @@ FUE2DSpriteAtlasRenderSceneProxy::~FUE2DSpriteAtlasRenderSceneProxy()
 
 }
 //------------------------------------------------------------------------------------------------
-
 
 //------------------------------------------------------------------------------------------------
 SIZE_T FUE2DSpriteAtlasRenderSceneProxy::GetTypeHash() const
@@ -52,6 +52,8 @@ void FUE2DSpriteAtlasRenderSceneProxy::CreateRenderThreadResources( )
 	IndexBuffer.InitResource();
 
 	VertexBuffers.InitWithDummyData(&VertexFactory, MaxSpriteNum * 4 , 2);
+
+	Renderer.InitResources( 128 );
 }
 //------------------------------------------------------------------------------------------------
 
@@ -77,20 +79,6 @@ FPrimitiveViewRelevance FUE2DSpriteAtlasRenderSceneProxy::GetViewRelevance( cons
 //------------------------------------------------------------------------------------------------
 void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<const FSceneView*>& Views, const FSceneViewFamily& ViewFamily, uint32 VisibilityMap, FMeshElementCollector& Collector ) const
 {
-	if( RenderBatch.Material == nullptr )
-	{
-		return;
-	}
-	// to fix crash when the Material is destroyed
-	if( RenderBatch.Material->GetFName() == TEXT("None") )
-	{
-		return;
-	}
-	if( !RenderBatch.Material->IsValidLowLevelFast() )
-	{
-		return;
-	}
-
 	const bool bWireframe = AllowDebugViewmodes() && ViewFamily.EngineShowFlags.Wireframe;
 	FMaterialRenderProxy* MaterialProxy						=	NULL;
 
@@ -107,7 +95,8 @@ void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<cons
 	{
 	//	if( RenderBatch.Material->GetName() != TEXT( "None" ) )
 		{
-			MaterialProxy	=	RenderBatch.Material->GetRenderProxy();
+		//	MaterialProxy	=	RenderBatch.Material->GetRenderProxy();
+			MaterialProxy	=	OwnerComponent->GetMaterial( 0 )->GetRenderProxy();
 		}
 	}
 
@@ -115,29 +104,16 @@ void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<cons
 	{
 		if( VisibilityMap & (1 << ViewIndex) )
 		{
-			// Draw the mesh. 
-			FMeshBatch& Mesh				=	Collector.AllocateMesh();
-			Mesh.VertexFactory				=	&VertexFactory;
-			Mesh.MaterialRenderProxy		=	MaterialProxy;
-			Mesh.ReverseCulling				=	IsLocalToWorldDeterminantNegative();
-			Mesh.CastShadow					=	false;
-			Mesh.DepthPriorityGroup			=	SDPG_World;
-			Mesh.Type						=	PT_TriangleList;
-			Mesh.bDisableBackfaceCulling	=	true;
-			Mesh.bCanApplyViewModeOverrides =	false;
 
-			FMeshBatchElement& BatchElement =	Mesh.Elements[0];
-			BatchElement.IndexBuffer		=	&IndexBuffer;
-			BatchElement.FirstIndex			=	RenderBatch.FirstIndex;
-			BatchElement.MinVertexIndex		=	RenderBatch.MinVertexIndex;
-			BatchElement.MaxVertexIndex		=	RenderBatch.MaxVertexIndex;
-			BatchElement.NumPrimitives		=	RenderBatch.NumPrimitives;
-			Collector.AddMesh( ViewIndex, Mesh );
+			Renderer.Render( Collector , ViewIndex , IsLocalToWorldDeterminantNegative() , MaterialProxy  );
+
+/*	
 
 #if !(UE_BUILD_SHIPPING || UE_BUILD_TEST)
 			// Render bounds
 			RenderBounds( Collector.GetPDI( ViewIndex ), ViewFamily.EngineShowFlags, GetBounds(), IsSelected() );
 #endif
+*/
 		}
 	}
 
@@ -145,50 +121,8 @@ void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<cons
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-void FUE2DSpriteAtlasRenderSceneProxy::SetDynamicData_RenderThread( const FUE2DSpriteDrawRecord& Record )
+void FUE2DSpriteAtlasRenderSceneProxy::SetDynamicData_RenderThread( const FUE2DSpriteRenderCommandBuilder& Commands )
 {
-	check(IsInRenderingThread());
-
-	Record.Apply( VertexBuffers );
-
-	// Apply the values set to the RHI
-	uint32 verticeCount	=	4;
-	{
-		auto& VertexBuffer = VertexBuffers.PositionVertexBuffer;
-		void* VertexBufferData = RHILockBuffer( VertexBuffer.VertexBufferRHI , 0 , verticeCount * VertexBuffer.GetStride() , RLM_WriteOnly );
-		FMemory::Memcpy( VertexBufferData , VertexBuffer.GetVertexData() , verticeCount * VertexBuffer.GetStride() );
-		RHIUnlockBuffer( VertexBuffer.VertexBufferRHI );
-	}
-
-
-	{
-		auto& VertexBuffer = VertexBuffers.ColorVertexBuffer;
-		void* VertexBufferData = RHILockBuffer( VertexBuffer.VertexBufferRHI , 0 , VertexBuffer.GetNumVertices() * VertexBuffer.GetStride() , RLM_WriteOnly );
-		FMemory::Memcpy( VertexBufferData , VertexBuffer.GetVertexData() , VertexBuffer.GetNumVertices() * VertexBuffer.GetStride() );
-		RHIUnlockBuffer( VertexBuffer.VertexBufferRHI );
-	}
-
-/*	{
-		auto& ColorBuffer = VertexBuffers.ColorVertexBuffer;
-		void* VertexBufferData = RHILockBuffer( ColorBuffer.VertexBufferRHI, 0, verticeCount * ColorBuffer.GetStride(), RLM_WriteOnly);
-		FMemory::Memcpy(VertexBufferData, ColorBuffer.GetVertexData(), verticeCount * ColorBuffer.GetStride());
-		RHIUnlockBuffer( ColorBuffer.VertexBufferRHI);
-	}
-*/
-	{
-		auto& VertexBuffer = VertexBuffers.StaticMeshVertexBuffer;
-		void* VertexBufferData = RHILockBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI, 0, VertexBuffer.GetTexCoordSize(), RLM_WriteOnly);
-		FMemory::Memcpy(VertexBufferData, VertexBuffer.GetTexCoordData(), VertexBuffer.GetTexCoordSize());
-		RHIUnlockBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI);
-	}
-
-
-	RenderBatch.Material		=	Record.Material;
-	RenderBatch.FirstIndex		=	0;
-	RenderBatch.MaxIndex		=	5;
-	RenderBatch.NumPrimitives	=	2;
-	RenderBatch.MinVertexIndex	=	0;
-	RenderBatch.MaxVertexIndex	=	3;
+	Renderer.ProcessCommands( Commands.GetCommands() );
 }
 //------------------------------------------------------------------------------------------------
-

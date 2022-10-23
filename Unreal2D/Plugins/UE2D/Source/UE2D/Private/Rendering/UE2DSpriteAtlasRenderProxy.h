@@ -8,35 +8,11 @@
 
 #include "LocalVertexFactory.h"
 #include "UE2DQuadSpriteIndexBuffer.h"
+#include "UE2DStructs.h"
+#include "Rendering/UE2DSpriteRenderCommandBuilder.h"
+#include "Rendering/UE2DSpriteRenderer.h"
 
-class FUE2DSpriteDrawRecord;
-
-
-/*
-* Contain the necessary parameters to perform a draw call
-*/
-struct FUE2DSpriteRenderBatch
-{
-	FUE2DSpriteRenderBatch()
-	{
-		Material	=	nullptr;
-	}
-
-	// The Material to use for the Whole Batch
-	UMaterialInterface* Material;
-
-	// The texture to use for the Section ( Override Material parameter )
-	//	UTexture* Texture;
-
-	// First Index in the IndexBuffer
-	uint32 FirstIndex;
-	uint32 MaxIndex;
-
-	// Number of primitive to draw
-	uint32 NumPrimitives;
-	uint32 MinVertexIndex;
-	uint32 MaxVertexIndex;
-};
+class FUE2DSpriteRenderCommandBuilder;
 
 
 /**
@@ -59,7 +35,7 @@ public:
 	virtual uint32 GetMemoryFootprint() const override;
 
 
-	void SetDynamicData_RenderThread(const FUE2DSpriteDrawRecord& Record );
+	void SetDynamicData_RenderThread(const FUE2DSpriteRenderCommandBuilder& Commands );
 
 private:
 
@@ -69,6 +45,7 @@ private:
 
 private:
 
+	const UUE2DSpriteAtlasComponent* OwnerComponent;
 
 	// Buffers Max Size
 	uint32 MaxSpriteNum;
@@ -80,4 +57,6 @@ private:
 
 
 	FUE2DSpriteRenderBatch		RenderBatch;
+
+	FUE2DSpriteRenderer		Renderer;
 };
