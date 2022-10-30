@@ -75,6 +75,6 @@ private:
 	// Instance of the Material to avoid create it every tick in the record
 	UMaterialInterface* MaterialInstance;
 
-//	FUE2DSpriteRenderCommandBuilder	CommandBuilder;
+	FUE2DSpriteRenderCommandBuilder	CommandBuilder;
 
 };

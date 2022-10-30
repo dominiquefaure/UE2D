@@ -135,7 +135,7 @@ void UUE2DSpriteAtlasComponent::SendRenderDynamicData_Concurrent()
 	}
 
 
-	FUE2DSpriteRenderCommandBuilder CommandBuilder;
+//	FUE2DSpriteRenderCommandBuilder CommandBuilder;
 	FTransform Transform;
 	UUE2DSpriteAtlasFrame* Frame							=	Atlas->GetFrameAt( FrameIndex );
 	UUE2DSpriteAtlasFrame* Frame2							=	Atlas->GetFrameAt( 0 );
@@ -153,9 +153,9 @@ void UUE2DSpriteAtlasComponent::SendRenderDynamicData_Concurrent()
 	FUE2DSpriteAtlasRenderSceneProxy* t_proxy = (FUE2DSpriteAtlasRenderSceneProxy*)SceneProxy;
 
 	ENQUEUE_RENDER_COMMAND( FAsSpriteAtlasRenderSceneProxy_SendDynamicDatas )(
-		[t_proxy , CommandBuilder ]( FRHICommandListImmediate& RHICmdList )
+		[t_proxy , Builder=this->CommandBuilder ]( FRHICommandListImmediate& RHICmdList )
 		{
-			t_proxy->SetDynamicData_RenderThread( CommandBuilder );
+			t_proxy->SetDynamicData_RenderThread( Builder );
 		} );
 
 }

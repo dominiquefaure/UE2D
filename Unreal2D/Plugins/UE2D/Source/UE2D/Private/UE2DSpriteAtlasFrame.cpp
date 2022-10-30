@@ -33,6 +33,15 @@ void UUE2DSpriteAtlasFrame::GetVertices( TArray<FUE2DSpriteVertex>& OutVertices 
 //--------------------------------------------------------------------------------------
 void UUE2DSpriteAtlasFrame::ComputeVertices()
 {
+	// Patch to fix wrong texture size computation, when the texture data are not fully loaded yet
+	if( Texture->IsDefaultTexture() )
+	{
+		UE_LOG( LogTemp , Warning , TEXT( "texture not fully loaded" )  );
+		return;
+	}
+
+	
+	
 	float t_x												=	X;
 	float t_y												=	Y;
 	float t_width											=	Width;
