@@ -16,15 +16,18 @@ void SUE2DSpriteAtlasFrameListWidget::Construct(const FArguments& InArgs)
 	// Configure filter for asset picker
 	FAssetPickerConfig Config;
 	Config.Filter.ClassNames.Add(UUE2DSpriteAtlasFrame::StaticClass()->GetFName());
-	Config.InitialAssetViewType		=	EAssetViewType::Tile;
-	Config.ThumbnailScale			=	0.1;
-	Config.bFocusSearchBoxWhenOpened = false;
+	Config.Filter.ClassPaths.Add( UUE2DSpriteAtlasFrame::StaticClass()->GetClassPathName() );
+	Config.InitialAssetViewType			=	EAssetViewType::Tile;
+	Config.bAllowDragging				=	false;
+	Config.ThumbnailScale				=	0.1;
+	Config.bFocusSearchBoxWhenOpened	=	false;
+	Config.bShowBottomToolbar			=	false;
+	Config.bForceShowEngineContent		=	false;
 
-	Config.OnGetCustomSourceAssets	=	FOnGetCustomSourceAssets::CreateSP(this, &SUE2DSpriteAtlasFrameListWidget::OnGetCustomSourceAssets);
-	Config.OnAssetSelected			=	FOnAssetSelected::CreateSP( this , &SUE2DSpriteAtlasFrameListWidget::OnFrameSelected );
+	Config.OnGetCustomSourceAssets		=	FOnGetCustomSourceAssets::CreateSP(this, &SUE2DSpriteAtlasFrameListWidget::OnGetCustomSourceAssets);
+	Config.OnAssetSelected				=	FOnAssetSelected::CreateSP( this , &SUE2DSpriteAtlasFrameListWidget::OnFrameSelected );
 	Config.RefreshAssetViewDelegates.Add( &RefreshFrameListDelegate );
 
-	Config.bShowBottomToolbar		=	false;
 
 //	TSharedPtr<SAssetPicker> AssetPicker;
 	TSharedPtr<SWidget> AssetPicker;
@@ -66,6 +69,7 @@ void SUE2DSpriteAtlasFrameListWidget::OnGetCustomSourceAssets( const FARFilter& 
 	{
 		for( int i = 0 ; i <  Atlas->Frames.Num() ; i ++ )
 		{
+			
 			OutAssets.Add( Atlas->Frames[ i ] );
 		}
 	}

@@ -35,7 +35,7 @@ public:
 	virtual uint32 GetMemoryFootprint() const override;
 
 
-	void SetDynamicData_RenderThread(const FUE2DSpriteRenderCommandBuilder& Commands );
+	void SetDynamicData_RenderThread(const TArray<FUE2DSpriteRenderCommand>& CommandList , bool MaterialListChanged );
 
 private:
 

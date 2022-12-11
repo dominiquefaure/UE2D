@@ -41,12 +41,15 @@ void FUE2DSpriteRenderCommandBuilder::Finish()
 //------------------------------------------------------------------------------
 void FUE2DSpriteRenderCommandBuilder::AddSprite( UUE2DSpriteAtlasFrame* InFrame , FColor InColor , FTransform InTransform )
 {
-	FUE2DSpriteRenderCommand Command;
+	if( InFrame != nullptr )
+	{
+		FUE2DSpriteRenderCommand Command;
 
-	Command.Set( InFrame , InTransform , InColor , GetMaterialIndex( InFrame->Texture ) , CommandCount * DeltaYCoef );
+		Command.Set( InFrame , InTransform , InColor , GetMaterialIndex( InFrame->Texture ) , CommandCount * DeltaYCoef );
 
-	Commands.Add( Command  );
-	CommandCount ++;
+		Commands.Add( Command );
+		CommandCount ++;
+	}
 }
 //------------------------------------------------------------------------------
 

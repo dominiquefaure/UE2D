@@ -155,8 +155,9 @@ void UUE2DSpriteAtlasComponent::SendRenderDynamicData_Concurrent()
 	ENQUEUE_RENDER_COMMAND( FAsSpriteAtlasRenderSceneProxy_SendDynamicDatas )(
 		[t_proxy , Builder=this->CommandBuilder ]( FRHICommandListImmediate& RHICmdList )
 		{
-			t_proxy->SetDynamicData_RenderThread( Builder );
-		} );
+			t_proxy->SetDynamicData_RenderThread( Builder.GetCommands() , true );
+		}
+	);
 
 }
 //------------------------------------------------------------------------------------------

@@ -121,8 +121,8 @@ void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<cons
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-void FUE2DSpriteAtlasRenderSceneProxy::SetDynamicData_RenderThread( const FUE2DSpriteRenderCommandBuilder& Commands )
+void FUE2DSpriteAtlasRenderSceneProxy::SetDynamicData_RenderThread( const TArray<FUE2DSpriteRenderCommand>& CommandList , bool MaterialListChanged )
 {
-	Renderer.ProcessCommands( Commands.GetCommands() );
+	Renderer.ProcessCommands( CommandList );
 }
 //------------------------------------------------------------------------------------------------
