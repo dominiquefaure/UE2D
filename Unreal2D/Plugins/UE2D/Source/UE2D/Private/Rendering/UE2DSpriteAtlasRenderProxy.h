@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "PrimitiveSceneProxy.h"
-#include "UE2DSpriteAtlasComponent.h"
+#include "Components/UE2DSpriteAtlasComponent.h"
 
 #include "LocalVertexFactory.h"
 #include "UE2DQuadSpriteIndexBuffer.h"

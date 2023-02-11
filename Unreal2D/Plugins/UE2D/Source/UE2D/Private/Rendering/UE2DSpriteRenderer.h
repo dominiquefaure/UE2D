@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RHIDefinitions.h"
-#include "UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteAtlas.h"
 #include "UE2DStructs.h"
 #include "LocalVertexFactory.h"
 

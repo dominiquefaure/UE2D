@@ -3,7 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "SpineAtlasReader.h"
-#include "UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteAtlas.h"
 
 class FSpineAtlasRegion
 {

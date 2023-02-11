@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/MeshComponent.h"
-#include "UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteAtlas.h"
 #include "Rendering/UE2DSpriteRenderCommandBuilder.h"
 #include "UE2DSpriteAtlasComponent.generated.h"
 

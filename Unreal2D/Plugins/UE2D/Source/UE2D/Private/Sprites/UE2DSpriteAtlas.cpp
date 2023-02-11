@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteAtlas.h"
 
 //---------------------------------------------------------------------------------------------
 UUE2DSpriteAtlasFrame* UUE2DSpriteAtlas::GetFrameAt( int32 Index )

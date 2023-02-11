@@ -1,5 +1,5 @@
 #include "Rendering/UE2DSpriteRenderCommand.h"
-#include "UE2DSpriteAtlasFrame.h"
+#include "Sprites/UE2DSpriteAtlasFrame.h"
 
 //------------------------------------------------------------------------------
 FUE2DSpriteRenderCommand::FUE2DSpriteRenderCommand()

@@ -226,18 +226,18 @@ void FUE2DSpriteAtlasAssetEditor::RegisterTabSpawners( const TSharedRef<FTabMana
 	InTabManager->RegisterTabSpawner(UE2DSpriteAtlasEditorToolkitTabs::ViewportID, FOnSpawnTab::CreateSP(this, &FUE2DSpriteAtlasAssetEditor::SpawnTab_Viewport))
 		.SetDisplayName( LOCTEXT("ViewportTab", "Viewport") )
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.Viewports"));
+		.SetIcon(FSlateIcon( FAppStyle::GetAppStyleSetName() , "LevelEditor.Tabs.Viewports"));
 
 
 	InTabManager->RegisterTabSpawner(UE2DSpriteAtlasEditorToolkitTabs::DetailsID, FOnSpawnTab::CreateSP(this, &FUE2DSpriteAtlasAssetEditor::SpawnTab_Details))
 		.SetDisplayName( LOCTEXT("DetailsTab", "Details") )
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.Details"));
+		.SetIcon(FSlateIcon( FAppStyle::GetAppStyleSetName() , "LevelEditor.Tabs.Details"));
 
 	InTabManager->RegisterTabSpawner(UE2DSpriteAtlasEditorToolkitTabs::FrameListID, FOnSpawnTab::CreateSP(this, &FUE2DSpriteAtlasAssetEditor::SpawnTab_FrameList))
 		.SetDisplayName( LOCTEXT("SpriteAtlasFrameListTabLabel", "Frame List") )
 		.SetGroup(WorkspaceMenuCategoryRef)
-		.SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "LevelEditor.Tabs.ContentBrowser"));
+		.SetIcon(FSlateIcon( FAppStyle::GetAppStyleSetName() , "LevelEditor.Tabs.ContentBrowser"));
 
 }
 //-------------------------------------------------------------------------------------------

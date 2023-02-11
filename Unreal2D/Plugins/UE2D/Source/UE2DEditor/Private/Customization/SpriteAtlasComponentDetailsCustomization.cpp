@@ -11,7 +11,8 @@
 #include "Widgets/Text/STextBlock.h"
 #include "EditorStyleSet.h"
 
-#include "UE2DSpriteAtlasComponent.h"
+#include "Components/UE2DSpriteAtlasComponent.h"
+
 #include "Widgets/UE2DSpriteAtlasFrameListWidget.h"
 
 

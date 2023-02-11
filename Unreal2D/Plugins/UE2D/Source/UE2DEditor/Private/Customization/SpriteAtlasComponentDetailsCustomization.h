@@ -6,7 +6,7 @@
 #include "IDetailCustomization.h"
 #include "Widgets/UE2DSpriteAtlasFrameListWidget.h"
 
-#include "UE2DSpriteAtlasComponent.h"
+#include "Components/UE2DSpriteAtlasComponent.h"
 
 
 

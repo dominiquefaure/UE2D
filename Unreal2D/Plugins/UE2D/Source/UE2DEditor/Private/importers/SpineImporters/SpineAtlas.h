@@ -4,7 +4,7 @@
 
 #include "SpineAtlasPage.h"
 #include "SpineAtlasRegion.h"
-#include "UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteAtlas.h"
 
 
 class FSpineAtlas

@@ -1,5 +1,5 @@
 #include "UE2DSpineAtlasImporterFactory.h"
-#include "UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteAtlas.h"
 
 #include "AssetToolsModule.h"
 #include "Misc/FileHelper.h"

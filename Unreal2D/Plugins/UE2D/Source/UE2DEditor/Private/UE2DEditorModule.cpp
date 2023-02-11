@@ -5,8 +5,9 @@
 #include "IAssetTools.h"
 #include "AssetToolsModule.h"
 #include "UE2DSpriteAtlasTypeActions.h"
+#include "UE2DSpriteArmatureTypeActions.h"
 
-#include "UE2DSpriteAtlasComponent.h"
+#include "Components/UE2DSpriteAtlasComponent.h"
 #include "Customization/SpriteAtlasComponentDetailsCustomization.h"
 #include "Customization/UE2DSpriteAtlasFrameThumbnailRenderer.h"
 
@@ -21,9 +22,13 @@ void FUE2DEditorModule::StartupModule()
 
 	EAssetTypeCategories::Type gameAssetCategory = AssetTools.RegisterAdvancedAssetCategory(FName(TEXT("UE2D")), FText::FromName(TEXT("UE2D")));
 
-	TSharedPtr<IAssetTypeActions> actionType = MakeShareable(new FUE2DSpriteAtlasTypeActions(gameAssetCategory));
+	// Register Sprite Atlas Actions
+	TSharedPtr<IAssetTypeActions> SpriteAtlasActionType = MakeShareable( new FUE2DSpriteAtlasTypeActions( gameAssetCategory ) );
+	AssetTools.RegisterAssetTypeActions( SpriteAtlasActionType.ToSharedRef() );
 
-	AssetTools.RegisterAssetTypeActions(actionType.ToSharedRef());
+	// Register Sprite Armature Actions
+	TSharedPtr<FUE2DSpriteArmatureTypeActions> SpriteArmatureActionType = MakeShareable(new FUE2DSpriteArmatureTypeActions(gameAssetCategory));
+	AssetTools.RegisterAssetTypeActions( SpriteArmatureActionType.ToSharedRef());
 
 	FCoreDelegates::OnPostEngineInit.AddRaw(this, &FUE2DEditorModule::OnPostEngineInit);
 

@@ -4,22 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "AssetTypeActions_Base.h"
-#include "Sprites/UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteArmature.h"
 
 
 
 
-class FUE2DSpriteAtlasTypeActions : public FAssetTypeActions_Base
+class FUE2DSpriteArmatureTypeActions : public FAssetTypeActions_Base
 {
 public:
-	FUE2DSpriteAtlasTypeActions(EAssetTypeCategories::Type InAssetCategory);
+	FUE2DSpriteArmatureTypeActions(EAssetTypeCategories::Type InAssetCategory);
 
 	virtual FColor GetTypeColor() const override;
 	virtual void OpenAssetEditor(const TArray<UObject*>& InObjects, TSharedPtr<class IToolkitHost> EditWithinLevelEditor = TSharedPtr<IToolkitHost>()) override;
 
 	// IAssetTypeActions Implementation
-	virtual FText GetName() const override { return FText::FromName(TEXT("SpriteAtlas")); }
-	virtual UClass* GetSupportedClass() const override { return UUE2DSpriteAtlas::StaticClass(); }
+	virtual FText GetName() const override { return FText::FromName(TEXT("SpriteArmature")); }
+	virtual UClass* GetSupportedClass() const override { return UUE2DSpriteArmature::StaticClass(); }
 	virtual uint32 GetCategories() override { return MyAssetCategory; }
 
 private:

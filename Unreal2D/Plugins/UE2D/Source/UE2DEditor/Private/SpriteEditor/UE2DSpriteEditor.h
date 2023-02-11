@@ -8,22 +8,21 @@
 #include "Editor/PropertyEditor/Public/PropertyEditorDelegates.h"
 
 
-#include "Sprites/UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteArmature.h"
 #include "Toolkits/AssetEditorToolkit.h"
 
-class SUE2DSpriteAtlasEditorViewport;
-class SUE2DSpriteAtlasEditorFrameList;
+class SUE2DSpriteEditorViewport;
 
 /**
  * 
  */
-class FUE2DSpriteAtlasAssetEditor : public FAssetEditorToolkit // , public FGCObject
+class FUE2DSpriteEditor : public FAssetEditorToolkit // , public FGCObject
 {
 	
 public:
 
-	FUE2DSpriteAtlasAssetEditor();
-	//   virtual ~FE2DSpriteAtlasAssetEditor();
+	FUE2DSpriteEditor();
+	//   virtual ~FUE2DSpriteEditor();
 
 	/**
 	* Initializes the editor tool kit.
@@ -32,7 +31,7 @@ public:
 	* @param InMode The mode to create the toolkit in.
 	* @param InToolkitHost The toolkit host.
 	*/
-	void Initialize(UUE2DSpriteAtlas* Atlas, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost);
+	void Initialize(UUE2DSpriteArmature* Armature, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost);
 
 
 
@@ -59,8 +58,8 @@ public:
 
 public:
 
-	// The Atlas edited, needed by Viewport
-	UUE2DSpriteAtlas* GetAtlasCurrentlyEdited() const { return SpriteAtlas; }
+	// The Armature edited, needed by Viewport
+	UUE2DSpriteArmature* GetArmatureCurrentlyEdited() const { return SpriteArmature; }
 
 
 
@@ -80,25 +79,19 @@ protected:
 
 	TSharedRef<SDockTab> SpawnTab_Viewport(const FSpawnTabArgs& Args);
 	TSharedRef<SDockTab> SpawnTab_Details(const FSpawnTabArgs& Args);
-	TSharedRef<SDockTab> SpawnTab_FrameList(const FSpawnTabArgs& Args);
 
 
-	void ImportAtlas();
-	void AddFrame();
-	void GenerateFrames();
 // properties
 private:
 
 	// pointer to the SpriteAtlas to edit
-	UUE2DSpriteAtlas* SpriteAtlas;
+	UUE2DSpriteArmature* SpriteArmature;
 
 	/** Property View */
 	TSharedPtr<class IDetailsView> DetailsView;
 
 	/** Viewport */
-	TSharedPtr<SUE2DSpriteAtlasEditorViewport> AtlasViewport;
+	TSharedPtr<SUE2DSpriteEditorViewport> SpriteViewport;
 
-	/** Widget that display the List of Frames created for the Atlas currently Edited */
-	TSharedPtr<SUE2DSpriteAtlasEditorFrameList> FrameListWidget;
 
 };

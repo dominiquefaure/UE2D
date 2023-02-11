@@ -1,19 +1,19 @@
-#include "UE2DSpriteAtlasEditorViewportClient.h"
+#include "UE2DSpriteEditorViewportClient.h"
+#include "UE2DSpriteEditor.h"
 
-#include "Sprites/UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteArmature.h"
 #include "Components/BillboardComponent.h"
-#include "UE2DSpriteAtlasAssetEditor.h"
 
 //-------------------------------------------------------------------------------------------
-FUE2DSpriteAtlasEditorViewportClient::FUE2DSpriteAtlasEditorViewportClient( TWeakPtr<FUE2DSpriteAtlasAssetEditor> InSpriteAtlasEditor , TWeakPtr<class SEditorViewport> InSpriteAtlasEditorViewportPtr )
-:FEditorViewportClient( nullptr , nullptr , InSpriteAtlasEditorViewportPtr ),
-SpriteAtlasEditorPtr( InSpriteAtlasEditor )
+FUE2DSpriteEditorViewportClient::FUE2DSpriteEditorViewportClient( TWeakPtr<FUE2DSpriteEditor> InSpriteEditor , TWeakPtr<class SEditorViewport> InSpriteEditorViewportPtr )
+:FEditorViewportClient( nullptr , nullptr , InSpriteEditorViewportPtr ),
+SpriteEditorPtr( InSpriteEditor )
 {
 	SetViewportType( LVT_OrthoXY );
 
 	// use our own empty preview scene instead of default one that preview the world
 	PreviewScene	=	&OwnedPreviewScene;
-
+/*
 	
 
 	// Get the Atlas to preview
@@ -31,18 +31,19 @@ SpriteAtlasEditorPtr( InSpriteAtlasEditor )
 		
 		PreviewScene->AddComponent( Billboard , FTransform::Identity );
 	}
+	*/
 }
 //-------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------
-UUE2DSpriteAtlas* FUE2DSpriteAtlasEditorViewportClient::GetAtlasCurrentlyEdited() const
+UUE2DSpriteArmature* FUE2DSpriteEditorViewportClient::GetArmatureCurrentlyEdited() const
 {
-	return SpriteAtlasEditorPtr.Pin()->GetAtlasCurrentlyEdited();
+	return SpriteEditorPtr.Pin()->GetArmatureCurrentlyEdited();
 }
 //-------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------
-void FUE2DSpriteAtlasEditorViewportClient::DrawCanvas( FViewport& InViewport , FSceneView& View , FCanvas& Canvas )
+void FUE2DSpriteEditorViewportClient::DrawCanvas( FViewport& InViewport , FSceneView& View , FCanvas& Canvas )
 {
 
 }

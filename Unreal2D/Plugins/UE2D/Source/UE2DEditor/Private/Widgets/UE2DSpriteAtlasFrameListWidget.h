@@ -5,8 +5,9 @@
 #include "Widgets/DeclarativeSyntaxSupport.h"
 #include "Widgets/SCompoundWidget.h"
 #include "ContentBrowserDelegates.h"
-#include "UE2DSpriteAtlas.h"
-#include "UE2DSpriteAtlasFrame.h"
+
+#include "Sprites/UE2DSpriteAtlas.h"
+#include "Sprites/UE2DSpriteAtlasFrame.h"
 
 #include "IContentBrowserSingleton.h"
 #include "ContentBrowserModule.h"

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UE2DSpriteAtlasComponent.h"
+#include "Components/UE2DSpriteAtlasComponent.h"
 #include "Rendering/UE2DSpriteAtlasRenderProxy.h"
 
 //------------------------------------------------------------------------------------------

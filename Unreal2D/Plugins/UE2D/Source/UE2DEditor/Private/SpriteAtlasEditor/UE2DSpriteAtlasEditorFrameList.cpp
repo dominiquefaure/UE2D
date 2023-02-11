@@ -1,7 +1,7 @@
 
 #include "UE2DSpriteAtlasEditorFrameList.h"
-#include "UE2DSpriteAtlas.h"
 #include "UE2DSpriteAtlasAssetEditor.h"
+#include "Sprites/UE2DSpriteAtlas.h"
 
 #include "IContentBrowserSingleton.h"
 #include "ContentBrowserModule.h"

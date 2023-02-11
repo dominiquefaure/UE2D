@@ -10,7 +10,7 @@ public:
 
 	/** Constructor */
 	FUE2DSpriteAtlasEditorCommands()
-		: TCommands<FUE2DSpriteAtlasEditorCommands>("SpriteAtlasEditor", NSLOCTEXT("Contexts", "SpriteAtlasEditor", "SpriteAtlas Editor"), NAME_None, FEditorStyle::GetStyleSetName())
+		: TCommands<FUE2DSpriteAtlasEditorCommands>("SpriteAtlasEditor", NSLOCTEXT("Contexts", "SpriteAtlasEditor", "SpriteAtlas Editor"), NAME_None, FAppStyle::GetAppStyleSetName())
 	{
 	}
 
