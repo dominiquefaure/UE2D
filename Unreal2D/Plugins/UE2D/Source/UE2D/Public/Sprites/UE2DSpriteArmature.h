@@ -9,22 +9,34 @@
 class UUE2DSprite;
 
 
+
 USTRUCT()
-struct FUE2DBone
+struct FUE2DArmatureBone
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY( EditAnywhere  )
+	UPROPERTY( EditAnywhere )
 	FString Name;
 
 	UPROPERTY( EditAnywhere )
-	int32 ParentIndex;
-
-
-	UPROPERTY( EditAnywhere )
-	FTransform LocalTransform;
+	int32 ParentBone;
 
 };
+
+
+USTRUCT()
+struct FUE2DArmatureAttachmentSlot
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY( EditAnywhere )
+	FString Name;
+
+	UPROPERTY( EditAnywhere )
+	int32 ParentBone;
+};
+
+
 
 
 /**
@@ -38,8 +50,23 @@ class UE2D_API UUE2DSpriteArmature : public UDataAsset
 
 public:
 
-
+	// the different bones that compose the armature
 	UPROPERTY( EditAnywhere )
-	TArray<struct FUE2DBone> Bones;
+	TArray<FUE2DArmatureBone> Bones;
+
+	// The different Slots used in the Armature
+	UPROPERTY( EditAnywhere )
+	TArray<FUE2DArmatureAttachmentSlot> Slots;
+
+	// get the Root Bone
+	const FUE2DArmatureBone* GetRoot()const;
+
+	// Get the Childs of the Given Bone
+	void GetChilds( uint32 BoneIndex , TArray<FUE2DArmatureBone*> ChildList );
+
+	// Get the Childs of the Given Bone
+	TArray<FUE2DArmatureBone*> GetChilds( uint32 BoneIndex );
+
+
 
 };

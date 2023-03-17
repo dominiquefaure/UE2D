@@ -1,38 +1,28 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Sprites/UE2DSpriteArmature.h"
+#include "Sprites/UE2DArmatureRuntimeBone.h"
 
 //------------------------------------------------------------------------------------------------
-const FUE2DArmatureBone* UUE2DSpriteArmature::GetRoot()const
+FUE2DArmatureRuntimeBone::FUE2DArmatureRuntimeBone()
 {
-	return &Bones[ 0 ];
+
 }
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-void UUE2DSpriteArmature::GetChilds( uint32 BoneIndex , TArray<FUE2DArmatureBone*> ChildList )
+FUE2DArmatureRuntimeBone::~FUE2DArmatureRuntimeBone()
 {
-	int t_BoneCount	=	Bones.Num();
 
-	for( int i = 0 ; i < t_BoneCount ; i ++ )
-	{
-		if( Bones[ i ].ParentBone == BoneIndex )
-		{
-			ChildList.Add( &Bones[ i ] );
-		}
-	}
 }
 //------------------------------------------------------------------------------------------------
 
+
 //------------------------------------------------------------------------------------------------
-TArray<FUE2DArmatureBone*> UUE2DSpriteArmature::GetChilds( uint32 BoneIndex )
+void FUE2DArmatureRuntimeBone::AddChild( FUE2DArmatureRuntimeBone* Child )
 {
-	TArray<FUE2DArmatureBone*> ChildList;
+	ChildBones.Add( Child );
 
-	GetChilds( BoneIndex , ChildList );
-
-	return ChildList;
+	Child->ParentBone										=	this;
 }
 //------------------------------------------------------------------------------------------------
-

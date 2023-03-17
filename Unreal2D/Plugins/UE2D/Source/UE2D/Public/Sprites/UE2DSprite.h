@@ -18,5 +18,5 @@ class UE2D_API UUE2DSprite : public UDataAsset
 public:
 
 	UPROPERTY( EditAnywhere )
-	class UUE2DSpriteArmature* Armature;
+	TSoftObjectPtr<UUE2DSpriteArmature> Armature;
 };
