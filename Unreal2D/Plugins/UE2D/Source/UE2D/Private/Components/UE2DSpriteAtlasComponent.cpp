@@ -3,7 +3,7 @@
 
 #include "Components/UE2DSpriteAtlasComponent.h"
 #include "Rendering/UE2DSpriteAtlasRenderProxy.h"
-
+/*
 //------------------------------------------------------------------------------------------
 // Sets default values for this component's properties
 UUE2DSpriteAtlasComponent::UUE2DSpriteAtlasComponent( const FObjectInitializer& ObjectInitializer )
@@ -29,6 +29,21 @@ UUE2DSpriteAtlasComponent::UUE2DSpriteAtlasComponent( const FObjectInitializer& 
 
 }
 //------------------------------------------------------------------------------------------
+*/
+
+//------------------------------------------------------------------------------------------
+UUE2DSpriteAtlasComponent::UUE2DSpriteAtlasComponent()
+{
+}
+//------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------
+UUE2DSpriteAtlasComponent::~UUE2DSpriteAtlasComponent()
+{
+
+}
+//------------------------------------------------------------------------------------------
+
 
 //------------------------------------------------------------------------------------------
 // Called when the game starts
@@ -93,71 +108,27 @@ void UUE2DSpriteAtlasComponent::UpdateMesh()
 }
 //------------------------------------------------------------------------------------------
 
+
 //------------------------------------------------------------------------------------------
-FPrimitiveSceneProxy* UUE2DSpriteAtlasComponent::CreateSceneProxy()
+void UUE2DSpriteAtlasComponent::BuildScene( FUE2DSpriteRenderCommandBuilder* Builder )
 {
-	FUE2DSpriteAtlasRenderSceneProxy* t_proxy				=	nullptr;
-	t_proxy													=	new FUE2DSpriteAtlasRenderSceneProxy( this );
-
-	return t_proxy;
-}
-//------------------------------------------------------------------------------------------
-
-
-//------------------------------------------------------------------------------------------
-void UUE2DSpriteAtlasComponent::CreateRenderState_Concurrent(FRegisterComponentContext* Context)
-{
-	Super::CreateRenderState_Concurrent(Context);
-
-	SendRenderDynamicData_Concurrent();
-}
-//------------------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------------------
-void UUE2DSpriteAtlasComponent::SendRenderDynamicData_Concurrent()
-{
-	Super::SendRenderDynamicData_Concurrent();
-
-	// Validate the scene proxy have been created
-	if( SceneProxy == nullptr )
+	if( ( Atlas == nullptr ) || ( !Atlas->IsValid() ) )
 	{
 		return;
 	}
 
-	if( (Atlas == nullptr) || (!Atlas->IsValid()) )
-	{
-		return;
-	}
-
-	if(! MaterialInstance->IsValidLowLevelFast() )
+	if( ! MaterialInstance->IsValidLowLevelFast() )
 	{
 		return;
 	}
 
 
-//	FUE2DSpriteRenderCommandBuilder CommandBuilder;
 	FTransform Transform;
 	UUE2DSpriteAtlasFrame* Frame							=	Atlas->GetFrameAt( FrameIndex );
 	UUE2DSpriteAtlasFrame* Frame2							=	Atlas->GetFrameAt( 0 );
 
-	CommandBuilder.Begin();
-	CommandBuilder.AddSprite( Frame , Color , Transform );
-
-	Transform.SetTranslation( FVector(80.0f , 0.0f , 100.0f ) );
-
-	CommandBuilder.AddSprite( Frame2 , Color , SecondFrameTransform );
-
-	CommandBuilder.Finish();
-
-	// Cast the Proxy
-	FUE2DSpriteAtlasRenderSceneProxy* t_proxy = (FUE2DSpriteAtlasRenderSceneProxy*)SceneProxy;
-
-	ENQUEUE_RENDER_COMMAND( FAsSpriteAtlasRenderSceneProxy_SendDynamicDatas )(
-		[t_proxy , Builder=this->CommandBuilder ]( FRHICommandListImmediate& RHICmdList )
-		{
-			t_proxy->SetDynamicData_RenderThread( Builder.GetCommands() , true );
-		}
-	);
+	Builder->AddSprite( Frame , Color , Transform );
+	Builder->AddSprite( Frame2 , Color , SecondFrameTransform );
 
 }
 //------------------------------------------------------------------------------------------

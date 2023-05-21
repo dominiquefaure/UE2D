@@ -3,7 +3,7 @@
 
 //--------------------------------------------------------------------------------------
 FUE2DSpriteRenderer::FUE2DSpriteRenderer( ERHIFeatureLevel::Type InFeatureLevel ):
-	VertexFactory( InFeatureLevel , "FASSpriteAtlasRenderSceneProxy" )
+	VertexFactory( InFeatureLevel , "FUE2DSpriteRenderer" )
 
 {
 

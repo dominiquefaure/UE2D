@@ -1,0 +1,50 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Components/MeshComponent.h"
+#include "Rendering/UE2DSpriteRenderCommandBuilder.h"
+
+#include "UE2DSceneComponent.generated.h"
+
+
+/**
+ * 
+ */
+UCLASS( ClassGroup=( UE2D ) , editinlinenew , meta=( BlueprintSpawnableComponent ) )
+class UE2D_API UUE2DSceneComponent : public UMeshComponent
+{
+	GENERATED_BODY()
+	
+public:
+	
+	UUE2DSceneComponent();
+	~UUE2DSceneComponent();
+
+
+
+// Overrides
+protected:
+
+	virtual void BeginPlay() override;
+	virtual void OnRegister() override;
+
+	// UPrimitiveComponent interface
+	virtual FPrimitiveSceneProxy* CreateSceneProxy() override;
+
+
+	// UActorComponent interface
+	virtual void SendRenderDynamicData_Concurrent() override;
+	virtual void CreateRenderState_Concurrent( FRegisterComponentContext* Context ) override;
+
+
+protected:
+
+	virtual void BuildScene( FUE2DSpriteRenderCommandBuilder* Builder );
+
+private:
+
+	FUE2DSpriteRenderCommandBuilder	CommandBuilder;
+
+};

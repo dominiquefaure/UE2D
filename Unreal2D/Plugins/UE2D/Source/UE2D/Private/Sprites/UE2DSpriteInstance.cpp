@@ -16,6 +16,12 @@ void UUE2DSpriteInstance::Initialize( UUE2DSprite* InSprite )
 //------------------------------------------------------------------------------------------------
 void UUE2DSpriteInstance::InitializeBones( UUE2DSpriteArmature* Armature )
 {
+	// handle the edge case Armature is not set
+	if( !Armature )
+	{
+		return;
+	}
+
 	// Create the different Runtime Bones
 	int BoneCount								=	Armature->Bones.Num();
 	for( int i = 0 ; i < BoneCount ; i ++ )

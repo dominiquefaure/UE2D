@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/MeshComponent.h"
+#include "UE2DSceneComponent.h"
+
 #include "Sprites/UE2DSpriteAtlas.h"
 #include "Rendering/UE2DSpriteRenderCommandBuilder.h"
 #include "UE2DSpriteAtlasComponent.generated.h"
@@ -13,13 +15,14 @@
  * 
  */
 UCLASS( ClassGroup=(UE2D), editinlinenew , meta=(BlueprintSpawnableComponent) )
-class UE2D_API UUE2DSpriteAtlasComponent : public UMeshComponent
+class UE2D_API UUE2DSpriteAtlasComponent : public UUE2DSceneComponent
 {
-	GENERATED_UCLASS_BODY()
-	
+	GENERATED_BODY()
+
 public:	
 	// Sets default values for this component's properties
 	UUE2DSpriteAtlasComponent();
+	~UUE2DSpriteAtlasComponent();
 
 	UPROPERTY(Category = Material, EditAnywhere, BlueprintReadWrite)
 	UMaterialInterface* NormalBlendMaterial;
@@ -54,11 +57,9 @@ public:
 
 	// UActorComponent interface
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	virtual void SendRenderDynamicData_Concurrent() override;
-	virtual void CreateRenderState_Concurrent(FRegisterComponentContext* Context) override;
 
-	// UPrimitiveComponent interface
-	virtual FPrimitiveSceneProxy* CreateSceneProxy() override;
+
+	virtual void BuildScene( FUE2DSpriteRenderCommandBuilder* Builder )override;
 
 
 	// Private Methods
@@ -74,7 +75,5 @@ private:
 
 	// Instance of the Material to avoid create it every tick in the record
 	UMaterialInterface* MaterialInstance;
-
-	FUE2DSpriteRenderCommandBuilder	CommandBuilder;
 
 };

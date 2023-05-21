@@ -1,12 +1,12 @@
-#include "UE2DSpriteAtlasRenderProxy.h"
+#include "UE2DSpriteRenderProxy.h"
 
 
 //------------------------------------------------------------------------------------------------
-FUE2DSpriteAtlasRenderSceneProxy::FUE2DSpriteAtlasRenderSceneProxy( const UUE2DSpriteAtlasComponent* InComponent , uint32 InMaxSpriteNum ):
+FUE2DSpriteRenderSceneProxy::FUE2DSpriteRenderSceneProxy( const UUE2DSceneComponent* InComponent , uint32 InMaxSpriteNum ):
 FPrimitiveSceneProxy(InComponent),
 OwnerComponent( InComponent ),
 MaxSpriteNum( InMaxSpriteNum ),
-VertexFactory(GetScene().GetFeatureLevel(), "FUE2DSpriteAtlasRenderSceneProxy"),
+//VertexFactory(GetScene().GetFeatureLevel(), "FUE2DSpriteRenderSceneProxy"),
 Renderer( GetScene().GetFeatureLevel() )
 {
 	// FPrimitiveSceneProxy
@@ -18,20 +18,20 @@ Renderer( GetScene().GetFeatureLevel() )
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-FUE2DSpriteAtlasRenderSceneProxy::~FUE2DSpriteAtlasRenderSceneProxy()
+FUE2DSpriteRenderSceneProxy::~FUE2DSpriteRenderSceneProxy()
 {
-	VertexBuffers.PositionVertexBuffer.ReleaseResource();
+/*	VertexBuffers.PositionVertexBuffer.ReleaseResource();
 	VertexBuffers.StaticMeshVertexBuffer.ReleaseResource();
 	VertexBuffers.ColorVertexBuffer.ReleaseResource();
 
 	IndexBuffer.ReleaseResource();
 	VertexFactory.ReleaseResource();
-
+*/
 }
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-SIZE_T FUE2DSpriteAtlasRenderSceneProxy::GetTypeHash() const
+SIZE_T FUE2DSpriteRenderSceneProxy::GetTypeHash() const
 {
 	static size_t UniquePointer;
 	return reinterpret_cast<size_t>(&UniquePointer);
@@ -39,26 +39,21 @@ SIZE_T FUE2DSpriteAtlasRenderSceneProxy::GetTypeHash() const
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-uint32 FUE2DSpriteAtlasRenderSceneProxy::GetMemoryFootprint() const
+uint32 FUE2DSpriteRenderSceneProxy::GetMemoryFootprint() const
 {
 	return ( sizeof( this ) + FPrimitiveSceneProxy::GetAllocatedSize() );
 }
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-void FUE2DSpriteAtlasRenderSceneProxy::CreateRenderThreadResources( )
+void FUE2DSpriteRenderSceneProxy::CreateRenderThreadResources( )
 {
-	IndexBuffer.NumSprites									=	MaxSpriteNum;
-	IndexBuffer.InitResource();
-
-	VertexBuffers.InitWithDummyData(&VertexFactory, MaxSpriteNum * 4 , 2);
-
 	Renderer.InitResources( 128 );
 }
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-FPrimitiveViewRelevance FUE2DSpriteAtlasRenderSceneProxy::GetViewRelevance( const FSceneView* View ) const
+FPrimitiveViewRelevance FUE2DSpriteRenderSceneProxy::GetViewRelevance( const FSceneView* View ) const
 {
 	FPrimitiveViewRelevance Result;
 
@@ -77,7 +72,7 @@ FPrimitiveViewRelevance FUE2DSpriteAtlasRenderSceneProxy::GetViewRelevance( cons
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<const FSceneView*>& Views, const FSceneViewFamily& ViewFamily, uint32 VisibilityMap, FMeshElementCollector& Collector ) const
+void FUE2DSpriteRenderSceneProxy::GetDynamicMeshElements( const TArray<const FSceneView*>& Views, const FSceneViewFamily& ViewFamily, uint32 VisibilityMap, FMeshElementCollector& Collector ) const
 {
 	const bool bWireframe = AllowDebugViewmodes() && ViewFamily.EngineShowFlags.Wireframe;
 	FMaterialRenderProxy* MaterialProxy						=	NULL;
@@ -104,24 +99,25 @@ void FUE2DSpriteAtlasRenderSceneProxy::GetDynamicMeshElements( const TArray<cons
 	{
 		if( VisibilityMap & (1 << ViewIndex) )
 		{
+			Renderer.Render( Collector , ViewIndex , IsLocalToWorldDeterminantNegative() , MaterialProxy );
+//			RenderBatches( Collector , ViewIndex , IsLocalToWorldDeterminantNegative() , MaterialProxy  );
 
-			Renderer.Render( Collector , ViewIndex , IsLocalToWorldDeterminantNegative() , MaterialProxy  );
+			/*
 
-/*	
-
-#if !(UE_BUILD_SHIPPING || UE_BUILD_TEST)
-			// Render bounds
-			RenderBounds( Collector.GetPDI( ViewIndex ), ViewFamily.EngineShowFlags, GetBounds(), IsSelected() );
-#endif
-*/
+			#if !(UE_BUILD_SHIPPING || UE_BUILD_TEST)
+						// Render bounds
+						RenderBounds( Collector.GetPDI( ViewIndex ), ViewFamily.EngineShowFlags, GetBounds(), IsSelected() );
+			#endif
+			*/
 		}
 	}
 
 }
 //------------------------------------------------------------------------------------------------
 
+
 //------------------------------------------------------------------------------------------------
-void FUE2DSpriteAtlasRenderSceneProxy::SetDynamicData_RenderThread( const TArray<FUE2DSpriteRenderCommand>& CommandList , bool MaterialListChanged )
+void FUE2DSpriteRenderSceneProxy::SetDynamicData_RenderThread( const TArray<FUE2DSpriteRenderCommand>& CommandList , bool MaterialListChanged )
 {
 	Renderer.ProcessCommands( CommandList );
 }
