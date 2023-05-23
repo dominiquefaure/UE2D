@@ -119,6 +119,7 @@ void FUE2DSpriteRenderSceneProxy::GetDynamicMeshElements( const TArray<const FSc
 //------------------------------------------------------------------------------------------------
 void FUE2DSpriteRenderSceneProxy::SetDynamicData_RenderThread( const TArray<FUE2DSpriteRenderCommand>& CommandList , bool MaterialListChanged )
 {
+	Renderer.SetDefaultMaterialProxy( OwnerComponent->GetMaterial( 0 )->GetRenderProxy() );
 	Renderer.ProcessCommands( CommandList );
 }
 //------------------------------------------------------------------------------------------------

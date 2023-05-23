@@ -27,6 +27,8 @@ public:
 	void InitResources( const uint32 InMaxSpriteCount );
 
 
+	void SetDefaultMaterialProxy( FMaterialRenderProxy* Material );
+
 	void ProcessCommands( const TArray<FUE2DSpriteRenderCommand>& CommandList );
 
 	// Perform the render operation
@@ -40,6 +42,12 @@ private:
 
 	void FlushVertexBuffers( uint32 VerticeCount );
 
+	// call when start to process the different Commands, reset internal values
+	void StartProcessCommands();
+
+
+	FMaterialRenderProxy* GetMaterialProxy( const UTexture* Texture );
+
 // properties
 private:
 
@@ -52,4 +60,14 @@ private:
 	FStaticMeshVertexBuffers		VertexBuffers;
 
 	TArray<FUE2DSpriteRenderBatch>	RenderBatches;
+
+
+	// Temp variables used to define the Batches content
+	int								CurrentIndexBufferCount;
+	int								VertexBufferCount;
+
+
+	FMaterialRenderProxy*			DefaultMaterialProxy;
+
+	TMap<const UTexture* , FMaterialRenderProxy*> MaterialMap;
 };

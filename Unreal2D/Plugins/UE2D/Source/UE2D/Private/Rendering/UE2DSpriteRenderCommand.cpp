@@ -16,9 +16,9 @@ FUE2DSpriteRenderCommand::~FUE2DSpriteRenderCommand()
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-void FUE2DSpriteRenderCommand::Set( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform , FColor InColor , uint32 InMaterialIndex , float DeltaY )
+void FUE2DSpriteRenderCommand::Set( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform , FColor InColor , UTexture* InTexture , float DeltaY )
 {
-	MaterialIndex	=	InMaterialIndex;
+	Texture			=	InTexture;
 	Color			=	InColor;
 
 	ComputeVertices( InFrame  , InTransform , DeltaY );

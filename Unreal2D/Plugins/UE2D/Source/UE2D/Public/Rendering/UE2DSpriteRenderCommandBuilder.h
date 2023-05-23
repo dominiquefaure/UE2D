@@ -30,14 +30,6 @@ public:
 
 	const TArray<FUE2DSpriteRenderCommand>& GetCommands()const;
 
-public:
-
-// Methods
-private:
-
-	// Get the index of hte material that represent this Texture
-	int GetMaterialIndex( UTexture* InTexture );
-
 
 private:
 

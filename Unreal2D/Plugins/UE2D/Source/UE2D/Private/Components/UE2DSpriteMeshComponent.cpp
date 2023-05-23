@@ -85,22 +85,28 @@ void UUE2DSpriteMeshComponent::BuildScene( FUE2DSpriteRenderCommandBuilder* Buil
 	{
 		return;
 	}
+	if( ( Atlas2 == nullptr ) || ( !Atlas2->IsValid() ) )
+	{
+		return;
+	}
 
 	if( ! MaterialInstance->IsValidLowLevelFast() )
 	{
 		return;
 	}
 
-
-	//	FUE2DSpriteRenderCommandBuilder CommandBuilder;
 	FTransform Transform;
 	UUE2DSpriteAtlasFrame* Frame							=	Atlas->GetFrameAt( 0 );
-	UUE2DSpriteAtlasFrame* Frame2							=	Atlas->GetFrameAt( 1 );
+	UUE2DSpriteAtlasFrame* Frame2							=	Atlas2->GetFrameAt( 0 );
 
 	Builder->AddSprite( Frame , FColor::White , Transform );
 
-	Transform.SetTranslation( FVector( 80.0f , 0.0f , 100.0f ) );
 
+	Transform.SetTranslation( FVector( 80.0f , 0.0f , 100.0f ) );
 	Builder->AddSprite( Frame2 , FColor::Blue , Transform );
+
+
+	Builder->AddSprite( Frame , FColor::Yellow , Transform );
+
 }
 //------------------------------------------------------------------------------------------

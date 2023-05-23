@@ -45,7 +45,7 @@ void FUE2DSpriteRenderCommandBuilder::AddSprite( UUE2DSpriteAtlasFrame* InFrame 
 	{
 		FUE2DSpriteRenderCommand Command;
 
-		Command.Set( InFrame , InTransform , InColor , GetMaterialIndex( InFrame->Texture ) , CommandCount * DeltaYCoef );
+		Command.Set( InFrame , InTransform , InColor , InFrame->Texture , CommandCount * DeltaYCoef );
 
 		Commands.Add( Command );
 		CommandCount ++;
@@ -53,11 +53,3 @@ void FUE2DSpriteRenderCommandBuilder::AddSprite( UUE2DSpriteAtlasFrame* InFrame 
 }
 //------------------------------------------------------------------------------
 
-
-//------------------------------------------------------------------------------
-int FUE2DSpriteRenderCommandBuilder::GetMaterialIndex( UTexture* InTexture )
-{
-	// Always return 0 at the moment
-	return 0;
-}
-//------------------------------------------------------------------------------

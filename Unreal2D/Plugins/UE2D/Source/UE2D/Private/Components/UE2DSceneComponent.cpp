@@ -62,11 +62,6 @@ void UUE2DSceneComponent::SendRenderDynamicData_Concurrent()
 	{
 		return;
 	}
-/*
-	RenderBuilder.Begin();
-	BuildScene( &RenderBuilder );
-	RenderBuilder.Finish();
-*/
 
 	CommandBuilder.Begin();
 	BuildScene( &CommandBuilder );
@@ -75,13 +70,6 @@ void UUE2DSceneComponent::SendRenderDynamicData_Concurrent()
 	// Cast the Proxy
 	FUE2DSpriteRenderSceneProxy* t_proxy = (FUE2DSpriteRenderSceneProxy*)SceneProxy;
 
-/*	ENQUEUE_RENDER_COMMAND(FUE2DSpriteRenderProxy_SendDynamicDatas)(
-		[t_proxy , Builder=this->RenderBuilder]( FRHICommandListImmediate& RHICmdList )
-		{
-			t_proxy->SetDynamicData_RenderThread( Builder );
-		}
-	);
-*/
 
 	ENQUEUE_RENDER_COMMAND( FUE2DSpriteRenderProxy_SendDynamicDatas )(
 		[t_proxy , Builder=this->CommandBuilder]( FRHICommandListImmediate& RHICmdList )

@@ -45,9 +45,6 @@ public:
 	UFUNCTION( BlueprintCallable  )
 	void SetFrame( int32 InFrameIndex );
 
-	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
-	FTransform SecondFrameTransform;
-
 protected:
 
 	virtual void BeginPlay() override;

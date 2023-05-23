@@ -20,6 +20,7 @@ FUE2DSpriteRenderer::~FUE2DSpriteRenderer()
 	IndexBuffer.ReleaseResource();
 	VertexFactory.ReleaseResource();
 
+	MaterialMap.Empty();
 }
 //--------------------------------------------------------------------------------------
 
@@ -38,10 +39,16 @@ void FUE2DSpriteRenderer::InitResources( const uint32 InMaxSpriteCount )
 //--------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------
+void FUE2DSpriteRenderer::SetDefaultMaterialProxy( FMaterialRenderProxy* Material )
+{
+	DefaultMaterialProxy				=	Material;
+}
+//--------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
 void FUE2DSpriteRenderer::ProcessCommands( const TArray<FUE2DSpriteRenderCommand>& CommandList )
 {
-	// Clear the render batch list
-	RenderBatches.Empty();
+	StartProcessCommands();
 
 	uint32 VertexIndex					=	0;
 
@@ -52,31 +59,6 @@ void FUE2DSpriteRenderer::ProcessCommands( const TArray<FUE2DSpriteRenderCommand
 	}
 
 	FlushVertexBuffers( VertexIndex );
-
-	FUE2DSpriteRenderBatch RenderBatch;
-	RenderBatch.FirstIndex		=	0;
-	RenderBatch.MaxIndex		=	5;
-	RenderBatch.NumPrimitives	=	2;
-	RenderBatch.MinVertexIndex	=	0;
-	RenderBatch.MaxVertexIndex	=	3;
-
-	RenderBatches.Add( RenderBatch );
-
-	FUE2DSpriteRenderBatch RenderBatch2;
-	RenderBatch2.FirstIndex		=	6;
-	RenderBatch2.MaxIndex		=	11;
-	RenderBatch2.NumPrimitives	=	2;
-	RenderBatch2.MinVertexIndex	=	4;
-	RenderBatch2.MaxVertexIndex	=	7;
-
-	RenderBatches.Add( RenderBatch2 );
-}
-//--------------------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------------------
-void FUE2DSpriteRenderer::ProcessCommand( const FUE2DSpriteRenderCommand& Command , uint32& VertexIndex )
-{
-	Command.WriteToVertexBuffer( VertexBuffers , VertexIndex );
 }
 //--------------------------------------------------------------------------------------
 
@@ -132,8 +114,8 @@ void FUE2DSpriteRenderer::Render( FMeshElementCollector& Collector , int ViewInd
 		// Draw the mesh. 
 		FMeshBatch& Mesh				=	Collector.AllocateMesh();
 		Mesh.VertexFactory				=	&VertexFactory;
-//		Mesh.MaterialRenderProxy		=	RenderBatch->MaterialProxy;
-		Mesh.MaterialRenderProxy		=	TmpMaterial;
+		Mesh.MaterialRenderProxy		=	RenderBatch->MaterialProxy;
+//		Mesh.MaterialRenderProxy		=	TmpMaterial;
 		Mesh.ReverseCulling				=	ReverseCulling;
 		Mesh.CastShadow					=	false;
 		Mesh.DepthPriorityGroup			=	SDPG_World;
@@ -153,3 +135,62 @@ void FUE2DSpriteRenderer::Render( FMeshElementCollector& Collector , int ViewInd
 }
 //--------------------------------------------------------------------------------------
 
+
+//--------------------------------------------------------------------------------------
+void FUE2DSpriteRenderer::StartProcessCommands()
+{
+	// Clear the render batch list
+	RenderBatches.Empty();
+
+	CurrentIndexBufferCount					=	0;
+	VertexBufferCount						=	0;
+}
+//--------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
+void FUE2DSpriteRenderer::ProcessCommand( const FUE2DSpriteRenderCommand& Command , uint32& VertexIndex )
+{
+	// Always create a new Batch at the moment
+	FUE2DSpriteRenderBatch RenderBatch;
+
+	RenderBatch.FirstIndex					=	CurrentIndexBufferCount;
+	RenderBatch.MinVertexIndex				=	VertexIndex;
+
+	const UTexture* Texture					=	Command.GetTexture();
+	RenderBatch.MaterialProxy				=	GetMaterialProxy( Texture );
+
+	Command.WriteToVertexBuffer( VertexBuffers , VertexIndex );
+
+	// increase the number of Elements used in the index buffer
+	CurrentIndexBufferCount					+=	6;
+
+	RenderBatch.MaxIndex					=	CurrentIndexBufferCount;
+	RenderBatch.NumPrimitives				=	2;
+	RenderBatch.MaxVertexIndex				=	VertexIndex - 1;
+
+	// Add the Batch to the List
+	RenderBatches.Add( RenderBatch );
+}
+//--------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
+FMaterialRenderProxy* FUE2DSpriteRenderer::GetMaterialProxy( const UTexture* Texture )
+{
+	FMaterialRenderProxy** Result						=	MaterialMap.Find( Texture );
+
+	if( Result )
+	{
+		return *Result;
+	}
+
+	FMaterialRenderProxy* NewProxy						=	new FColoredTexturedMaterialRenderProxy( DefaultMaterialProxy ,
+																									FLinearColor::White ,
+																									NAME_Color ,
+																									Texture , FName( TEXT( "SpriteTexture" ) ) );
+
+
+	MaterialMap.Add( Texture , NewProxy );
+
+	return NewProxy;
+}
+//--------------------------------------------------------------------------------------

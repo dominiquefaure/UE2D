@@ -37,6 +37,8 @@ public:
 	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
 	TObjectPtr<class UUE2DSpriteAtlas> Atlas;
 
+	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
+		TObjectPtr<class UUE2DSpriteAtlas> Atlas2;
 
 // Overrides
 protected:

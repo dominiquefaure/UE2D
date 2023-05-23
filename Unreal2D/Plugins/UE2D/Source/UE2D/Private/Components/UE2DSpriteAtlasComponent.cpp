@@ -2,7 +2,7 @@
 
 
 #include "Components/UE2DSpriteAtlasComponent.h"
-#include "Rendering/UE2DSpriteAtlasRenderProxy.h"
+
 /*
 //------------------------------------------------------------------------------------------
 // Sets default values for this component's properties
@@ -122,13 +122,9 @@ void UUE2DSpriteAtlasComponent::BuildScene( FUE2DSpriteRenderCommandBuilder* Bui
 		return;
 	}
 
-
 	FTransform Transform;
 	UUE2DSpriteAtlasFrame* Frame							=	Atlas->GetFrameAt( FrameIndex );
-	UUE2DSpriteAtlasFrame* Frame2							=	Atlas->GetFrameAt( 0 );
 
 	Builder->AddSprite( Frame , Color , Transform );
-	Builder->AddSprite( Frame2 , Color , SecondFrameTransform );
-
 }
 //------------------------------------------------------------------------------------------

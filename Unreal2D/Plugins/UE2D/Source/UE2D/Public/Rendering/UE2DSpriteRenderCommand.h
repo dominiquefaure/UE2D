@@ -22,8 +22,12 @@ public:
 	~FUE2DSpriteRenderCommand();
 
 
-	void Set( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform , FColor InColor , uint32 MaterialIndex , float DeltaY );
+	const UTexture* GetTexture()const
+	{
+		return Texture;
+	}
 
+	void Set( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform , FColor InColor , UTexture* InTexture , float DeltaY );
 
 	void WriteToVertexBuffer( FStaticMeshVertexBuffers& InVertexBuffers , uint32& VertexIndex )const;
 
@@ -34,13 +38,13 @@ private:
 // Fields
 private:
 
-	// list of unique vertices
-	TArray<FUE2DSpriteVertex>	Vertices;
+	// the Texture to use
+	UTexture*					Texture;
 
 	// Color to Apply
 	FColor						Color;
 
-	// Index of hte Material to use
-	uint32						MaterialIndex;
+	// list of unique vertices
+	TArray<FUE2DSpriteVertex>	Vertices;
 
 };
