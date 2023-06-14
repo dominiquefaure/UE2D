@@ -6,7 +6,6 @@ FUE2DSpriteRenderer::FUE2DSpriteRenderer( ERHIFeatureLevel::Type InFeatureLevel 
 	VertexFactory( InFeatureLevel , "FUE2DSpriteRenderer" )
 
 {
-
 }
 //--------------------------------------------------------------------------------------
 
@@ -34,7 +33,6 @@ void FUE2DSpriteRenderer::InitResources( const uint32 InMaxSpriteCount )
 	IndexBuffer.InitResource();
 
 	VertexBuffers.InitWithDummyData( &VertexFactory , MaxSpriteCount * 4 , 2 );
-
 }
 //--------------------------------------------------------------------------------------
 

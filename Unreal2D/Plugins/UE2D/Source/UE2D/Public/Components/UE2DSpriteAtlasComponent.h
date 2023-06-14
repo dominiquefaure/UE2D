@@ -24,9 +24,6 @@ public:
 	UUE2DSpriteAtlasComponent();
 	~UUE2DSpriteAtlasComponent();
 
-	UPROPERTY(Category = Material, EditAnywhere, BlueprintReadWrite)
-	UMaterialInterface* NormalBlendMaterial;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite , Category = SpriteAtlas )
 	TObjectPtr<class UUE2DSpriteAtlas> Atlas;
 
@@ -69,8 +66,5 @@ private:
 private:
 
 	bool IsDirty;
-
-	// Instance of the Material to avoid create it every tick in the record
-	UMaterialInterface* MaterialInstance;
 
 };

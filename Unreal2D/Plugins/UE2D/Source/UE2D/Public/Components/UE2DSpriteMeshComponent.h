@@ -30,15 +30,11 @@ public:
 	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = Sprites )
 	TObjectPtr<class UUE2DSprite> Sprite;
 
-
-	UPROPERTY( Category = Material , EditAnywhere , BlueprintReadWrite )
-	UMaterialInterface* NormalBlendMaterial;
-
 	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
 	TObjectPtr<class UUE2DSpriteAtlas> Atlas;
 
 	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
-		TObjectPtr<class UUE2DSpriteAtlas> Atlas2;
+	TObjectPtr<class UUE2DSpriteAtlas> Atlas2;
 
 // Overrides
 protected:
@@ -62,8 +58,5 @@ private:
 private:
 
 	TObjectPtr<class UUE2DSpriteInstance> SpriteInstance;
-
-	// Instance of the Material to avoid create it every tick in the record
-	UMaterialInterface* MaterialInstance;
 
 };

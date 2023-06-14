@@ -95,7 +95,7 @@ void UUE2DSpriteAtlasComponent::UpdateMesh()
 
 		MarkRenderDynamicDataDirty();
 	}
-
+/*
 	if( ( Atlas != nullptr ) && ( Atlas->IsValid()) && ( MaterialInstance == nullptr) )
 	{
 		UMaterialInstanceDynamic* DynamicInstance			=	UMaterialInstanceDynamic::Create( NormalBlendMaterial, GetTransientPackage());
@@ -104,7 +104,7 @@ void UUE2DSpriteAtlasComponent::UpdateMesh()
 
 		SetMaterial( 0 , DynamicInstance  );
 	}
-
+*/
 }
 //------------------------------------------------------------------------------------------
 
@@ -113,11 +113,6 @@ void UUE2DSpriteAtlasComponent::UpdateMesh()
 void UUE2DSpriteAtlasComponent::BuildScene( FUE2DSpriteRenderCommandBuilder* Builder )
 {
 	if( ( Atlas == nullptr ) || ( !Atlas->IsValid() ) )
-	{
-		return;
-	}
-
-	if( ! MaterialInstance->IsValidLowLevelFast() )
 	{
 		return;
 	}

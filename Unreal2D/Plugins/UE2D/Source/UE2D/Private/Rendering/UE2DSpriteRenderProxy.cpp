@@ -88,7 +88,7 @@ void FUE2DSpriteRenderSceneProxy::GetDynamicMeshElements( const TArray<const FSc
 	}
 	else
 	{
-	//	if( RenderBatch.Material->GetName() != TEXT( "None" ) )
+		if( OwnerComponent->GetMaterial( 0 ) != nullptr )
 		{
 		//	MaterialProxy	=	RenderBatch.Material->GetRenderProxy();
 			MaterialProxy	=	OwnerComponent->GetMaterial( 0 )->GetRenderProxy();
@@ -119,7 +119,11 @@ void FUE2DSpriteRenderSceneProxy::GetDynamicMeshElements( const TArray<const FSc
 //------------------------------------------------------------------------------------------------
 void FUE2DSpriteRenderSceneProxy::SetDynamicData_RenderThread( const TArray<FUE2DSpriteRenderCommand>& CommandList , bool MaterialListChanged )
 {
-	Renderer.SetDefaultMaterialProxy( OwnerComponent->GetMaterial( 0 )->GetRenderProxy() );
-	Renderer.ProcessCommands( CommandList );
+	if( OwnerComponent->GetMaterial( 0 ) != nullptr )
+	{
+		Renderer.SetDefaultMaterialProxy( OwnerComponent->GetMaterial( 0 )->GetRenderProxy() );
+		Renderer.ProcessCommands( CommandList );
+	}
+
 }
 //------------------------------------------------------------------------------------------------

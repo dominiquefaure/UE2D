@@ -43,8 +43,17 @@ protected:
 
 	virtual void BuildScene( FUE2DSpriteRenderCommandBuilder* Builder );
 
+
+private:
+
+	// Load the Different Materials that are required
+	void InitializeMaterials();
+
 private:
 
 	FUE2DSpriteRenderCommandBuilder	CommandBuilder;
+
+protected:
+	TObjectPtr<UMaterialInterface> DefaultSpriteMaterial;
 
 };
