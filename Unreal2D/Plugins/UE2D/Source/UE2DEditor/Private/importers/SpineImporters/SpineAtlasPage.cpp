@@ -30,7 +30,7 @@ void FSpineAtlasPage::Parse( FSpineAtlasReader& Reader )
 
 
 //-------------------------------------------------------------------------------------------
-void FSpineAtlasPage::Apply( UUE2DSpriteAtlas* DestAtlas )
+void FSpineAtlasPage::Apply( UUE2DTextureAtlas* DestAtlas )
 {
 
 	int TextureIndex	=	0;

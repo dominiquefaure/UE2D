@@ -39,7 +39,7 @@ void FUE2DSpriteRenderCommandBuilder::Finish()
 
 
 //------------------------------------------------------------------------------
-void FUE2DSpriteRenderCommandBuilder::AddSprite( UUE2DSpriteAtlasFrame* InFrame , FColor InColor , FTransform InTransform )
+void FUE2DSpriteRenderCommandBuilder::AddSprite( UUE2DTextureAtlasFrame* InFrame , FColor InColor , FTransform InTransform )
 {
 	if( InFrame != nullptr )
 	{

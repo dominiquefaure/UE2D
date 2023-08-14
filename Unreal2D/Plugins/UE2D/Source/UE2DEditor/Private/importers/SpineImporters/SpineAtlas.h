@@ -4,7 +4,7 @@
 
 #include "SpineAtlasPage.h"
 #include "SpineAtlasRegion.h"
-#include "Sprites/UE2DSpriteAtlas.h"
+#include "TextureAtlas/UE2DTextureAtlas.h"
 
 
 class FSpineAtlas
@@ -15,7 +15,7 @@ public:
 	void Load( const FString& InFilepath );
 
 
-	void Apply( UUE2DSpriteAtlas* DestAtlas );
+	void Apply( UUE2DTextureAtlas* DestAtlas );
 
 private:
 

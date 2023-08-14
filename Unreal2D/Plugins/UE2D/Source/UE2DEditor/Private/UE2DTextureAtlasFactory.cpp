@@ -1,20 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UE2DSpriteArmatureFactory.h"
+#include "UE2DTextureAtlasFactory.h"
 #include "AssetTypeCategories.h" //The asset type categories will let us access the various asset categories inside the Editor
 
-#include "Sprites/Armature/UE2DSpriteArmature.h"
+#include "TextureAtlas/UE2DTextureAtlas.h"
 
 
 //---------------------------------------------------------------------------------------------
-UUE2DSpriteArmatureFactory::UUE2DSpriteArmatureFactory(  )
+UUE2DTextureAtlasFactory::UUE2DTextureAtlasFactory(  )
 {
 	bCreateNew												=	true;
 	bEditAfterNew											=	true;
 
 	//Configure the class that this factory creates
-	SupportedClass											=	UUE2DSpriteArmature::StaticClass();
+	SupportedClass											=	UUE2DTextureAtlas::StaticClass();
 }
 //---------------------------------------------------------------------------------------------
 /*
@@ -28,18 +28,18 @@ return EAssetTypeCategories::Blueprint;
 */
 
 //---------------------------------------------------------------------------------------------
-bool UUE2DSpriteArmatureFactory::ShouldShowInNewMenu() const
+bool UUE2DTextureAtlasFactory::ShouldShowInNewMenu() const
 {
 	return true;
 }
 //---------------------------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------------------------
-UObject* UUE2DSpriteArmatureFactory::FactoryCreateNew( UClass* InClass, UObject* InParent, FName InName, EObjectFlags Flags, UObject* Context, FFeedbackContext* Warn )
+UObject* UUE2DTextureAtlasFactory::FactoryCreateNew( UClass* InClass, UObject* InParent, FName InName, EObjectFlags Flags, UObject* Context, FFeedbackContext* Warn )
 {
 	//Create the editor asset 
-	auto NewSpriteArmature							=	NewObject<UUE2DSpriteArmature>(InParent, InClass, InName, Flags);
-	return NewSpriteArmature;
+	auto NewTextureAtlas							=	NewObject<UUE2DTextureAtlas>(InParent, InClass, InName, Flags);
+	return NewTextureAtlas;
 }
 //---------------------------------------------------------------------------------------------
 

@@ -15,9 +15,7 @@ class FUE2DSpriteEditorViewportClient : public FEditorViewportClient // , public
 public:
 
 	/** Constructor */
-	FUE2DSpriteEditorViewportClient( TWeakPtr<FUE2DSpriteEditor> InSpriteAtlasEditor , TWeakPtr<class SEditorViewport> InSpriteEditorViewportPtr );
-//	FUE2DSpriteAtlasEditorViewportClient( TWeakPtr<FUE2DSpriteAtlasAssetEditor> InSpriteAtlasEditor , TWeakPtr<SUE2DSpriteAtlasEditorViewport> InSpriteAtlasEditorViewport );
-//	~FUE2DSpriteAtlasEditorViewportClient();
+	FUE2DSpriteEditorViewportClient( TWeakPtr<FUE2DSpriteEditor> InSpriteEditor , TWeakPtr<class SEditorViewport> InSpriteEditorViewportPtr );
 
 	virtual void DrawCanvas( FViewport& InViewport , FSceneView& View , FCanvas& Canvas ) override;
 

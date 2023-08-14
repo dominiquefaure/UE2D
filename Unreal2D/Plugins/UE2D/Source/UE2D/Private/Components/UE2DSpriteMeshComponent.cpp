@@ -92,8 +92,8 @@ void UUE2DSpriteMeshComponent::BuildScene( FUE2DSpriteRenderCommandBuilder* Buil
 	}
 
 	FTransform Transform;
-	UUE2DSpriteAtlasFrame* Frame							=	Atlas->GetFrameAt( 0 );
-	UUE2DSpriteAtlasFrame* Frame2							=	Atlas2->GetFrameAt( 0 );
+	UUE2DTextureAtlasFrame* Frame							=	Atlas->GetFrameAt( 0 );
+	UUE2DTextureAtlasFrame* Frame2							=	Atlas2->GetFrameAt( 0 );
 
 	Builder->AddSprite( Frame , FColor::White , Transform );
 

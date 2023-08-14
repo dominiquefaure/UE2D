@@ -4,12 +4,12 @@
 
 #include "IAssetTools.h"
 #include "AssetToolsModule.h"
-#include "UE2DSpriteAtlasTypeActions.h"
+#include "UE2DTextureAtlasTypeActions.h"
 #include "UE2DSpriteArmatureTypeActions.h"
 
-#include "Components/UE2DSpriteAtlasComponent.h"
-#include "Customization/SpriteAtlasComponentDetailsCustomization.h"
-#include "Customization/UE2DSpriteAtlasFrameThumbnailRenderer.h"
+#include "Components/UE2DTextureAtlasComponent.h"
+#include "Customization/UE2DTextureAtlasComponentDetailsCustomization.h"
+#include "Customization/UE2DTextureAtlasFrameThumbnailRenderer.h"
 
 
 #define LOCTEXT_NAMESPACE "FUE2DEditorModule"
@@ -23,8 +23,8 @@ void FUE2DEditorModule::StartupModule()
 	EAssetTypeCategories::Type gameAssetCategory = AssetTools.RegisterAdvancedAssetCategory(FName(TEXT("UE2D")), FText::FromName(TEXT("UE2D")));
 
 	// Register Sprite Atlas Actions
-	TSharedPtr<IAssetTypeActions> SpriteAtlasActionType = MakeShareable( new FUE2DSpriteAtlasTypeActions( gameAssetCategory ) );
-	AssetTools.RegisterAssetTypeActions( SpriteAtlasActionType.ToSharedRef() );
+	TSharedPtr<IAssetTypeActions> TextureAtlasActionType = MakeShareable( new FUE2DTextureAtlasTypeActions( gameAssetCategory ) );
+	AssetTools.RegisterAssetTypeActions( TextureAtlasActionType.ToSharedRef() );
 
 	// Register Sprite Armature Actions
 	TSharedPtr<FUE2DSpriteArmatureTypeActions> SpriteArmatureActionType = MakeShareable(new FUE2DSpriteArmatureTypeActions(gameAssetCategory));
@@ -47,7 +47,7 @@ void FUE2DEditorModule::ShutdownModule()
 		// unregister properties when the module is shutdown
 		FPropertyEditorModule& PropertyModule = FModuleManager::GetModuleChecked<FPropertyEditorModule>("PropertyEditor");
 		
-		PropertyModule.UnregisterCustomClassLayout("UUE2DSpriteAtlasComponent");
+		PropertyModule.UnregisterCustomClassLayout("UUE2DTextureAtlasComponent");
 
 		PropertyModule.NotifyCustomizationModuleChanged();
 	}
@@ -58,14 +58,14 @@ void FUE2DEditorModule::ShutdownModule()
 void FUE2DEditorModule::OnPostEngineInit()
 {
 	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
-	PropertyModule.RegisterCustomClassLayout(UUE2DSpriteAtlasComponent::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FSpriteAtlasComponentDetailsCustomization::MakeInstance));
+	PropertyModule.RegisterCustomClassLayout(UUE2DTextureAtlasComponent::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FTextureAtlasComponentDetailsCustomization::MakeInstance));
 
 
 	PropertyModule.NotifyCustomizationModuleChanged();
 
 
 	// Register the thumbnail renderers
-	UThumbnailManager::Get().RegisterCustomRenderer( UUE2DSpriteAtlasFrame::StaticClass() , UUE2DSpriteAtlasFrameThumbnailRenderer::StaticClass() );
+	UThumbnailManager::Get().RegisterCustomRenderer( UUE2DTextureAtlasFrame::StaticClass() , UUE2DTextureAtlasFrameThumbnailRenderer::StaticClass() );
 
 
 }

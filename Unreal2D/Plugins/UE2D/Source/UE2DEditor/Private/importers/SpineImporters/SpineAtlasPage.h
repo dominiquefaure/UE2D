@@ -5,7 +5,7 @@
 #include "SpineAtlasRegion.h"
 
 #include "SpineAtlasReader.h"
-#include "Sprites/UE2DSpriteAtlas.h"
+#include "TextureAtlas/UE2DTextureAtlas.h"
 
 
 class FSpineAtlasPage
@@ -15,7 +15,7 @@ public:
 
 	void Parse( FSpineAtlasReader& Reader );
 
-	void Apply( UUE2DSpriteAtlas* DestAtlas );
+	void Apply( UUE2DTextureAtlas* DestAtlas );
 
 
 private:

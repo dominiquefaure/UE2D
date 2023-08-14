@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 
-#include "Sprites/UE2DSpriteArmature.h"
+#include "Sprites/Armature/UE2DSpriteArmature.h"
 #include "UE2DSprite.generated.h"
 
 /**

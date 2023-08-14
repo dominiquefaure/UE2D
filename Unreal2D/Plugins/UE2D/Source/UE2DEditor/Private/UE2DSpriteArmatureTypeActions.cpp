@@ -21,12 +21,12 @@ void FUE2DSpriteArmatureTypeActions::OpenAssetEditor(const TArray<UObject*>& InO
 
 	for (auto ObjIt = InObjects.CreateConstIterator(); ObjIt; ++ObjIt)
 	{
-		auto SpriteAtlas = Cast<UUE2DSpriteArmature>(*ObjIt);
+		auto TextureAtlas = Cast<UUE2DSpriteArmature>(*ObjIt);
 
-		if (SpriteAtlas != nullptr)
+		if (TextureAtlas != nullptr)
 		{
 			TSharedRef<FUE2DSpriteEditor> EditorToolkit = MakeShareable(new FUE2DSpriteEditor());
-			EditorToolkit->Initialize(SpriteAtlas, Mode, EditWithinLevelEditor);
+			EditorToolkit->Initialize(TextureAtlas, Mode, EditWithinLevelEditor);
 		}
 	}
 

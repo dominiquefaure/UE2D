@@ -8,21 +8,22 @@
 #include "Editor/PropertyEditor/Public/PropertyEditorDelegates.h"
 
 
-#include "Sprites/Armature/UE2DSpriteArmature.h"
+#include "TextureAtlas/UE2DTextureAtlas.h"
 #include "Toolkits/AssetEditorToolkit.h"
 
-class SUE2DSpriteEditorViewport;
+class SUE2DTextureAtlasEditorViewport;
+class SUE2DTextureAtlasEditorFrameList;
 
 /**
  * 
  */
-class FUE2DSpriteEditor : public FAssetEditorToolkit // , public FGCObject
+class FUE2DTextureAtlasAssetEditor : public FAssetEditorToolkit // , public FGCObject
 {
 	
 public:
 
-	FUE2DSpriteEditor();
-	//   virtual ~FUE2DSpriteEditor();
+	FUE2DTextureAtlasAssetEditor();
+	//   virtual ~FE2DTextureAtlasAssetEditor();
 
 	/**
 	* Initializes the editor tool kit.
@@ -31,7 +32,7 @@ public:
 	* @param InMode The mode to create the toolkit in.
 	* @param InToolkitHost The toolkit host.
 	*/
-	void Initialize(UUE2DSpriteArmature* Armature, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost);
+	void Initialize(UUE2DTextureAtlas* Atlas, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost);
 
 
 
@@ -58,8 +59,8 @@ public:
 
 public:
 
-	// The Armature edited, needed by Viewport
-	UUE2DSpriteArmature* GetArmatureCurrentlyEdited() const { return SpriteArmature; }
+	// The Atlas edited, needed by Viewport
+	UUE2DTextureAtlas* GetAtlasCurrentlyEdited() const { return TextureAtlas; }
 
 
 
@@ -79,19 +80,25 @@ protected:
 
 	TSharedRef<SDockTab> SpawnTab_Viewport(const FSpawnTabArgs& Args);
 	TSharedRef<SDockTab> SpawnTab_Details(const FSpawnTabArgs& Args);
+	TSharedRef<SDockTab> SpawnTab_FrameList(const FSpawnTabArgs& Args);
 
 
+	void ImportAtlas();
+	void AddFrame();
+	void GenerateFrames();
 // properties
 private:
 
-	// pointer to the SpriteArmature to edit
-	UUE2DSpriteArmature* SpriteArmature;
+	// pointer to the TextureAtlas to edit
+	UUE2DTextureAtlas* TextureAtlas;
 
 	/** Property View */
 	TSharedPtr<class IDetailsView> DetailsView;
 
 	/** Viewport */
-	TSharedPtr<SUE2DSpriteEditorViewport> SpriteViewport;
+	TSharedPtr<SUE2DTextureAtlasEditorViewport> AtlasViewport;
 
+	/** Widget that display the List of Frames created for the Atlas currently Edited */
+	TSharedPtr<SUE2DTextureAtlasEditorFrameList> FrameListWidget;
 
 };

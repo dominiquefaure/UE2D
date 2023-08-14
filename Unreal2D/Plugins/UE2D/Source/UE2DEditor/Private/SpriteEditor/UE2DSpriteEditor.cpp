@@ -94,7 +94,7 @@ void FUE2DSpriteEditor::CreateWidgets()
 	DetailsView->SetObject(SpriteArmature);
 
 
-	TSharedPtr<FUE2DSpriteEditor> SpriteAtlasEditorPtr = SharedThis(this);
+	TSharedPtr<FUE2DSpriteEditor> TextureAtlasEditorPtr = SharedThis(this);
 	SpriteViewport	= SNew( SUE2DSpriteEditorViewport , SharedThis(this) );
 }
 //-------------------------------------------------------------------------------------------
@@ -145,7 +145,7 @@ void FUE2DSpriteEditor::BuildLayout( const EToolkitMode::Type InMode, const TSha
 //-------------------------------------------------------------------------------------------
 void FUE2DSpriteEditor::RegisterTabSpawners( const TSharedRef<FTabManager>& InTabManager )
 {
-	WorkspaceMenuCategory = InTabManager->AddLocalWorkspaceMenuCategory(LOCTEXT("WorkspaceMenu_SpriteAtlasEditor", "Sprite Atlas Editor"));
+	WorkspaceMenuCategory = InTabManager->AddLocalWorkspaceMenuCategory(LOCTEXT("WorkspaceMenu_TextureEditor", "Texture Atlas Editor"));
 	auto WorkspaceMenuCategoryRef = WorkspaceMenuCategory.ToSharedRef();
 
 

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RHIDefinitions.h"
-#include "Sprites/UE2DSpriteAtlas.h"
+#include "TextureAtlas/UE2DTextureAtlas.h"
 #include "UE2DStructs.h"
 #include "UE2DSpriteRenderCommand.h"
 
@@ -26,7 +26,7 @@ public:
 	void Begin();
 	void Finish();
 
-	void AddSprite( UUE2DSpriteAtlasFrame* InFrame , FColor InColor , FTransform InTransform );
+	void AddSprite( UUE2DTextureAtlasFrame* InFrame , FColor InColor , FTransform InTransform );
 
 	const TArray<FUE2DSpriteRenderCommand>& GetCommands()const;
 

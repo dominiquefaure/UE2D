@@ -31,7 +31,7 @@ void FSpineAtlas::Load( const FString& InFilepath )
 //-------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------
-void FSpineAtlas::Apply( UUE2DSpriteAtlas* DestAtlas )
+void FSpineAtlas::Apply( UUE2DTextureAtlas* DestAtlas )
 {
 	// Clear the array
 	//DestAtlas->Textures.Empty();

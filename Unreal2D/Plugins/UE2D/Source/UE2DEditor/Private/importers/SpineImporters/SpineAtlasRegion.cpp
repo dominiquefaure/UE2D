@@ -55,7 +55,7 @@ void FSpineAtlasRegion::Parse( FSpineAtlasReader& Reader )
 
 
 //-------------------------------------------------------------------------------------------
-void FSpineAtlasRegion::Apply( UUE2DSpriteAtlas* DestAtlas , int TextureIndex )
+void FSpineAtlasRegion::Apply( UUE2DTextureAtlas* DestAtlas , int TextureIndex )
 {
 
 	if( rotated )

@@ -1,16 +1,16 @@
-#include "UE2DSpriteEditorViewport.h"
+#include "UE2DTextureAtlasEditorViewport.h"
 
 
 #include "Widgets/SViewport.h"
 #include "Slate/SceneViewport.h"
 
 
-#define LOCTEXT_NAMESPACE "SUE2DSpriteEditorViewport"
+#define LOCTEXT_NAMESPACE "SUE2DTextureAtlasEditorViewport"
 
 //-------------------------------------------------------------------------------------------
-void SUE2DSpriteEditorViewport::Construct( const FArguments& InArgs , const TSharedRef<FUE2DSpriteEditor>& InSpriteEditor )
+void SUE2DTextureAtlasEditorViewport::Construct( const FArguments& InArgs , const TSharedRef<FUE2DTextureAtlasAssetEditor>& InSpriteAlasEditor )
 {
-	SpriteEditorPtr	=	InSpriteEditor;
+	AtlasEditorPtr	=	InSpriteAlasEditor;
 
 	SEditorViewport::Construct( SEditorViewport::FArguments() );
 
@@ -26,9 +26,9 @@ void SUE2DSpriteEditorViewport::Construct( const FArguments& InArgs , const TSha
 //-------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------
-TSharedRef<FEditorViewportClient> SUE2DSpriteEditorViewport::MakeEditorViewportClient()
+TSharedRef<FEditorViewportClient> SUE2DTextureAtlasEditorViewport::MakeEditorViewportClient()
 {
-	ViewportClient = MakeShareable( new FUE2DSpriteEditorViewportClient( SpriteEditorPtr , SharedThis( this ) ) );
+	ViewportClient = MakeShareable( new FUE2DTextureAtlasEditorViewportClient( AtlasEditorPtr , SharedThis( this ) ) );
 
 	return ViewportClient.ToSharedRef();
 }

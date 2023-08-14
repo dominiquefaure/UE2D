@@ -30,11 +30,11 @@ public:
 	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = Sprites )
 	TObjectPtr<class UUE2DSprite> Sprite;
 
-	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
-	TObjectPtr<class UUE2DSpriteAtlas> Atlas;
+	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = TextureAtlas )
+	TObjectPtr<class UUE2DTextureAtlas> Atlas;
 
-	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = SpriteAtlas )
-	TObjectPtr<class UUE2DSpriteAtlas> Atlas2;
+	UPROPERTY( EditAnywhere , BlueprintReadWrite , Category = TextureAtlas )
+	TObjectPtr<class UUE2DTextureAtlas> Atlas2;
 
 // Overrides
 protected:

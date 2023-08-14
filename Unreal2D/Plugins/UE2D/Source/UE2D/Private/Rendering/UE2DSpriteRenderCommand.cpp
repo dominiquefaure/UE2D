@@ -1,5 +1,5 @@
 #include "Rendering/UE2DSpriteRenderCommand.h"
-#include "Sprites/UE2DSpriteAtlasFrame.h"
+#include "TextureAtlas/UE2DTextureAtlas.h"
 
 //------------------------------------------------------------------------------
 FUE2DSpriteRenderCommand::FUE2DSpriteRenderCommand()
@@ -16,7 +16,7 @@ FUE2DSpriteRenderCommand::~FUE2DSpriteRenderCommand()
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-void FUE2DSpriteRenderCommand::Set( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform , FColor InColor , UTexture* InTexture , float DeltaY )
+void FUE2DSpriteRenderCommand::Set( UUE2DTextureAtlasFrame* InFrame , FTransform InTransform , FColor InColor , UTexture* InTexture , float DeltaY )
 {
 	Texture			=	InTexture;
 	Color			=	InColor;
@@ -26,7 +26,7 @@ void FUE2DSpriteRenderCommand::Set( UUE2DSpriteAtlasFrame* InFrame , FTransform 
 //------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------
-void FUE2DSpriteRenderCommand::ComputeVertices( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform , float DeltaY )
+void FUE2DSpriteRenderCommand::ComputeVertices( UUE2DTextureAtlasFrame* InFrame , FTransform InTransform , float DeltaY )
 {
 	const TArray< FUE2DSpriteVertex>& TempVertex = InFrame->GetVertices();
 

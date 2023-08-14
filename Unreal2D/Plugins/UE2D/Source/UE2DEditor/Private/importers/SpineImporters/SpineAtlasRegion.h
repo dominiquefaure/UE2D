@@ -3,7 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "SpineAtlasReader.h"
-#include "Sprites/UE2DSpriteAtlas.h"
+#include "TextureAtlas/UE2DTextureAtlas.h"
 
 class FSpineAtlasRegion
 {
@@ -12,7 +12,7 @@ public:
 	FSpineAtlasRegion();
 
 	void Parse(FSpineAtlasReader& Reader );
-	void Apply( UUE2DSpriteAtlas* DestAtlas , int TextureIndex );
+	void Apply( UUE2DTextureAtlas* DestAtlas , int TextureIndex );
 
 private:
 	FString Name;

@@ -2,7 +2,6 @@
 
 
 #include "Sprites/UE2DSpriteInstance.h"
-#include "Sprites/UE2DArmatureRuntimeBone.h"
 
 //------------------------------------------------------------------------------------------------
 void UUE2DSpriteInstance::Initialize( UUE2DSprite* InSprite )
@@ -21,7 +20,7 @@ void UUE2DSpriteInstance::InitializeBones( UUE2DSpriteArmature* Armature )
 	{
 		return;
 	}
-
+/*
 	// Create the different Runtime Bones
 	int BoneCount								=	Armature->Bones.Num();
 	for( int i = 0 ; i < BoneCount ; i ++ )
@@ -46,6 +45,7 @@ void UUE2DSpriteInstance::InitializeBones( UUE2DSpriteArmature* Armature )
 			Bones[ TempSourceBone->ParentBone ]->AddChild( TempRuntimeBone );
 		}
 	}
+	*/
 }
 //------------------------------------------------------------------------------------------------
 

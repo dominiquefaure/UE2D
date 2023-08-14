@@ -1,5 +1,5 @@
 #include "UE2DSpineAtlasImporterFactory.h"
-#include "Sprites/UE2DSpriteAtlas.h"
+#include "TextureAtlas/UE2DTextureAtlas.h"
 
 #include "AssetToolsModule.h"
 #include "Misc/FileHelper.h"
@@ -16,7 +16,7 @@ UUE2EDSpineAtlasImporterFactory::UUE2EDSpineAtlasImporterFactory( const FObjectI
 	bCreateNew		=	false;
 	bEditorImport	=	true;
 
-	SupportedClass	=	UUE2DSpriteAtlas::StaticClass();
+	SupportedClass	=	UUE2DTextureAtlas::StaticClass();
 
 	Formats.Add( TEXT( "atlas;Spine Atlas file" ) );
 }
@@ -54,7 +54,7 @@ UObject* UUE2EDSpineAtlasImporterFactory::FactoryCreateFile( UClass* InClass , U
 	FUE2DSpineAtlas SpineAtlas;
 	SpineAtlas.Load( Filename );
 
-	UUE2DSpriteAtlas* SpriteAtlas			=	NewObject<UUE2DSpriteAtlas>( InParent , InName , Flags );
+	UUE2DTextureAtlas* TextureAtlas			=	NewObject<UUE2DTextureAtlas>( InParent , InName , Flags );
 
 	const FString TargetTexturePath			=	LongPackagePath / TEXT( "Textures" );
 
@@ -77,7 +77,7 @@ UObject* UUE2EDSpineAtlasImporterFactory::FactoryCreateFile( UClass* InClass , U
 		{
 			CurrentRegion					=	&(CurrentPage->Regions[ j ]);
 
-			SpriteAtlas->AddFrame( Texture ,
+			TextureAtlas->AddFrame( Texture ,
 				CurrentRegion->Name ,
 				CurrentRegion->BoundX ,
 				CurrentRegion->BoundY ,
@@ -87,7 +87,7 @@ UObject* UUE2EDSpineAtlasImporterFactory::FactoryCreateFile( UClass* InClass , U
 		}
 	}
 
-	return SpriteAtlas;
+	return TextureAtlas;
 }
 //---------------------------------------------------------------------------------------------
 

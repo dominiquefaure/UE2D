@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RHIDefinitions.h"
-#include "Sprites/UE2DSpriteAtlas.h"
+#include "TextureAtlas/UE2DTextureAtlas.h"
 #include "UE2DStructs.h"
 
 struct FColor;
@@ -27,13 +27,13 @@ public:
 		return Texture;
 	}
 
-	void Set( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform , FColor InColor , UTexture* InTexture , float DeltaY );
+	void Set( UUE2DTextureAtlasFrame* InFrame , FTransform InTransform , FColor InColor , UTexture* InTexture , float DeltaY );
 
 	void WriteToVertexBuffer( FStaticMeshVertexBuffers& InVertexBuffers , uint32& VertexIndex )const;
 
 // Methods
 private:
-	void ComputeVertices( UUE2DSpriteAtlasFrame* InFrame , FTransform InTransform , float DeltaY );
+	void ComputeVertices( UUE2DTextureAtlasFrame* InFrame , FTransform InTransform , float DeltaY );
 
 // Fields
 private:
