@@ -6,14 +6,13 @@
 //------------------------------------------------------------------------------------------
 UUE2DSpriteMeshComponent::UUE2DSpriteMeshComponent()
 {
-	SpriteInstance	=	nullptr;
+//	SpriteInstance	=	nullptr;
 }
 //------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------
 UUE2DSpriteMeshComponent::~UUE2DSpriteMeshComponent()
 {
-
 }
 //------------------------------------------------------------------------------------------
 
@@ -49,31 +48,12 @@ void UUE2DSpriteMeshComponent::PostEditChangeProperty( FPropertyChangedEvent& Pr
 //------------------------------------------------------------------------------------------
 void UUE2DSpriteMeshComponent::OnSpriteChanged( )
 {
-/*
-	if( SpriteInstance != nullptr )
-	{
-		delete SpriteInstance;
 
-		SpriteInstance	=	nullptr;
-	}
 
-	if( Sprite )
-	{
-		SpriteInstance	=	NewObject< UUE2DSpriteInstance>();
-		SpriteInstance->Initialize( Sprite );
-	}
-*/	
+	SpriteInstance	=	NewObject< UUE2DSpriteInstance>();
+	SpriteInstance->SetSprite( Sprite );
 
-/*
-	if( ( Atlas != nullptr ) && ( Atlas->IsValid() ) && ( MaterialInstance == nullptr ) )
-	{
-		UMaterialInstanceDynamic* DynamicInstance			=	UMaterialInstanceDynamic::Create( NormalBlendMaterial , GetTransientPackage() );
-		DynamicInstance->SetTextureParameterValue( FName( TEXT( "SpriteTexture" ) ) , Atlas->Textures[ 0 ] );
-		MaterialInstance									=	DynamicInstance;
 
-		SetMaterial( 0 , DynamicInstance );
-	}
-*/
 	MarkRenderDynamicDataDirty();
 }
 //------------------------------------------------------------------------------------------
@@ -91,18 +71,6 @@ void UUE2DSpriteMeshComponent::BuildScene( FUE2DSpriteRenderCommandBuilder* Buil
 		return;
 	}
 
-	FTransform Transform;
-	UUE2DTextureAtlasFrame* Frame							=	Atlas->GetFrameAt( 0 );
-	UUE2DTextureAtlasFrame* Frame2							=	Atlas2->GetFrameAt( 0 );
-
-	Builder->AddSprite( Frame , FColor::White , Transform );
-
-
-	Transform.SetTranslation( FVector( 80.0f , 0.0f , 100.0f ) );
-	Builder->AddSprite( Frame2 , FColor::Blue , Transform );
-
-
-	Builder->AddSprite( Frame , FColor::Yellow , Transform );
-
+	SpriteInstance->Draw( Builder , Atlas );
 }
 //------------------------------------------------------------------------------------------

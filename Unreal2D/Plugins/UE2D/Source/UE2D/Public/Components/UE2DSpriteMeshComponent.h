@@ -57,6 +57,7 @@ private:
 
 private:
 
-	TObjectPtr<class UUE2DSpriteInstance> SpriteInstance;
+	//TObjectPtr<class UUE2DSpriteInstance> SpriteInstance;
 
+	UUE2DSpriteInstance* SpriteInstance;
 };
