@@ -27,14 +27,14 @@ struct FUE2DArmatureBone
 };
 
 UENUM()
-enum class EArmatureSlotType : uint8
+enum class EAttachmentSlotType : uint8
 {
 	TextureAtlas ,
 	SubSprite
 };
 
 USTRUCT()
-struct FUE2DArmatureSlot
+struct FUE2DAttachmentSlot
 {
 	GENERATED_USTRUCT_BODY()
 
@@ -47,16 +47,19 @@ struct FUE2DArmatureSlot
 	int32 BoneIndex;
 
 	UPROPERTY( EditAnywhere )
-	EArmatureSlotType AttachmentType;
+	EAttachmentSlotType AttachmentType;
 
 	// Names of the different attachments that can be used for this Slot. Names are unique per Slot
 	UPROPERTY( EditAnywhere )
 	TArray<FString> AttachmentNames;
 
-	// Index in the AttachmentName list of the Attachment used by default for this Slot
+	// Index in the AttachmentName list of the Attachment used by default for this Slot , -1 means no attachment visible
 	UPROPERTY( EditAnywhere )
 	uint32 DefaultAttachmentIndex;
 
+	// order in with this slot will be put on display list. final Transform my alter witch sprite will appear on top
+	UPROPERTY( EditAnywhere )
+	uint32 DrawOrder;
 };
 
 
@@ -80,7 +83,7 @@ public:
 
 	// the Different Slots attached to Bones
 	UPROPERTY( EditAnywhere )
-	TArray< FUE2DArmatureSlot> Slots;
+	TArray< FUE2DAttachmentSlot> Slots;
 
 
 // Functions

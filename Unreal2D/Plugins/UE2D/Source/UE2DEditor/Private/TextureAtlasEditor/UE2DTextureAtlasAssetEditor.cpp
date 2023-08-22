@@ -326,7 +326,7 @@ void FUE2DTextureAtlasAssetEditor::ImportAtlas()
 
 		Atlas.Apply( TextureAtlas);
 
-
+		TextureAtlas->MarkPackageDirty();
 	}
 
 }

@@ -3,6 +3,12 @@
 
 #include "Sprites/Armature/UE2DSpriteArmatureBone.h"
 
+//------------------------------------------------------------------------------------------------
+FTransform UUE2DSpriteArmatureBone::GetGlobalTransform()const
+{
+	return GlobalTransform;
+}
+//------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
 void UUE2DSpriteArmatureBone::ComputeGlobalTransform()

@@ -15,12 +15,19 @@ class UE2D_API UUE2DSpriteArmatureBone : public UObject
 	GENERATED_BODY()
 
 	friend class UUE2DSpriteArmatureInstance;
+	friend class UUE2DSpriteInstance;
+
+public:
+
+	FTransform GetGlobalTransform()const;
+
 protected:
 
 	// compute recursively the Global transform
 	void ComputeGlobalTransform();
 
 	void AddChild( UUE2DSpriteArmatureBone* Child );
+
 
 private:
 

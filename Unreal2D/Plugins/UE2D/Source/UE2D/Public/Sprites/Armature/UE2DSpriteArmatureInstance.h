@@ -24,7 +24,10 @@ public:
 
 	int GetBoneCount()const;
 
-	FTransform GetBoneGlobalTransform( int Index );
+	UUE2DSpriteArmatureBone* GetBone( int32 Index );
+
+
+	FTransform GetBoneGlobalTransform( int32 Index );
 
 // Functions
 private:

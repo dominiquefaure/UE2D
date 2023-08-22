@@ -21,6 +21,7 @@ class UE2D_API UUE2DSpriteInstance : public UObject
 {
 	GENERATED_BODY()
 
+
 public:
 	UUE2DSpriteInstance();
 	virtual ~UUE2DSpriteInstance();
@@ -34,8 +35,19 @@ public:
 
 	void Draw( FUE2DSpriteRenderCommandBuilder* Builder , UUE2DTextureAtlas* Atlas );
 
+
+	int GetBoneCount()const;
+	UUE2DSpriteArmatureBone* GetBone( int32 Index );
+
+
 private:
 
+	// generate the differne tbones used to animate the Sprite
+	void GenerateBones( UUE2DSpriteArmature* Armature );
+
+	void GenerateAttachments( UUE2DSpriteArmature* Armature );
+
+	void GenerateAttachment( FUE2DAttachmentSlot& Slot );
 
 
 // Properties
@@ -44,5 +56,12 @@ private:
 	// the Sprite that store all the data for this instance
 	UUE2DSprite* Sprite;
 
-	UUE2DSpriteArmatureInstance* ArmatureInstance;
+//	UUE2DSpriteArmatureInstance* ArmatureInstance;
+
+	//The different bones that compose the Sprite
+	TArray<UUE2DSpriteArmatureBone*> Bones;
+
+
+	// the different Attachments that draw this sprite
+	TArray<UUE2DSpriteAttachment*> Attachments;
 };

@@ -62,7 +62,20 @@ int UUE2DSpriteArmatureInstance::GetBoneCount()const
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-FTransform UUE2DSpriteArmatureInstance::GetBoneGlobalTransform( int Index )
+UUE2DSpriteArmatureBone* UUE2DSpriteArmatureInstance::GetBone( int32 Index )
+{
+
+	if( ( Index >= 0 ) && ( Index < Bones.Num() ) )
+	{
+		return Bones[ Index ];
+	}
+
+	return nullptr;
+}
+//------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------
+FTransform UUE2DSpriteArmatureInstance::GetBoneGlobalTransform( int32 Index )
 {
 	if( ( Index >= 0 ) && ( Index < Bones.Num() ) )
 	{

@@ -6,7 +6,13 @@
 #include "UObject/NoExportTypes.h"
 
 #include "Sprites/Armature/UE2DSpriteArmature.h"
+
+#include "UE2DSpriteSkin.h"
+
 #include "UE2DSprite.generated.h"
+
+
+
 
 /**
  * 
@@ -19,4 +25,11 @@ public:
 
 	UPROPERTY( EditAnywhere )
 	TObjectPtr<UUE2DSpriteArmature> Armature;
+
+	UPROPERTY( EditAnywhere )
+	FUE2DSpriteSkin					Skin;
+
+
+	FUE2DSpriteSkinSlot* GetSkinSlot( FString SlotName );
+
 };
