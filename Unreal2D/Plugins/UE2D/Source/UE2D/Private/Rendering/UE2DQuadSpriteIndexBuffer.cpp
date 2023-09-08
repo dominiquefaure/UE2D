@@ -8,17 +8,18 @@
 
 
 //------------------------------------------------------------------------------------------------
-void FUE2DQuadSpriteIndexBuffer::InitRHI( )
+void FUE2DQuadSpriteIndexBuffer::InitRHI( FRHICommandListBase& RHICmdList )
 {
 	if( NumSprites > 0 )
 	{
-		FRHIResourceCreateInfo CreateInfo( TEXT("FAsQuadSpriteIndexBuffer") ) ;
 
 		const uint32 Size = sizeof(uint16) * 6 * NumSprites;
 		const uint32 Stride = sizeof(uint16);
 
-		IndexBufferRHI = RHICreateBuffer( Size, BUF_Static | BUF_IndexBuffer, Stride, ERHIAccess::VertexOrIndexBuffer, CreateInfo );
-		uint16* Indices = (uint16*)RHILockBuffer( IndexBufferRHI, 0, Size, RLM_WriteOnly );
+		FRHIResourceCreateInfo CreateInfo( TEXT( "FAsQuadSpriteIndexBuffer" ) ) ;
+		IndexBufferRHI = RHICmdList.CreateBuffer( Size, BUF_Static | BUF_IndexBuffer, Stride, ERHIAccess::VertexOrIndexBuffer, CreateInfo );
+
+		uint16* Indices = (uint16*)RHICmdList.LockBuffer( IndexBufferRHI, 0, Size, RLM_WriteOnly );
 
 		for (uint32 SpriteIndex = 0; SpriteIndex < NumSprites; ++SpriteIndex)
 		{
@@ -29,7 +30,7 @@ void FUE2DQuadSpriteIndexBuffer::InitRHI( )
 			Indices[SpriteIndex*6 + 4] = SpriteIndex*4 + 1;
 			Indices[SpriteIndex*6 + 5] = SpriteIndex*4 + 3;
 		}
-		RHIUnlockBuffer( IndexBufferRHI );
+		RHICmdList.UnlockBuffer( IndexBufferRHI );
 
 	}
 }

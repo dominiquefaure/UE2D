@@ -17,7 +17,7 @@ public:
 		: NumSprites(1)
 	{
 	}
-	virtual void InitRHI() override;
+	virtual void InitRHI( FRHICommandListBase& RHICmdList ) override;
 
 	uint32 NumSprites;
 };
