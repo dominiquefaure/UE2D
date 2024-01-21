@@ -1,3 +1,5 @@
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
+
 #pragma once
 
 #include "CoreMinimal.h"

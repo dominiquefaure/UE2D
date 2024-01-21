@@ -1,3 +1,5 @@
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
+
 #include "UE2DTextureAtlasEditorCommands.h"
 
 #define LOCTEXT_NAMESPACE "UE2DTextureAtlasEditorCommands"

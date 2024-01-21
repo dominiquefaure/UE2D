@@ -1,3 +1,4 @@
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
 
 #include "UE2DTextureAtlasFrameListWidget.h"
 #include "TextureAtlas/UE2DTextureAtlas.h"

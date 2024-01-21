@@ -1,3 +1,5 @@
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
+
 #include "Rendering/UE2DSpriteRenderCommand.h"
 #include "TextureAtlas/UE2DTextureAtlas.h"
 

@@ -1,3 +1,4 @@
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
 
 #include "Sprites/UE2DSpriteSkin.h"
 

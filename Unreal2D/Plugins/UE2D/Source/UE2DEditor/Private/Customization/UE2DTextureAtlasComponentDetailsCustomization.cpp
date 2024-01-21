@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
 
 #include "UE2DTextureAtlasComponentDetailsCustomization.h"
 

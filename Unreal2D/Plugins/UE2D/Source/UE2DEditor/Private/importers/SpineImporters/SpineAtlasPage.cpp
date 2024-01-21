@@ -1,3 +1,5 @@
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
+
 #include "SpineAtlasPage.h"
 
 void FSpineAtlasPage::Parse( FSpineAtlasReader& Reader )
