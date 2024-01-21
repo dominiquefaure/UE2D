@@ -1,3 +1,5 @@
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
+
 #pragma once
 
 #include "CoreMinimal.h"
@@ -8,7 +10,7 @@
 
 class SUE2DSpriteEditorViewport;
 class FUE2DSpriteAssetEditor;
-class UUE2DSpriteArmature;
+class UUE2DSprite;
 
 class FUE2DSpriteEditorViewportClient : public FEditorViewportClient // , public FGCObject
 {
@@ -22,7 +24,7 @@ public:
 
 
 private:
-	UUE2DSpriteArmature* GetArmatureCurrentlyEdited() const;
+	UUE2DSprite* GetSpriteCurrentlyEdited() const;
 
 private:
 	

@@ -1,5 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
 
 #include "UE2DSpriteEditor.h"
 
@@ -63,14 +62,14 @@ FString FUE2DSpriteEditor::GetWorldCentricTabPrefix() const
 // Editor Initialization
 
 //-------------------------------------------------------------------------------------------
-void FUE2DSpriteEditor::Initialize( UUE2DSpriteArmature* Armature, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost )
+void FUE2DSpriteEditor::Initialize( UUE2DSprite* InSprite, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost )
 {
-	if( Armature == nullptr)
+	if( InSprite == nullptr)
 	{
 		return;
 	}
 
-	SpriteArmature	=	Armature;
+	Sprite	=	InSprite;
 
 
 	CreateWidgets();
@@ -91,7 +90,7 @@ void FUE2DSpriteEditor::CreateWidgets()
 	FPropertyEditorModule& PropertyModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
 	DetailsView = PropertyModule.CreateDetailView(Args);
 
-	DetailsView->SetObject(SpriteArmature);
+	DetailsView->SetObject(Sprite);
 
 
 	TSharedPtr<FUE2DSpriteEditor> TextureAtlasEditorPtr = SharedThis(this);
@@ -137,7 +136,7 @@ void FUE2DSpriteEditor::BuildLayout( const EToolkitMode::Type InMode, const TSha
 		);
 
 	// Initialize the asset editor and spawn nothing (dummy layout)
-	InitAssetEditor(InMode, InToolkitHost, UE2DSpriteEditorToolkitTabs::AppIdentifier, DefaultLayout, /*bCreateDefaultStandaloneMenu=*/ true, /*bCreateDefaultToolbar=*/ true, SpriteArmature );
+	InitAssetEditor(InMode, InToolkitHost, UE2DSpriteEditorToolkitTabs::AppIdentifier, DefaultLayout, /*bCreateDefaultStandaloneMenu=*/ true, /*bCreateDefaultToolbar=*/ true, Sprite );
 
 }
 //-------------------------------------------------------------------------------------------

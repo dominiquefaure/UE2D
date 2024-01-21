@@ -23,8 +23,8 @@ void UUE2DSpriteInstance::SetSprite( UUE2DSprite* InSprite )
 {
 	Sprite				=	InSprite;
 
-	GenerateBones( Sprite->Armature.Get() );
-	GenerateAttachments( Sprite->Armature.Get() );
+//	GenerateBones( Sprite->Armature.Get() );
+//	GenerateAttachments( Sprite->Armature.Get() );
 }
 //------------------------------------------------------------------------------------------------
 
@@ -109,11 +109,13 @@ void UUE2DSpriteInstance::GenerateAttachment( FUE2DAttachmentSlot& Slot )
 	{
 	}
 */
+/*
 	Attachments.Add( NewAttachment );
 
 	NewAttachment->Init( &Slot , GetBone( Slot.BoneIndex ) , Sprite->GetSkinSlot( Slot.Name ) );
 	
 	FUE2DSpriteSkinSlot* SkinSlot			=	Sprite->GetSkinSlot( Slot.Name );
+*/
 }
 //------------------------------------------------------------------------------------------------
 

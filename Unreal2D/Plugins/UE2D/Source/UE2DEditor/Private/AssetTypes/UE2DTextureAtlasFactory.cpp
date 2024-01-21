@@ -1,7 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
 
 
-#include "UE2DTextureAtlasFactory.h"
+#include "AssetTypes/UE2DTextureAtlasFactory.h"
 #include "AssetTypeCategories.h" //The asset type categories will let us access the various asset categories inside the Editor
 
 #include "TextureAtlas/UE2DTextureAtlas.h"

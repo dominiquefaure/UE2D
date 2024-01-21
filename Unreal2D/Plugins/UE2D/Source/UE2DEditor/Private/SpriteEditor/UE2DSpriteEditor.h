@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
 
 #pragma once
 
@@ -8,7 +8,7 @@
 #include "Editor/PropertyEditor/Public/PropertyEditorDelegates.h"
 
 
-#include "Sprites/Armature/UE2DSpriteArmature.h"
+#include "Sprites/UE2DSprite.h"
 #include "Toolkits/AssetEditorToolkit.h"
 
 class SUE2DSpriteEditorViewport;
@@ -31,7 +31,7 @@ public:
 	* @param InMode The mode to create the toolkit in.
 	* @param InToolkitHost The toolkit host.
 	*/
-	void Initialize(UUE2DSpriteArmature* Armature, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost);
+	void Initialize(UUE2DSprite* Sprite, const EToolkitMode::Type InMode, const TSharedPtr<IToolkitHost>& InToolkitHost);
 
 
 
@@ -59,7 +59,7 @@ public:
 public:
 
 	// The Armature edited, needed by Viewport
-	UUE2DSpriteArmature* GetArmatureCurrentlyEdited() const { return SpriteArmature; }
+	UUE2DSprite* GetSpriteCurrentlyEdited() const { return Sprite; }
 
 
 
@@ -84,8 +84,8 @@ protected:
 // properties
 private:
 
-	// pointer to the SpriteArmature to edit
-	UUE2DSpriteArmature* SpriteArmature;
+	// pointer to the Sprite to edit
+	UUE2DSprite* Sprite;
 
 	/** Property View */
 	TSharedPtr<class IDetailsView> DetailsView;

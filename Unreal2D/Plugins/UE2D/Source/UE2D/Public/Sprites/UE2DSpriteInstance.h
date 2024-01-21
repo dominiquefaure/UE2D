@@ -56,8 +56,6 @@ private:
 	// the Sprite that store all the data for this instance
 	UUE2DSprite* Sprite;
 
-//	UUE2DSpriteArmatureInstance* ArmatureInstance;
-
 	//The different bones that compose the Sprite
 	TArray<UUE2DSpriteArmatureBone*> Bones;
 

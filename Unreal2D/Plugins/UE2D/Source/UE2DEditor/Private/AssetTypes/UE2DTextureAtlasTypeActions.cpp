@@ -1,7 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright 2022-2024 Dominique Faure. All Rights Reserved.
 
 
-#include "UE2DTextureAtlasTypeActions.h"
+#include "AssetTypes/UE2DTextureAtlasTypeActions.h"
 #include "TextureAtlasEditor/UE2DTextureAtlasAssetEditor.h"
 
 FUE2DTextureAtlasTypeActions::FUE2DTextureAtlasTypeActions(EAssetTypeCategories::Type InAssetCategory)

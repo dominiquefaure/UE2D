@@ -36,9 +36,9 @@ SpriteEditorPtr( InSpriteEditor )
 //-------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------
-UUE2DSpriteArmature* FUE2DSpriteEditorViewportClient::GetArmatureCurrentlyEdited() const
+UUE2DSprite* FUE2DSpriteEditorViewportClient::GetSpriteCurrentlyEdited() const
 {
-	return SpriteEditorPtr.Pin()->GetArmatureCurrentlyEdited();
+	return SpriteEditorPtr.Pin()->GetSpriteCurrentlyEdited();
 }
 //-------------------------------------------------------------------------------------------
 

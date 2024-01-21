@@ -4,8 +4,8 @@
 
 #include "IAssetTools.h"
 #include "AssetToolsModule.h"
-#include "UE2DTextureAtlasTypeActions.h"
-#include "UE2DSpriteArmatureTypeActions.h"
+#include "AssetTypes/UE2DTextureAtlasTypeActions.h"
+#include "AssetTypes/UE2DSpriteTypeActions.h"
 
 #include "Components/UE2DTextureAtlasComponent.h"
 #include "Customization/UE2DTextureAtlasComponentDetailsCustomization.h"
@@ -27,7 +27,7 @@ void FUE2DEditorModule::StartupModule()
 	AssetTools.RegisterAssetTypeActions( TextureAtlasActionType.ToSharedRef() );
 
 	// Register Sprite Armature Actions
-	TSharedPtr<FUE2DSpriteArmatureTypeActions> SpriteArmatureActionType = MakeShareable(new FUE2DSpriteArmatureTypeActions(gameAssetCategory));
+	TSharedPtr<FUE2DSpriteTypeActions> SpriteArmatureActionType = MakeShareable(new FUE2DSpriteTypeActions(gameAssetCategory));
 	AssetTools.RegisterAssetTypeActions( SpriteArmatureActionType.ToSharedRef());
 
 	FCoreDelegates::OnPostEngineInit.AddRaw(this, &FUE2DEditorModule::OnPostEngineInit);

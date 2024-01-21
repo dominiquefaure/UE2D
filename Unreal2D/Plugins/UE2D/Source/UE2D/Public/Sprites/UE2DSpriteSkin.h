@@ -7,6 +7,8 @@
 
 #include "UE2DSpriteSkin.generated.h"
 
+class UUE2DTextureAtlas;
+
 
 USTRUCT()
 struct FUE2DSpriteSkinSlotAttachmentTextureAtlas
