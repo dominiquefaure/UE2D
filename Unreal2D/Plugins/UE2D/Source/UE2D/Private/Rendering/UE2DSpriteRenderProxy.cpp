@@ -8,9 +8,10 @@ FUE2DSpriteRenderSceneProxy::FUE2DSpriteRenderSceneProxy( const UUE2DSceneCompon
 FPrimitiveSceneProxy(InComponent),
 OwnerComponent( InComponent ),
 MaxSpriteNum( InMaxSpriteNum ),
-//VertexFactory(GetScene().GetFeatureLevel(), "FUE2DSpriteRenderSceneProxy"),
-Renderer( GetScene().GetFeatureLevel() )
+Renderer( InComponent->GetWorld()->GetFeatureLevel() )
 {
+	SetWireframeColor( FLinearColor::White );
+
 	// FPrimitiveSceneProxy
 	bWillEverBeLit											=	false;
 
@@ -48,9 +49,9 @@ uint32 FUE2DSpriteRenderSceneProxy::GetMemoryFootprint() const
 //------------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------------
-void FUE2DSpriteRenderSceneProxy::CreateRenderThreadResources( )
+void FUE2DSpriteRenderSceneProxy::CreateRenderThreadResources( FRHICommandListBase& RHICmdList )
 {
-	Renderer.InitResources( 128 );
+	Renderer.InitResources( RHICmdList , 128 );
 }
 //------------------------------------------------------------------------------------------------
 
@@ -119,12 +120,12 @@ void FUE2DSpriteRenderSceneProxy::GetDynamicMeshElements( const TArray<const FSc
 
 
 //------------------------------------------------------------------------------------------------
-void FUE2DSpriteRenderSceneProxy::SetDynamicData_RenderThread( const TArray<FUE2DSpriteRenderCommand>& CommandList , bool MaterialListChanged )
+void FUE2DSpriteRenderSceneProxy::SetDynamicData_RenderThread( FRHICommandListBase& RHICmdList , const TArray<FUE2DSpriteRenderCommand>& CommandList , bool MaterialListChanged )
 {
 	if( OwnerComponent->GetMaterial( 0 ) != nullptr )
 	{
 		Renderer.SetDefaultMaterialProxy( OwnerComponent->GetMaterial( 0 )->GetRenderProxy() );
-		Renderer.ProcessCommands( CommandList );
+		Renderer.ProcessCommands( RHICmdList , CommandList );
 	}
 
 }

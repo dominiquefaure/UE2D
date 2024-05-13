@@ -8,7 +8,16 @@ public class Unreal2DEditorTarget : TargetRules
 	public Unreal2DEditorTarget( TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-		DefaultBuildSettings = BuildSettingsVersion.V2;
+	
+		if(!bBuildAllModules)
+		{
+			NativePointerMemberBehaviorOverride = PointerMemberBehavior.Disallow;
+		}
+
+		Unreal2DTarget.ApplySharedTargetSettings( this );
+
 		ExtraModuleNames.AddRange( new string[] { "Unreal2D" } );
+
+
 	}
 }

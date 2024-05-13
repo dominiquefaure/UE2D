@@ -27,14 +27,14 @@ FUE2DSpriteRenderer::~FUE2DSpriteRenderer()
 
 
 //--------------------------------------------------------------------------------------
-void FUE2DSpriteRenderer::InitResources( const uint32 InMaxSpriteCount )
+void FUE2DSpriteRenderer::InitResources( FRHICommandListBase& RHICmdList , const uint32 InMaxSpriteCount )
 {
 	MaxSpriteCount											=	InMaxSpriteCount;
 
 	IndexBuffer.NumSprites									=	InMaxSpriteCount;
-	IndexBuffer.InitResource();
+	IndexBuffer.InitResource( RHICmdList );
 
-	VertexBuffers.InitWithDummyData( &VertexFactory , MaxSpriteCount * 4 , 2 );
+	VertexBuffers.InitWithDummyData( RHICmdList  , &VertexFactory , MaxSpriteCount * 4 , 2 );
 }
 //--------------------------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ void FUE2DSpriteRenderer::SetDefaultMaterialProxy( FMaterialRenderProxy* Materia
 //--------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------
-void FUE2DSpriteRenderer::ProcessCommands( const TArray<FUE2DSpriteRenderCommand>& CommandList )
+void FUE2DSpriteRenderer::ProcessCommands( FRHICommandListBase& RHICmdList , const TArray<FUE2DSpriteRenderCommand>& CommandList )
 {
 	StartProcessCommands();
 
@@ -58,27 +58,27 @@ void FUE2DSpriteRenderer::ProcessCommands( const TArray<FUE2DSpriteRenderCommand
 		ProcessCommand( CommandList[i] , VertexIndex );
 	}
 
-	FlushVertexBuffers( VertexIndex );
+	FlushVertexBuffers( RHICmdList , VertexIndex );
 }
 //--------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------
-void FUE2DSpriteRenderer::FlushVertexBuffers( uint32 VerticeCount )
+void FUE2DSpriteRenderer::FlushVertexBuffers( FRHICommandListBase& RHICmdList , uint32 VerticeCount )
 {
 	// flush Position
 	{
 		auto& VertexBuffer = VertexBuffers.PositionVertexBuffer;
-		void* VertexBufferData = RHILockBuffer( VertexBuffer.VertexBufferRHI , 0 , VerticeCount * VertexBuffer.GetStride() , RLM_WriteOnly );
+		void* VertexBufferData = RHICmdList.LockBuffer( VertexBuffer.VertexBufferRHI , 0 , VerticeCount * VertexBuffer.GetStride() , RLM_WriteOnly );
 		FMemory::Memcpy( VertexBufferData , VertexBuffer.GetVertexData() , VerticeCount * VertexBuffer.GetStride() );
-		RHIUnlockBuffer( VertexBuffer.VertexBufferRHI );
+		RHICmdList.UnlockBuffer( VertexBuffer.VertexBufferRHI );
 	}
 
 	// Flus colors
 	{
 		auto& VertexBuffer = VertexBuffers.ColorVertexBuffer;
-		void* VertexBufferData = RHILockBuffer( VertexBuffer.VertexBufferRHI , 0 , VertexBuffer.GetNumVertices() * VertexBuffer.GetStride() , RLM_WriteOnly );
+		void* VertexBufferData = RHICmdList.LockBuffer( VertexBuffer.VertexBufferRHI , 0 , VertexBuffer.GetNumVertices() * VertexBuffer.GetStride() , RLM_WriteOnly );
 		FMemory::Memcpy( VertexBufferData , VertexBuffer.GetVertexData() , VertexBuffer.GetNumVertices() * VertexBuffer.GetStride() );
-		RHIUnlockBuffer( VertexBuffer.VertexBufferRHI );
+		RHICmdList.UnlockBuffer( VertexBuffer.VertexBufferRHI );
 	}
 
 	/*	{
@@ -93,9 +93,9 @@ void FUE2DSpriteRenderer::FlushVertexBuffers( uint32 VerticeCount )
 	// Flush Textures coordinates
 	{
 		auto& VertexBuffer = VertexBuffers.StaticMeshVertexBuffer;
-		void* VertexBufferData = RHILockBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI, 0, VertexBuffer.GetTexCoordSize(), RLM_WriteOnly);
+		void* VertexBufferData = RHICmdList.LockBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI, 0, VertexBuffer.GetTexCoordSize(), RLM_WriteOnly);
 		FMemory::Memcpy(VertexBufferData, VertexBuffer.GetTexCoordData(), VertexBuffer.GetTexCoordSize());
-		RHIUnlockBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI);
+		RHICmdList.UnlockBuffer(VertexBuffer.TexCoordVertexBuffer.VertexBufferRHI);
 	}
 
 }

@@ -24,12 +24,12 @@ public:
 	~FUE2DSpriteRenderer();
 
 
-	void InitResources( const uint32 InMaxSpriteCount );
+	void InitResources( FRHICommandListBase& RHICmdList , const uint32 InMaxSpriteCount );
 
 
 	void SetDefaultMaterialProxy( FMaterialRenderProxy* Material );
 
-	void ProcessCommands( const TArray<FUE2DSpriteRenderCommand>& CommandList );
+	void ProcessCommands( FRHICommandListBase& RHICmdList ,const TArray<FUE2DSpriteRenderCommand>& CommandList );
 
 	// Perform the render operation
 	void Render( FMeshElementCollector& Collector , int ViewIndex , bool ReverseCulling , FMaterialRenderProxy* TmpMaterial )const;
@@ -40,7 +40,7 @@ private:
 
 	void ProcessCommand( const FUE2DSpriteRenderCommand& Command , uint32& VertexIndex );
 
-	void FlushVertexBuffers( uint32 VerticeCount );
+	void FlushVertexBuffers( FRHICommandListBase& RHICmdList , uint32 VerticeCount );
 
 	// call when start to process the different Commands, reset internal values
 	void StartProcessCommands();

@@ -81,7 +81,7 @@ void UUE2DTextureAtlasComponent::SetFrame( int32 InFrameIndex )
 	if( InFrameIndex != FrameIndex )
 	{
 		FrameIndex											=	InFrameIndex;
-	//	MarkRenderDynamicDataDirty();
+		MarkRenderDynamicDataDirty();
 	}
 }
 //------------------------------------------------------------------------------------------

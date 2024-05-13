@@ -49,12 +49,18 @@ FPrimitiveSceneProxy* UUE2DSceneComponent::CreateSceneProxy()
 }
 //------------------------------------------------------------------------------------------
 
+FBoxSphereBounds UUE2DSceneComponent::CalcBounds( const FTransform& LocalToWorld ) const
+{
+	return FBoxSphereBounds( FVector::ZeroVector , FVector( 128 ) , 128 ).TransformBy( LocalToWorld );
+}
+
 //------------------------------------------------------------------------------------------
 void UUE2DSceneComponent::CreateRenderState_Concurrent( FRegisterComponentContext* Context )
 {
 	Super::CreateRenderState_Concurrent( Context );
 
-	SendRenderDynamicData_Concurrent();
+	FRegisterComponentContext::SendRenderDynamicData( Context , this );
+
 }
 //------------------------------------------------------------------------------------------
 
@@ -78,9 +84,9 @@ void UUE2DSceneComponent::SendRenderDynamicData_Concurrent()
 
 
 	ENQUEUE_RENDER_COMMAND( FUE2DSpriteRenderProxy_SendDynamicDatas )(
-		[t_proxy , Builder=this->CommandBuilder]( FRHICommandListImmediate& RHICmdList )
+		[t_proxy , Builder=this->CommandBuilder]( FRHICommandListBase& RHICmdList )
 		{
-			t_proxy->SetDynamicData_RenderThread( Builder.GetCommands() , true );
+			t_proxy->SetDynamicData_RenderThread( RHICmdList , Builder.GetCommands() , true );
 		}
 	);
 

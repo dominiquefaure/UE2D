@@ -32,6 +32,7 @@ protected:
 
 	// UPrimitiveComponent interface
 	virtual FPrimitiveSceneProxy* CreateSceneProxy() override;
+	virtual FBoxSphereBounds CalcBounds( const FTransform& LocalToWorld ) const override;
 
 
 	// UActorComponent interface
